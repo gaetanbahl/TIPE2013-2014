@@ -73,7 +73,7 @@ class Appli(Frame):
         editMenu = Menu(menubar)
         editMenu.add_command(label="Nuances de gris", command=self.grayscale)
         editMenu.add_command(label="Compresser", command=self.askcompression)
-        editMenu.add_command(label="Resolution 1/2", command=self.resolution)
+        editMenu.add_command(label="Resolution 1/2", command=self.onExit)
         menubar.add_cascade(label="Edition", menu=editMenu)
 
         Style().configure("TFrame", background="#FFF")
