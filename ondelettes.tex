@@ -113,7 +113,7 @@ La transformée en ondelettes est une transformée linéaire qui décompose un s
 
 La transformée en ondelette continue utilise des dilatations et des translations de la fonction ondelette mère. 
 
-\subsubsection{Définition 2 : produit scalaire}
+\subsubsection*{Définition : produit scalaire}
 
 Soient $f$ et $g$ deux fonctions réelles ; on définit sur le $\mathbb{R}$-espace vectoriel $F$($\mathbb{R}$,$\mathbb{R}$) leur produit scalaire par l’intégrale suivante : \\
 
@@ -169,7 +169,43 @@ La transformation en ondelettes discrète est presque naturellement associée à
 
 Une famille d’ondelettes par exemple couramment utilisée dans la transformation en ondelettes discrète est la famille infinie des ondelettes orthogonales de Daubechies : c’est une des familles d’ondelettes les plus performantes.
 
+
+\section{la théorie de l'analyse multirésolution, outil pour la construction de bases d'ondelettes}
+
+Pour construire des bases d'ondelettes orthonormées, les théoriciens Mallat et Meyer ont introduit la notion d'analyse multirésolution.
+
+\subsection{Définition d'une analyse multirésolution.}
+
+Une analyse multirésolution est une suite $\{V_k\}_{k\in\mathbb{Z}}$ de sous-espaces fermés de $\mathcal{L}^2(\mathbb{R})$ tels que : \\
+
+\begin{itemize}
+\item $\forall{}(k,l) \in \mathbb{Z}^2, f \in V_k \leftrightarrow f(\cdot - 2^{k}l) \in V_k $ (propriété d'invariance par translation)
+
+\item $\forall k \in \mathbb{Z}, V_{k+1} \subset V_k$
+
+\item $\forall k \in \mathbb{Z}, f \in V_k \leftrightarrow f(\frac{\cdot}{2}) \in V_{k+1}$
+
+\item $\displaystyle \lim_{j \to \infty} V_k = \bigcap{}_{k\in\mathbb{Z}}V_k = \emptyset $
+
+\item $\displaystyle \lim_{j \to -\infty} V_k = \overline{\bigcap{}_{k\in\mathbb{Z}}V_k} = \mathcal{L}^2(\mathbb{R}) $ où la notation $\bar{A}$ désigne l'adhérence de $A$.
+
+\item $\exists\phi, \{\phi(\cdot - n)\}_{n \in \mathbb{Z}}$ forme une base orthonormée de $V_0$. $\phi$ est appelée fonction d'échelle associée à l'analyse multirésolution
+\end{itemize}
+
+\subsection{Intéret d'une analyse multirésolution}
+
+La fonction $\phi$ permet notamment la connaissance de la suite $\{V_k\}_{k\in\mathbb{Z}}$ et ainsi la déduction d'une base orthonormée de $V_k$ pour tout $k \in \mathbb{Z}$. On peut alors définir une ondelette associée à l'analyse multirésolution : il s'agira de toute fonction $\psi$ qui forme avec ses translatées entières une base orthonormée de $W_0$, supplémentaire orthogonal de $V_1$ dans $V_0$. En effet, il découle de la définition de $W_k$ que $\displaystyle \mathcal{L}^2(\mathbb{R}) = \overline{\bigoplus{}_{k\in\mathbb{Z}}W_k}$. \\
+
+Par suite, la famille $\displaystyle \{\frac{1}{\sqrt{2^m}}\psi(\frac{\cdot - 2^{m}n}{2^m})\}_{(m,n)\in\mathbb{Z}^2}$ forme une base orthonormée de $\mathcal{L}^2(\mathbb{R})$.
+
+Les espaces $W_k$ pour $k\in\mathbb{Z}$ sont appelés espaces des détails. Ils ne forment pas une famille d'espaces emboîtés mais les propriétés d'échelles et d'invariance par translation sont conservées. En effet, pour $k \in \mathbb{Z}, X_{k-1}$ est orthogonal à $V_{k-1}$, d'où $W_{k-1}$ orthogonal à $W_k$ en vertu de l'égalité $\displaystyle \mathcal{L}^2(\mathbb{R}) = \overline{\bigoplus{}_{k\in\mathbb{Z}}W_k}$.
+
+
+
+
 \section{Algorithme de decomposition en ondelettes de Stephane Mallat (1989)}
+
+\subsection{Principe}
 
 C’est un algorithme linéaire qui fait appel à un sous-échantillonnage. Concrètement, on procède à une décomposition par projections successives (c’est-à-dire de manière récursive) sur deux sous-espaces orthogonaux, l’un donnant l’allure générale de l’image (il s'agira de l'image en résolution moitié) et l’autre les détails. 
 L’algorithme de Mallat a cependant le défaut de ne pas être invariant par translation.
@@ -177,7 +213,11 @@ L’algorithme de Mallat a cependant le défaut de ne pas être invariant par tr
 On peut donner une démonstration mathématique de cet algorithme ; ici, pour simplifier, on va se limiter au cas particulier de décomposition d’un signal par les ondelettes de Haar.
 
 
-\subsection*{Algorithme de calcul des coefficients des ondelettes de Haar dans le cas d’une transformée en ondelettes discrète :}
+\subsection{Démonstration dans un cas simple : le cas des ondelettes de Haar.}
+
+La démonstration suivante montre comment on calcule les coefficients des ondelettes de Haar : on est bien évidemment dans le cadre d'une transformation en ondelettes discrètes.
+
+\subsubsection{Introduction et définition des notations}
 
 Considérons un signal échantillonné régulièrement sur [0,1] en $2^p$ points notés $x_{k}$ avec $x_{k} = \frac{k}{2^p}$.
 
@@ -236,14 +276,14 @@ $\displaystyle \langle h_{p,k}|h_{p,k'} \rangle = \int_{0}^{1} h_{p,k}(x)\cdot{}
 Ainsi la base $(h_{p,0},h_{p,1},...,h_{p,2^p -1})$ est une base orthogonale ; ce qui fait des espaces $\mathbb{K}_p$ des espaces euclidiens.
 
 
-\subsection{Propriété 1 : Orthogonalité dans les espaces euclidiens}
-\subsubsection{\uppercase{é}noncé}
+\subsubsection{Propriété mathématique : Orthogonalité dans les espaces euclidiens}
+\paragraph{\uppercase{é}noncé}
 Soient $E$ un espace euclidien de dimension $n \geq 1$, $\langle .| .\rangle$ son produit scalaire et $F$ un sous-espace vectoriel de $E$.
 
 Alors $F$ admet un supplémentaire orthogonal dans $E$ et ce supplémentaire est unique. On le note : $F^{\perp}$.
  \\
  \\
-\subsubsection{Démonstration} :
+\paragraph{Démonstration} :
 
 \begin{itemize}
 
@@ -283,6 +323,8 @@ On a déjà $G \subset F^{\perp}$ puisque tous les vecteurs de G sont orthogonau
 
 De plus, dim $G$ = dim $E -$ dim $F$ = dim $F^{\perp}$ car $\begin{dcases} E = F \oplus F^{\perp} \\ E = F \oplus G \end{dcases}$; on en déduit $G = F^{\perp}$ et l'unicité du supplémentaire orthogonal. \\
 \end{itemize}
+
+\subsubsection{Utilisation de la propriété : décomposition orthogonale en somme directe.}
 
 Soit donc $\mathbb{S}_{p}$ le supplémentaire orthogonal de $\mathbb{K}_p$ dans $\mathbb{K}_{p+1}$. \\
 
@@ -337,13 +379,14 @@ Et on peut décomposer $\Psi{}_{p-1}$ et $d_{p-1}$ comme suit :
 
 $\displaystyle \Psi{}_{p-1} = \sum_{k=0}^{2^p - 1} \Psi{}_{p-1,k}h_{p-1,k}$ et $d_{p-1} = \sum_{k=0}^{2^p - 1} d_{p-1,k}H_{p-1,k}$. \\
 
-\subsection{Détermination des $\Psi{}_{p-1,k}$ et $d_{p-1,k}$}
+\subsubsection{\uppercase{é}tape principale de l'algorithme : passage à la résolution inférieure, détermination des coefficients à la résolution inférieure.}
 
 -Déterminons les $\Psi{}_{p-1,k}$ et $d_{p-1,k}$ :
 
+\paragraph{Premières égalités}
 L'orthogonalité de la base $(h_{p,1},h_{p,0},...,h_{p,2^p - 1},H_{p,0},H_{p,1},...,H_{p,2^p - 1})$ avec $\Psi{}_{p} = \Psi{}_{p-1} + d_{p-1}$ et les résultats précédents sur les produits scalaires amène à : $\langle \Psi{}_{p}|h_{p-1,k} \rangle = \frac{\Psi{}_{p-1,k}}{2^{p-1}}$ et $\langle \Psi{}_{p}|H_{p-1,k} \rangle = \frac{d_{p-1,k}}{2^{p-1}}$. \\
 
-\subsubsection{Démonstration} 
+\subparagraph*{Démonstration} 
 
 On a \begin{align*}
  \Psi{}_{p}|h_{p-1,k} \rangle &= \langle \Psi{}_{p-1}|h_{p-1}\rangle + \langle d_{p-1}|h_{p-1,k} \rangle  \text{ par linéarité du produit scalaire.} \\
@@ -358,12 +401,12 @@ Et on a
 &= \sum_{i=0}^{2^{p-1}-1}\Psi{}_{p-1,i}\cdot{}0 + \sum_{i \neq k}d_{p-1,i}\cdot{}0 + d_{p-1,k}\langle{}H_{p-1,k}|H_{p-1,k} \\ &= \frac{d_{p-1,k}}{2^{p-1}}
 \end{align*} \\
 
-\subsection{???}
+\paragraph{Secondes égalités}
 
 D'autre part, on peut montrer $\displaystyle \langle{}\Psi{}_{p}|h_{p-1,k}\rangle = \frac{\Psi{}_{p,2k} + \Psi{}_{p,2k + 1} }{2^p}$ et $\displaystyle \langle{}\Psi{}_{p}|H_{p-1,k}\rangle = \frac{\Psi{}_{p,2k} - \Psi{}_{p,2k + 1} }{2^p}$ \\
 
 
-\subsubsection{Démonstration} 
+\subparagraph*{Démonstration} 
 
 On a $\displaystyle \langle{}h_{p,k}|h_{p-1,k'}\rangle = \int_0^1 h_{p,k}(x)\cdot{}h_{p-1,k'}(x)\cdot{}dx = \int_{x_k}^{x_{k+1}}h_{p-1,k'}(x)\cdot{}dx$ \\
 
@@ -410,7 +453,7 @@ On sait par définition que \[ H_{p-1,k'}(x) = \begin{dcases}
 
 \end{itemize}
 
-\subsubsection{Conclusion}
+\paragraph{Conclusion}
 
 On obtient finalement avec les égalités encadrées les équations d'échelles suivantes. \\
 
