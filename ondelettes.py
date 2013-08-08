@@ -1,13 +1,13 @@
-#-------------------------------------------------------------------------------
+#------------------------------------------------------------
 # Name:        ondelettes.py
-# Purpose:     Premier fichier du TIPE sur les ondelettes
+# Purpose:     definition de classes de traitement d'image
 #
 # Author:      gaetan
 #
 # Created:     10/07/2013
-# Copyright:   (c) Gaetan et Xavier 2013
+# Copyright:   (c) Gaetan 2013
 # Licence:     CC-BY-SA
-#-------------------------------------------------------------------------------
+#------------------------------------------------------------
 
 import Image, math
 
@@ -40,9 +40,17 @@ class Matrice:
                 for k in range(self.y):
                     somme += self.tableau[i][k]*matrice.tableau[k][j]
 
+    def copy(self,matrice):
+
+        for i in range(self.x):
+            for j in range(self.y):
+                self.tableau[i][j] = matrice.tableau[i][j]
+
     def update(self):
         self.x = len(self.tableau)
         self.y = len(self.tableau[0])
+
+
 
 class MatriceImage():
 
@@ -73,21 +81,21 @@ class MatriceImage():
                 self.matrixgray.tableau[i][j] = mean
 
     def getmatrixred(self):
-        self.matrixred = Matrice(self.sizex,self.sizey,pix[0,0][0])
-        for i in range(sizex):
-            for j in range(sizey):
+        self.matrixred = Matrice(self.sizex,self.sizey,self.pix[0,0][0])
+        for i in range(self.sizex):
+            for j in range(self.sizey):
                 self.matrixred.tableau[i][j] = self.matrice.tableau[i][j][0]
 
     def getmatrixblue(self):
-        self.matrixblue = Matrice(self.sizex,self.sizey,pix[0,0][2])
-        for i in range(sizex):
-            for j in range(sizey):
+        self.matrixblue = Matrice(self.sizex,self.sizey,self.pix[0,0][2])
+        for i in range(self.sizex):
+            for j in range(self.sizey):
                 self.matrixblue.tableau[i][j] = self.matrice.tableau[i][j][2]
 
     def getmatrixgreen(self):
-        self.matrixgreen = Matrice(self.sizex,self.sizey,pix[0,0][1])
-        for i in range(sizex):
-            for j in range(sizey):
+        self.matrixgreen = Matrice(self.sizex,self.sizey,self.pix[0,0][1])
+        for i in range(self.sizex):
+            for j in range(self.sizey):
                 self.matrixgreen.tableau[i][j] = self.matrice.tableau[i][j][1]
 
     def save(self,nom):
@@ -98,8 +106,8 @@ class MatriceImage():
         coeff_approx, coeff_ondelettes = [],[]
         for i in range(longueur/2):
 
-            coeff_approx.append((tableau_valeurs[2*i] + tableau_valeurs[2*i+1])/math.sqrt(2))
-            coeff_ondelettes.append((tableau_valeurs[2*i] - tableau_valeurs[2*i+1])/math.sqrt(2))
+            coeff_approx.append((tableau_valeurs[2*i] + tableau_valeurs[2*i+1])/2)
+            coeff_ondelettes.append((tableau_valeurs[2*i] - tableau_valeurs[2*i+1])/2)
 
         if ordre == 1:
             return coeff_approx,coeff_ondelettes
@@ -119,9 +127,9 @@ class MatriceImage():
     def getligne(self,tab,num):
         return tab[num]
 
-    def apply_haar_lig(self,matrice):
+    def apply_haar_lig(self,matrice,chiffre):
         for i in range(len(matrice)):
-            matrice[i] = self.ondelette_haar(matrice[i],1)[0]
+            matrice[i] = self.ondelette_haar(matrice[i],1)[chiffre]
 
     def apply_haar_col(self,matrice):
         for i in range(len(matrice[0])):
@@ -142,11 +150,11 @@ class MatriceImage():
     def haar_grayscale(self):
         self.grayscalemeanmatrix()
 
-        self.apply_haar_lig(self.matrixgray.tableau)
+        self.apply_haar_lig(self.matrixgray.tableau,0)
         self.matrixgray.update()
         self.matrixgray.transpose()
         self.matrixgray.update()
-        self.apply_haar_lig(self.matrixgray.tableau)
+        self.apply_haar_lig(self.matrixgray.tableau,0)
         self.matrixgray.update()
         self.matrixgray.transpose()
         self.imagehaargray = self.makeimagegray(self.matrixgray)
@@ -155,12 +163,60 @@ class MatriceImage():
         self.sizex = matrice.x
         self.sizey = matrice.y
 
+    def create_coef_matrix(self):
+        self.matrixcoefr = Matrice(self.matrixred.x,self.matrixred.y,0)
+        self.matrixcoefg = Matrice(self.matrixred.x,self.matrixred.y,0)
+        self.matrixcoefb = Matrice(self.matrixred.x,self.matrixred.y,0)
+        self.matrixcoefr.copy(self.matrixred)
+        self.matrixcoefg.copy(self.matrixgreen)
+        self.matrixcoefb.copy(self.matrixblue)
+
+    def haar(self):
+
+        for i in [self.matrixred,self.matrixgreen,self.matrixblue]:
+            self.apply_haar_lig(i.tableau,0)
+            i.update()
+            i.transpose()
+            i.update()
+            self.apply_haar_lig(i.tableau,0)
+            i.update()
+            i.transpose()
+
+        for i in [self.matrixcoefr,self.matrixcoefg,self.matrixcoefb]:
+            self.apply_haar_lig(i.tableau,1)
+            i.update()
+            i.transpose()
+            i.update()
+            self.apply_haar_lig(i.tableau,1)
+            i.update()
+            i.transpose()
+
+    def makeimage(self):
+        im = Image.new("RGB", (self.matrixred.x, self.matrixred.y), "white")
+        pix = im.load()
+
+        for i in range(self.matrixred.x):
+            for j in range(self.matrixred.y):
+                pix[i,j] = (int(self.matrixred.tableau[i][j]),int(self.matrixgreen.tableau[i][j]),int(self.matrixblue.tableau[i][j]))
+        return im
+
+    def compression(self,epsilon):
+        for tab in [self.matrixcoefr.tableau,self.matrixcoefg.tableau,self.matrixcoefb.tableau]:
+            for i in tab:
+                for j in i:
+                    if abs(i) < epsilon:
+                        i = 0
 def main():
-    image = MatriceImage("piano_bleu.jpg")
-    image.grayscalemeanmatrix()
-    image.makeimagegray(image.matrixgray).save("piano_gris.jpg")
-    image.haar_grayscale()
-    image.imagehaargray.save("piano_modif.jpg")
+    image = MatriceImage("chat.jpg")
+    image.getmatrixblue()
+    image.getmatrixgreen()
+    image.getmatrixred()
+    image.create_coef_matrix()
+    #image.grayscalemeanmatrix()
+    #image.makeimagegray(image.matrixgray).save("piano_gris.jpg")
+    image.haar()
+    image.makeimage().save("chat_reduit_couleur.jpg")
+    print image.matrixcoefr.tableau
 
 if __name__ == '__main__':
     main()
