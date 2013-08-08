@@ -7,7 +7,6 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{listings}
-\usepackage{comment} 
 \usepackage{mathtools}
 
 \title{TIPE: Introduction à la théorie des ondelettes}
@@ -41,9 +40,18 @@ Plus formellement, pour le cas d’une ondelette-mère (celle que l’on va pouv
 
 $\int_{\mathbb{R}}\psi{}(t)\cdot{}dt = 0$
 
-ce qui provient de la condition $\int_{\mathbb{R}} \frac{|\hat{\psi}(\omega)|^2}{|\omega|}d\omega < \infty$ où $\hat{\psi}$ est la transformée de Fourier de $\psi$.
+ce qui provient de la condition $\int_{\mathbb{R}} \frac{|\hat{\psi}(\omega)|^2}{|\omega|}d\omega < \infty$ où $\hat{\psi}$ est la transformée de Fourier de $\psi$, donnée par la formule $\displaystyle \hat{\psi}(\omega)= \int_{-\infty}^{+\infty}\psi{}(t)\cdot{}e^{-2i\pi\omega{}t}dt$
 
 Cette condition, dite condition d’admissibilité est nécessaire pour que la transformée en ondelettes d’une fonction existe !
+
+Si l'ondelette -fonction analysante- est convenablement choisie, la transformation en ondelettes est inversible et la fonction peut être reconstruite après analyse suivant l'équation : \\
+
+$\displaystyle f = C_{\psi}^{-1}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\frac{1}{a^2}\langle{}f,\psi{}_{a,b}\rangle\psi{a,b}da\cdot{}db$ \\
+
+
+Le coefficient $C_{\psi}$, si donc il existe, est donné par : $\displaystyle C_{\psi} = 2\pi\int_{\mathbb{R}}\frac{|\hat{\psi{}(\omega)}|^2}{|\omega|}d\omega < \infty$
+
+
 De manière plus << imagée >>, l’ondelette doit osciller localement autour de l’axe des abscisses.
 Il existe une infinité de fonctions d’ondelettes car toute fonction oscillante localisée est une ondelette-mère possible.
 Différentes familles d’ondelettes peuvent être utilisées en fonction du problème à résoudre. C’est un des nombreux avantages de la transformée en ondelettes par rapport à la transformée de Fourier (qui est liée exclusivement aux fonctions sinus et cosinus) que de pouvoir choisir l’ondelette à utiliser pour l’analyse.
@@ -151,7 +159,11 @@ Une gamme d'échelles $\Delta{}t$ utilisée couramment est la gamme d'échelles 
 
 On a alors avec $t_0 = k\cdot\Delta{}t$ : \\
 
-$\displaystyle f_{t_{0},\Delta{}t}(t) = 2^{\frac{p}{2}}f(2^{p}\cdot{}t - k)$ \\
+$\displaystyle f_{t_{0},\Delta{}t}(t) = 2^{\frac{p}{2}}f(2^{p}\cdot{}x - k)$, c'est-à-dire on peut considérer la famille d'ondelettes $\psi{}_{k,p} = 2^{\frac{p}{2}}\psi{}(2^{p}x - k ), (k,p) \in \mathbb{Z}^2$ \\
+
+Il est intéressant de considérer des familles orthogonales d'ondelettes formant une base hilbertienne de $L^2(\mathbb{R})$ alors toute fonction $f$ de cet espace peut s'écrire 
+
+$\displaystyle f = \sum_{(k,p) \in \mathbb{Z}^2}f_{k,p}\psi{}_{k,p}$ où les $f_{k,p} = \langle{}f|\psi_{k,p}\rangle$ sont appelés coefficients d'ondelettes.
 
 La transformation en ondelettes discrète est presque naturellement associée à des algorithmes plus efficaces et plus rapides que des algorithmes du type FFT qui utilisent la transformée de Fourier.
 
@@ -240,23 +252,25 @@ Alors $F$ admet un supplémentaire orthogonal dans $E$ et ce supplémentaire est
 \begin{itemize}
 
 
-\item Si $F = \{0_E\}$, on a $E = F \oplus E$ de manière immédiate. De plus, si $y \in F, y = 0_E$ et $\forall x \in E, \langle x|0_E \rangle = 0 $. D'où E est un supplémentaire orthogonal à $F$. 
+\item Si $F = \{0_E\}$, on a $E = F \oplus E$ de manière immédiate. De plus, si $y \in F, y = 0_E$ et $\forall x \in E, \langle x|0_E \rangle = 0 $. D'où E est un supplémentaire orthogonal à $F$. \\
 
-\item Si $F = E$, par un raisonnement analogue, on trouve que $\{0_E\}$ est un supplémentaire orthogonal à $F$.
+\item Si $F = E$, par un raisonnement analogue, on trouve que $\{0_E\}$ est un supplémentaire orthogonal à $F$. \\
 
-\item Si $F \neq \{0_E\}$ et $F \neq E$, on considère $(e_i)_{1\leq{}i\leq{}p}$ une base orthonormale de $F$ avec $p =$ dim $F \in \mathbb{N}^{*}.$
+\item Si $F \neq \{0_E\}$ et $F \neq E$, on considère $(e_i)_{1\leq{}i\leq{}p}$ une base orthonormale de $F$ avec $p =$ dim $F \in \mathbb{N}^{*}.$ \\
 
-L'ensemble $F^{\perp} = \{ x \in E | \forall y \in F, \langle x|y \rangle = 0 \}$ est par définition orthogonal à $F$.
+L'ensemble $F^{\perp} = \{ x \in E | \forall y \in F, \langle x|y \rangle = 0 \}$ est par définition orthogonal à $F$. \\
 
 Soit $x \in E$.
 
 $\exists (\lambda{}_{1}, ..., \lambda{}_{p}) \in \mathbb{R}^p , x = \sum_{k = 1}^{p} \lambda{}_{k}e_k + (x - \sum_{k = 1}^{p} \lambda{}_{k}e_k)$
 
-Or le premier vecteur de la somme est dans $F$. Donc le second entre parenthèses appartient à $F^{\perp}$ si et seulement si $\forall k \in [|1,p|], \langle e_k | x - \sum_{k = 1}^{p}\lambda{}_{k}e_k \rangle = 0$, c'est-à-dire $\lambda_{k} = \langle e_k | x \rangle$
+Or le premier vecteur de la somme est dans $F$. Donc le second entre parenthèses appartient à $F^{\perp}$ si et seulement si 
+
+$\displaystyle \forall k \in [|1,p|], \langle e_k | x - \sum_{k = 1}^{p}\lambda{}_{k}e_k \rangle = 0$, c'est-à-dire $\lambda_{k} = \langle e_k | x \rangle$
 
 Avec $x$ écrit de la manière suivante, on établit ainsi que  $E = F + F^{\perp}$.
 
-$x = \sum_{k = 1}^p \langle e_k | x \rangle{}\cdot{}e_k + (x - \sum_{k = 1}^p \langle e_k | x \rangle{}\cdot{})$
+$\displaystyle x = \sum_{k = 1}^p \langle e_k | x \rangle{}\cdot{}e_k + (x - \sum_{k = 1}^p \langle e_k | x \rangle{}\cdot{})$
 
 On a aussi immédiatement $F \cap F^{\perp} = \{0_E\}$, ce qui établit $E = F \oplus F^{\perp}$ et ainsi l'existence d'un supplémentaire orthogonal à $F$ 
 \end{itemize}
