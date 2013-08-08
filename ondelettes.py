@@ -1,4 +1,4 @@
-#------------------------------------------------------------
+#---------------------------------------------------------
 # Name:        ondelettes.py
 # Purpose:     definition de classes de traitement d'image
 #
@@ -7,9 +7,11 @@
 # Created:     10/07/2013
 # Copyright:   (c) Gaetan 2013
 # Licence:     CC-BY-SA
-#------------------------------------------------------------
+#---------------------------------------------------------
 
 import Image, math
+import time
+from threading import Thread
 
 class Matrice:
 
@@ -50,7 +52,14 @@ class Matrice:
         self.x = len(self.tableau)
         self.y = len(self.tableau[0])
 
+    def save(self):
+        self.tableau2 = list(self.tableau)
 
+    def save1(self):
+        self.mat_orig = list(self.tableau)
+
+    def restore(self):
+        self.tableau = list(self.mat_orig)
 
 class MatriceImage():
 
@@ -171,11 +180,13 @@ class MatriceImage():
         self.matrixcoefg.copy(self.matrixgreen)
         self.matrixcoefb.copy(self.matrixblue)
 
+
     def haar(self):
 
         for i in [self.matrixred,self.matrixgreen,self.matrixblue]:
             self.apply_haar_lig(i.tableau,0)
             i.update()
+            i.save()
             i.transpose()
             i.update()
             self.apply_haar_lig(i.tableau,0)
@@ -183,13 +194,57 @@ class MatriceImage():
             i.transpose()
 
         for i in [self.matrixcoefr,self.matrixcoefg,self.matrixcoefb]:
+            i.save1()
             self.apply_haar_lig(i.tableau,1)
+            i.update()
+            i.save()
+            i.update()
+            i.restore()
+            self.apply_haar_lig(i.tableau,0)
             i.update()
             i.transpose()
             i.update()
             self.apply_haar_lig(i.tableau,1)
             i.update()
             i.transpose()
+
+    def haarimage(self):
+
+        for i in [self.matrixred,self.matrixgreen,self.matrixblue]:
+            self.apply_haar_lig(i.tableau,0)
+            i.update()
+            i.save()
+            i.transpose()
+            i.update()
+            self.apply_haar_lig(i.tableau,0)
+            i.update()
+            i.transpose()
+
+    def haardetails(self):
+
+        for i in [self.matrixcoefr,self.matrixcoefg,self.matrixcoefb]:
+            i.save1()
+            self.apply_haar_lig(i.tableau,1)
+            i.update()
+            i.save()
+            i.update()
+            i.restore()
+            self.apply_haar_lig(i.tableau,0)
+            i.update()
+            i.transpose()
+            i.update()
+            self.apply_haar_lig(i.tableau,1)
+            i.update()
+            i.transpose()
+
+    def haarmulti(self):
+        t1 = Thread(target=self.haarimage, args=())
+        t2 = Thread(target=self.haardetails, args=())
+
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
 
     def makeimage(self):
         im = Image.new("RGB", (self.matrixred.x, self.matrixred.y), "white")
@@ -203,20 +258,59 @@ class MatriceImage():
     def compression(self,epsilon):
         for tab in [self.matrixcoefr.tableau,self.matrixcoefg.tableau,self.matrixcoefb.tableau]:
             for i in tab:
-                for j in i:
-                    if abs(i) < epsilon:
-                        i = 0
+                for j in range(len(i)):
+                    if abs(i[j]) < epsilon:
+                        i[j] = 0
+
+        for tab in [self.matrixcoefr.tableau2,self.matrixcoefg.tableau2,self.matrixcoefb.tableau2]:
+            for i in tab:
+                for j in range(len(i)):
+                    if abs(i[j]) < epsilon:
+                        i[j] = 0
+
+    def syntheselignes(self):
+        for i in range(self.sizex/2):
+            for j in range(self.sizey/2):
+                self.pix[2*i,2*j] = (int(self.matrixred.tableau[i][j] + self.matrixcoefr.tableau[i][j]), int(self.matrixgreen.tableau[i][j] + self.matrixcoefg.tableau[i][j]) , int(self.matrixblue.tableau[i][j] + self.matrixcoefb.tableau[i][j]))
+                self.pix[2*i+1,2*j] = (int(self.matrixred.tableau[i][j] - self.matrixcoefr.tableau[i][j]), int(self.matrixgreen.tableau[i][j] - self.matrixcoefg.tableau[i][j]) , int(self.matrixblue.tableau[i][j] - self.matrixcoefb.tableau[i][j]))
+
+    def synthesecolonnes(self):
+
+        for y in range(len(self.matrixcoefr.tableau2[0])):
+
+            for x in range(len(self.matrixcoefr.tableau2)):
+
+                self.pix[x,2*y],self.pix[x ,2*y + 1] = (int(self.pix[x,2*y ][0] + self.matrixcoefr.tableau2[x][y]), int(self.pix[x,2*y ][1] + self.matrixcoefg.tableau2[x][y]) , int(self.pix[x,2*y][2] + self.matrixcoefb.tableau2[x][y])),(int(self.pix[x,2*y ][0] - self.matrixcoefr.tableau2[x][y]), int(self.pix[x,2*y][1] - self.matrixcoefg.tableau2[x][y]) , int(self.pix[x,2*y][2] - self.matrixcoefb.tableau2[x][y]))
+
+    def clearimage(self):
+        for i in range(self.sizex):
+            for j in range(self.sizey):
+                self.pix[i,j] = (255,0,0)
+
+
 def main():
-    image = MatriceImage("chat.jpg")
+    start = time.time()
+    image = MatriceImage("piano_bleu.jpg")
     image.getmatrixblue()
     image.getmatrixgreen()
     image.getmatrixred()
     image.create_coef_matrix()
+    end = time.time()
+    print end - start
     #image.grayscalemeanmatrix()
     #image.makeimagegray(image.matrixgray).save("piano_gris.jpg")
+    start = time.time()
     image.haar()
-    image.makeimage().save("chat_reduit_couleur.jpg")
-    print image.matrixcoefr.tableau
+    end = time.time()
+    print end - start
+    #image.makeimage().save("1px.jpg",'JPEG',quality = 100)
+    image.compression(10)
+    image.clearimage()
+    image.syntheselignes()
+    image.synthesecolonnes()
+
+    image.fill()
+    image.image.save("piano_compress.jpg",'JPEG',quality = 100)
 
 if __name__ == '__main__':
     main()
