@@ -12,7 +12,7 @@
 import Image, math
 import time
 from threading import Thread
-
+from multiprocessing import Process
 class Matrice:
 
     def __init__(self,x,y,what):
@@ -287,29 +287,93 @@ class MatriceImage():
             for j in range(self.sizey):
                 self.pix[i,j] = (255,0,0)
 
+    def fasthaar(self,epsilon,xa,xb,ya,yb):
+
+        for x in range(xa/2,xb/2):
+            start = time.time()
+            for y in range(ya/2,yb/2):
+                #copier les 4 pixels dans un carre
+
+                carres = []
+
+                for i in range(3):
+                    carres.append( [  [self.pix[2*x,2*y][i],self.pix[2*x,2*y + 1][i] ] , [ self.pix[2*x +1,2*y][i],self.pix[2*x+1,2*y+1][i]]])
+
+                ##ANALYSE
+                ondlhaut = [(carres[i][0][0]   - carres[i][1][0]   )/2 for i in range(3)]
+                ondlbas  = [(carres[i][0][1] - carres[i][1][1])/2 for i in range(3)]
+                #print ondlbas
+                for i in range(3):
+                    carres[i][0][0]     = (carres[i][0][0]     + carres[i][1][0]    )/2
+                    carres[i][0][1] = (carres[i][0][1] + carres[i][1][1])/2
+
+                ondlmix = [(carres[i][0][0] - carres[i][0][1])/2 for i in range(3)]
+
+                for i in range(3):
+                    carres[i][0][0] = (carres[i][0][0] + carres[i][0][1])/2
+
+                ##SYNTHESE
+                for i in range(3):
+                    if ondlmix[i] < epsilon:
+                        carres[i][0][1] = carres[i][0][0]
+                    else:
+                        carres[i][0][1] = carres[i][0][0] - ondlmix[i]
+                        carres[i][0][0]   = carres[i][0][0] + ondlmix[i]
+
+                    if ondlhaut[i] < epsilon:
+                        carres[i][1][0] = carres[i][0][0]
+                    else:
+                        carres[i][1][0] = carres[i][0][0] - ondlhaut[i]
+                        carres[i][0][0]   = carres[i][0][0] + ondlhaut[i]
+
+                    if ondlbas[i] < epsilon:
+                        carres[i][1][1] = carres[i][0][1]
+                    else:
+                        carres[i][1][1] = carres[i][0][1] - ondlbas[i]
+                        carres[i][0][1]   = carres[i][0][1] + ondlbas[i]
+
+                for i in [2*x,2*x+1]:
+                    for j in [2*y,2*y+1]:
+                        self.pix[i,j] = (carres[0][i-2*x][j-2*y],carres[1][i-2*x][j-2*y],carres[2][i-2*x][j-2*y])
+            end = time.time()
+            print end - start
+
+
+    def fasthaar_thread(self,epsilon):
+        t1 = Process(target=self.fasthaar, args=(epsilon,0,self.sizex/2,0,self.sizey))
+        t2 = Process(target=self.fasthaar, args=(epsilon,self.sizex/2,self.sizex,0,self.sizey))
+
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
 
 def main():
-    start = time.time()
+
     image = MatriceImage("piano_bleu.jpg")
+    start = time.time()
     image.getmatrixblue()
     image.getmatrixgreen()
     image.getmatrixred()
     image.create_coef_matrix()
-    end = time.time()
-    print end - start
+
     #image.grayscalemeanmatrix()
     #image.makeimagegray(image.matrixgray).save("piano_gris.jpg")
-    start = time.time()
+    #start = time.time()
     image.haar()
-    end = time.time()
-    print end - start
+    #end = time.time()
+
     #image.makeimage().save("1px.jpg",'JPEG',quality = 100)
     image.compression(10)
     image.clearimage()
     image.syntheselignes()
     image.synthesecolonnes()
+    #start = time.time()
+    #image.fasthaar(15,0,image.sizex,0,image.sizey)
 
     image.fill()
+    end = time.time()
+    print end - start
     image.image.save("piano_compress.jpg",'JPEG',quality = 100)
 
 if __name__ == '__main__':
