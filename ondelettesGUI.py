@@ -73,6 +73,7 @@ class Appli(Frame):
         editMenu = Menu(menubar)
         editMenu.add_command(label="Nuances de gris", command=self.grayscale)
         editMenu.add_command(label="Compresser", command=self.askcompression)
+        editMenu.add_command(label="Compresser (new)", command=self.askcompression2)
         editMenu.add_command(label="Resolution 1/2", command=self.onExit)
         menubar.add_cascade(label="Edition", menu=editMenu)
 
@@ -107,6 +108,15 @@ class Appli(Frame):
         fen.destroy()
         self.compression()
 
+    def askcompression2(self):
+        global compress
+        fen = Tk()
+        fen.geometry("300x100+300+300")
+        box = DialogScale(fen)
+        fen.mainloop()
+        fen.destroy()
+        self.compression2()
+
     def compression(self):
 
         self.matriceimage.getmatrixblue()
@@ -121,7 +131,14 @@ class Appli(Frame):
 
         self.displayimage()
 
+    def compression2(self):
 
+
+        self.matriceimage.fasthaar(compress, 0, self.matriceimage.sizex, 0, self.matriceimage.sizey)
+
+        self.labelimg.destroy()
+
+        self.displayimage()
 
     def grayscale(self):
         self.matriceimage.grayscalemeanmatrix()
