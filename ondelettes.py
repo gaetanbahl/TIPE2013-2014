@@ -325,8 +325,6 @@ def main():
 ##    image.synthesecolonnes()
 ##
     image.fasthaar(15,0,image.sizex,0,image.sizey)
-#    image.fasthaar_thread(15)
-##
 ##    image.fill()
     end = time.time()
     print end - start
