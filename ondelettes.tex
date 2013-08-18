@@ -330,7 +330,7 @@ Soit donc $\mathbb{S}_{p}$ le supplémentaire orthogonal de $\mathbb{K}_p$ dans 
 
 On a $\mathbb{K}_{p+1} = \mathbb{S}_{p} \oplus \mathbb{K}_p$. D'où de proche en proche on arrive à :
 
-$\mathbb{K}_{p+1} = \mathbb{S}_{p} \oplus \mathbb{S}_{p-1} \oplus \mathbb{S}_{p-2} \oplus ... \oplus \mathbb{S}_{0} \oplus \mathbb{K}_{0}$, soit encore $\mathbb{K}_p = \mathbb{K}_0 \oplus{}_{i = 0}^{p-1} \mathbb{S}_{i    } $ \\
+$\mathbb{K}_{p+1} = \mathbb{S}_{p} \oplus \mathbb{S}_{p-1} \oplus \mathbb{S}_{p-2} \oplus ... \oplus \mathbb{S}_{0} \oplus \mathbb{K}_{0}$, soit encore $\mathbb{K}_p = \mathbb{K}_0 \oplus{}_{i = 0}^{p-1} \mathbb{S}_{i	} $ \\
 
 On a défini à partir de $\mathcal{H}$ la fonction $H_{p,k}$ par $H_{p,k}(x) = \mathcal{H}(2^{p}x - k )$; $(p,k) \in \mathbb{N}^2$.
 
@@ -389,14 +389,14 @@ L'orthogonalité de la base $(h_{p,1},h_{p,0},...,h_{p,2^p - 1},H_{p,0},H_{p,1},
 \subparagraph*{Démonstration} 
 
 On a \begin{align*}
- \Psi{}_{p}|h_{p-1,k} \rangle &= \langle \Psi{}_{p-1}|h_{p-1}\rangle + \langle d_{p-1}|h_{p-1,k} \rangle  \text{ par linéarité du produit scalaire.} \\
+ \langle\Psi{}_{p}|h_{p-1,k} \rangle &= \langle \Psi{}_{p-1}|h_{p-1}\rangle + \langle d_{p-1}|h_{p-1,k} \rangle  \text{ par linéarité du produit scalaire.} \\
  &= \sum_{i \neq k} \Psi{}_{p-1,i} \langle h_{p-1,i}|h_{p-1,k} \rangle + \Psi{}_{p-1,k} \langle h_{p-1,k}|h_{p-1,k} \rangle + \sum_{i=0}^{2^{p-1} - 1} d_{p-1,i}\langle H_{p-1,i}|h_{p-1,k} \rangle  \\
  &= \sum_{i \neq k} \Psi{}_{p-1,i}\cdot{}0 + \frac{\Psi{}_{p-1,k}}{2^{p-1}} + \sum_{i=0}^{2^{p-1} - 1} d_{p-1,i}\cdot{}0 = \frac{\Psi{}_{p-1,k}}{2^{p-1}} 
  \end{align*}
 
 Et on a 
 \begin{align*} \displaystyle
- \Psi{}_{p}|H_{p-1,k} \rangle &= \langle \Psi{}_{p-1}|H_{p-1}\rangle + \langle d_{p-1}|h_{p-1,k} \rangle  \\
+ \langle\Psi{}_{p}|H_{p-1,k} \rangle &= \langle \Psi{}_{p-1}|H_{p-1}\rangle + \langle d_{p-1}|h_{p-1,k} \rangle  \\
 &= \sum_{i=0}^{2^{p-1}-1} \Psi{}_{p-1,i}\langle h_{p-1,i}|H_{p-1,k}\rangle + \sum_{i \neq k}d_{p-1,i}\langle{}H_{p-1,i}|H_{p-1,k} \rangle + d_{p-1,k}\langle{}H_{p-1,k}|H_{p-1,k}\rangle  \\
 &= \sum_{i=0}^{2^{p-1}-1}\Psi{}_{p-1,i}\cdot{}0 + \sum_{i \neq k}d_{p-1,i}\cdot{}0 + d_{p-1,k}\langle{}H_{p-1,k}|H_{p-1,k} \\ &= \frac{d_{p-1,k}}{2^{p-1}}
 \end{align*} \\
@@ -600,13 +600,15 @@ La théorie des ondelettes symbolise en quelque sorte l’évolution des science
 Bien que l’analyse par les ondelettes soit encore loin de nous donner une réponse universelle et finale au problème de la représentation et du codage des signaux, elle se révèle être un outil mathématique particulièrement performant dans plusieurs domaines. 
 
 
-
+\pagebreak
 
 \section{Annexes}
 
 \subsection{Fichier ondelettes.py}
 \lstinputlisting{ondelettes.py}
 
+\subsection{Fichier ondelettesGUI.py}
+\lstinputlisting{ondelettesGUI.py}
 
 \section{Liens}
 
