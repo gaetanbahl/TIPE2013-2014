@@ -11,9 +11,8 @@
 
 import Image, math
 import time
-from threading import Thread
-from multiprocessing import Process
-from pdb import set_trace
+
+
 class Matrice:
 
     def __init__(self,x,y,what):
@@ -305,7 +304,7 @@ class MatriceImage():
 
 def main():
 
-    image = MatriceImage("piano_bleu.jpg")
+    image = MatriceImage("chat.jpg")
     start = time.time()
 ##    image.getmatrixblue()
 ##    image.getmatrixgreen()
@@ -324,11 +323,11 @@ def main():
 ##    image.syntheselignes()
 ##    image.synthesecolonnes()
 ##
-    image.fasthaar(15,0,image.sizex,0,image.sizey)
+    image.fasthaar(2,0,image.sizex,0,image.sizey)
 ##    image.fill()
     end = time.time()
     print end - start
-    image.image.save("piano_compress.jpg",'JPEG',quality = 100)
+    image.image.save("chat_compress.jpg",'JPEG',quality = 100)
 
 if __name__ == '__main__':
     main()
