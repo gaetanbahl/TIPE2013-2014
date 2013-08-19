@@ -16,39 +16,6 @@ from ttk import Frame, Style
 from Tkconstants import *
 
 
-class DialogScale(Frame):
-    def __init__(self, parent):
-        Frame.__init__(self, parent)
-
-        self.parent = parent
-        self.initUI()
-
-    def initUI(self):
-
-        self.parent.title("Compression")
-        self.style = Style()
-        self.style.theme_use("default")
-
-        self.pack(fill=BOTH, expand=1)
-
-        scale = Scale(self, from_=0, to=255,command=self.onScale, orient= HORIZONTAL)
-        scale.place(x=90, y=20)
-
-
-        self.label2 = Label(self, text="Choisissez un niveau de compression")
-        self.label2.place(x=52, y=0)
-        self.quitButton = Button(self, text="    Ok    ",command=self.ok)
-        self.quitButton.place(x=120, y=65)
-
-    def onScale(self, val):
-
-        self.variable = int(val)
-
-    def ok(self):
-        global compress
-        compress = self.variable
-        self.quit()
-
 class Appli(Frame):
 
     def __init__(self, parent):
@@ -157,6 +124,40 @@ class Appli(Frame):
         self.update()
 
     def onExit(self):
+        self.quit()
+
+
+class DialogScale(Frame):
+    def __init__(self, parent):
+        Frame.__init__(self, parent)
+
+        self.parent = parent
+        self.initUI()
+
+    def initUI(self):
+
+        self.parent.title("Compression")
+        self.style = Style()
+        self.style.theme_use("default")
+
+        self.pack(fill=BOTH, expand=1)
+
+        scale = Scale(self, from_=0, to=255,command=self.onScale, orient= HORIZONTAL)
+        scale.place(x=90, y=20)
+
+
+        self.label2 = Label(self, text="Choisissez un niveau de compression")
+        self.label2.place(x=52, y=0)
+        self.quitButton = Button(self, text="    Ok    ",command=self.ok)
+        self.quitButton.place(x=120, y=65)
+
+    def onScale(self, val):
+
+        self.variable = int(val)
+
+    def ok(self):
+        global compress
+        compress = self.variable
         self.quit()
 
 
