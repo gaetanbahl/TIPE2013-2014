@@ -16,7 +16,7 @@
 \maketitle
 \tableofcontents
 \listoffigures
-\MakeShortVerb{@}
+\MakeShortVerb{ § }
 \clearpage
 
 \newcommand{\fonction}[5]{\begin{array}{l|rcl}
@@ -439,13 +439,11 @@ On sait par définition que \[ H_{p-1,k'}(x) = \begin{dcases}
 \uppercase{à} partir de cela, il est facile de décomposer comme suit et d'obtenir les résultats :
 
 \begin{itemize}
-\item \begin{align*}\displaystyle
-\Psi{}_{p}|h_{p-1,k}\rangle &=  \langle \sum_{k=0}^{2^{p-1}}\Psi{}_{p,k}h_{p,k}|h_{p-1,k}\rangle \\ &=  \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle + \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle  \\ 
+\item \begin{align*}\displaystyle \langle \Psi{}_{p}|h_{p-1,k}\rangle &=  \langle \sum_{k=0}^{2^{p-1}}\Psi{}_{p,k}h_{p,k}|h_{p-1,k}\rangle \\ &=  \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle + \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle  \\ 
 &= 0 + \Psi{}_{p,2k}\cdot{}\frac{1}{2^p} + \Psi{}_{p,2k+1}\cdot{}\frac{1}{2^p} 
 \end{align*} 
 
-\item \begin{align*} \displaystyle
-\Psi{}_{p}|H_{p-1,k}\rangle &= \langle \sum_{k=0}^{2^{p-1}}\Psi{}_{p,k}h_{p,k}|H_{p-1,k}\rangle \\ &= 
+\item \begin{align*} \displaystyle \langle \Psi{}_{p}|H_{p-1,k}\rangle &= \langle \sum_{k=0}^{2^{p-1}}\Psi{}_{p,k}h_{p,k}|H_{p-1,k}\rangle \\ &= 
  \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|H_{p-1,k}\rangle + \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle  \\ 
 &= 0 + \Psi{}_{p,2k}\cdot{}\frac{1}{2^p} + \Psi{}_{p,2k+1}\cdot{}\frac{-1}{2^p}
 \end{align*} \\
@@ -600,7 +598,321 @@ La théorie des ondelettes symbolise en quelque sorte l’évolution des science
 Bien que l’analyse par les ondelettes soit encore loin de nous donner une réponse universelle et finale au problème de la représentation et du codage des signaux, elle se révèle être un outil mathématique particulièrement performant dans plusieurs domaines. 
 
 
-\pagebreak
+\section{Utilisation pratique de la transformation par ondelettes discrète}
+
+Nous avons choisi de mettre en pratique ce que nous avons vu plus haut de manière théorique. Notre but a été de mettre en place un algorithme de compression d'image utilisant la compression par ondelettes, ainsi que plusieurs applications graphiques qui utilisent cet algorithme.
+
+Le code complet de nos algorithmes est disponible en annexe à la fin de ce dossier, mais aussi sur le Github de notre projet (cf. section Liens).
+
+
+
+\subsection{Le choix des outils}
+
+
+\subsubsection{Le langage : Python}
+
+Nous avons choisi d'utiliser le langage Python pour plusieurs raisons. Celui-ci offre beaucoup de possibilités, est facile à utiliser (et à comprendre) et permet de créer de gros projets assez rapidement. C'est aussi un langage approprié pour un débutant en programmation. C'est un très bon langage de prototypage, ce qui permet de donner un aperçu assez fonctionnel d'une application pour ensuite pouvoir la réaliser dans un autre langage (plus rapide, par exemple). C'est un langage de script, ce qui permet une grande flexibilité du code, et enlève l'étape de la compilation.
+
+La version 2.7 de Python a été utilisée pour notre projet, car celle-ci est plus stable et plus mûre que la plus récente version 3. Aussi, beaucoup de modules Python assez utiles n'ont toujours pas été portés vers Python 3 à l'heure actuelle et nous ne voulions pas être freinés par cela. 
+
+\subsubsection{La librairie de traitement d'image : PIL}
+
+Pour que notre application puisse supporter plusieurs types de fichiers, nous avons eu recours à une librairie graphique. Nous l'avons utilisée simplement afin de récupérer un tableau contenant les pixels d'une image, ce qui aurait été redondant à programmer nous-même.
+
+PIL nous donne aussi accès à l'écriture de fichiers image dans tous les formats, ce qui offre de la flexibilité à notre programme.
+
+Nous n'avons pas utilisé les autres fonctionnalités de cette librairie, bien entendu, puisqu'il s'agissait avant tout de concevoir notre propre algorithme de compression.
+
+\subsubsection{La librairie d'interface graphique : Tkinter}
+
+Pour la partie <<interface graphique utilisateur>> (ou GUI), nous avons utilisé la librairie Tkinter, qui est incluse par défaut avec l'installation standard de Python. Elle est simple d'utilisation et convenait parfaitement à ce que nous voulions en faire, c'est-à-dire une simple application montrant la compression d'une image en utilisant notre algorithme.
+
+Beaucoup d'autres librairies existent pour la réalisation de GUI, mais celles-ci sont à télécharger en plus de Python, et nous ne voulions pas surcharger notre projet. De plus, les fonctionnalités qu'elles apportent n'auraient pas été utilisées dans le cadre de notre projet.
+
+
+\subsection{Exemples d'images traitées avec notre algorithme}
+
+Nous avons mis au point un algorithme de compression utilisant des matrices. Celui-ci applique deux fois la transformation par ondelettes de Haar (une fois pour la hauteur, une fois pour la largeur), et stocke les coefficients d'ondelettes dans des matrices séparées de l'image. On peut ensuite supprimer certains de ces coefficients au-delà d'un certain seuil, pour compresser l'image.
+
+La figure \ref{chat1} montre l'image à laquelle nous avons appliqué la compression.
+
+\begin{figure}[!hb]
+\centering
+\includegraphics[scale=2]{chat.jpg}
+\caption{L'image de départ}
+\label{chat1}
+\end{figure}
+
+
+
+
+La figure \ref{chat2} représente l'image une fois que la compression a été appliquée avec un seuil assez petit pour garder la plupart des détails importants de l'image mais assez grand pour compresser les <<aplats>> de couleur, les ombres, etc. L'image compressée occupe 35\% de mémoire en moins par rapport à l'image de départ. Ce qui montre que la compression par ondelettes est plutôt efficace et que notre algorithme est fonctionnel.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.8]{chat_compress.jpg}
+\caption{L'image compressée}
+\label{chat2}
+\end{figure}
+
+
+
+Sur la figure \ref{chat3}, on peut voir l'image compressé avec le seuil maximal. Ici, tous les détails ont été éliminés. Cela revient simplement à diviser la résolution de l'image par deux.
+
+\begin{figure}[!hb]
+\centering
+\includegraphics[scale=0.8]{chat_compress255.jpg}
+\caption{L'image compressée à 100\%}
+\label{chat3}
+\end{figure}
+
+
+\clearpage
+
+\subsection{L'application graphique}
+
+L'application graphique que nous avons créée permet plusieurs choses :
+
+\begin{itemize}
+\item Ouverture d'une image
+\item Enregistrement d'une image
+\item Affichage d'une image dans une fenêtre
+\item Conversion d'une image en nuances de gris
+\item Compression d'une image par deux méthodes
+\item Réduction de la résolution d'une image de 50\%
+\end{itemize}
+
+La figure \ref{GUI} montre la fenêtre principale de l'application, avec une image en cours d'édition. L'interface est minimaliste, mais suffisante.
+
+
+
+\begin{figure}[!hb]
+\centering
+\includegraphics[scale=0.5]{OndelettesGUI.png}
+\caption{Fenêtre principale de l'application}
+\label{GUI}
+\end{figure}
+
+
+La figure \ref{GUI1} montre les menus de l'application, qui permettent de choisir entre toutes les actions décrites ci-dessus.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.8]{OndelettesGUI1.png}
+\caption{Menus de l'application}
+\label{GUI1}
+\end{figure}
+
+La figure \ref{GUI2} montre le sélecteur de seuil, qui apparaît lorsqu'on choisit <<Compresser>> ou <<Compresser (new)>> dans les menus.
+
+\begin{figure}[!hb]
+\centering
+\includegraphics[scale=0.8]{Compression.png}
+\caption{Le sélecteur de seuil de compression}
+\label{GUI2}
+\end{figure}
+
+
+\cleardoublepage
+
+\section{Description du code}
+
+Ce qui suit est une description du code de tous nos programmes.
+
+\subsection{Le fichier | ondelettes.py | }
+
+Dans ce fichier, nous définissons des classes qui permettent le traitement des images. Il peut très bien être utilisé tout seul (sans l'interface graphique). 
+
+\subsubsection{La classe |Matrice| }
+
+Au lieu d'utiliser la classe Matrice du module |numpy|, nous avons préféré créer la notre. En effet, nous n'avons pas besoin de toutes les fonctions qu'elle offre. Aussi, nous voulions faire un maximum de choses nous-mêmes.
+
+\paragraph{La fonction init }
+
+Cette fonction prend en argument la taille de la matrice et le premier élément qu'elle doit contenir pour ensuite créer un tableau de tableaux contenant ce premier élément. Elle enregistre aussi les dimensions de la matrice dans l'objet créé.
+
+\paragraph{La fonction @transpose@ }
+
+Comme son nom l'indique, elle transforme la matrice en sa transposée. Elle est utilisée lors de la transformation par ondelettes de Haar.
+
+\paragraph{La fonction @add@}
+
+Elle permet l'addition de matrices. La matrice sur laquelle est appelée la fonction est replacée par le résultat de l'addition. Elle n'est pas utilisée dans ce programme, mais pour que notre classe soit réutilisable dans d'autres projets, il fallait qu'elle soit créée.
+
+\paragraph{La fonction @multiply@}
+
+Cette fonction est analogue à la fonction @add@ pour la multiplication.
+
+\paragraph{La fonction @copy@}
+
+Cette fonction transorme la matrice en celle qui est passée en argument.
+
+\paragraph{La fonction @update@}
+
+Cette fonction met à jour les dimensions de la matrice si le tableau a changé de taille.
+
+\paragraph{Les fonctions @save@ et @save1@} 
+
+Elles permettent de sauvegarder l'état de la matrice dans un tableau auxilliaire.
+
+\paragraph{La fonction @restore@}
+
+Elle remet en place le tableau sauvegardé par la fonction @save@.
+
+
+
+
+\subsubsection{La classe @MatriceImage@}
+
+Cette classe utilise la classe @Matrice@ pour stocker une image afin de pouvoir travailler dessus. Elle contient également des fonctions de compression et d'enregistrement.
+
+\paragraph{La fonction @init@}
+
+Cette fonction prend en argument l'emplacement d'une image et la charge à l'aide de PIL. Elle crée puis remplit une @Matrice@ avec les informations des pixels de l'image (cf. fonction @fill@).
+
+\paragraph{La fonction @fill@}
+
+Cette fonction stocke les pixels de l'image dans la @Matrice@.
+
+\paragraph{Les fonctions @grayscalemean@ et @grayscalemeanmatrix@}
+
+Elles transforment l'image en nuances de gris en remplaçant chaque couleur de chaque pixel par la moyenne des trois composantes RGB du pixel.
+@grayscalemean@ fait l'opération sur l'image directement alors que @grayscalemeanmatrix@ la fait sur la @Matrice@ de l'image.
+
+\paragraph{Les fonctions @getmatrixred@, @getmatrixgreen@ et @getmatrixblue@}
+
+Créent des tableaux dans l'objet et les remplissent avec les composantes RGB (respectivement) de l'image. Cela permet de traiter chaque couleur séparément.
+
+\paragraph{La fonction @save@}
+
+Elle prend en argument une chaîne de caractère et sauvegarde l'image sous ce nom dans le dossier courant.
+
+\paragraph{La fonction @ondelette\_haar@}
+
+Cette fonction prend en argument un tableau de valeurs et le nombre de récursions qu'elle doit faire. Elle renvoie le tableau des coefficients d'approximation ainsi que le tableau des coefficients d'ondelette.
+
+\paragraph{Les fonctions @getcolonne@ et @getligne@}
+
+Ces fonctions servent à récupérer une liste contenant les données d'une colonne/d'une ligne, pour pouvoir ensuite être traitées par la fonction @ondelette\_haar@
+
+
+\paragraph{La fonction @setcolonne@}
+
+Elle permet de remettre une colonne dans une matrice après traitement.
+
+\paragraph{Les fonctions @apply\_haar\_lig@ et @apply\_haar\_col@}
+
+Ces fonctions appliquent la transformation avec l'ondelette de haar à toutes les lignes/toutes les colonnes d'une matrice.
+
+\paragraph{La fonction @haar\_grayscale@}
+
+Cette fonction convertit une image en nuances de gris, puis applique la transformation par ondelettes sur l'image. Elle l'applique d'abord sur les lignes, puis transpose la @Matrice@, puis la réapplique sur les lignes.
+
+\paragraph{La fonction @update@}
+
+Elle est similaire à celle qui a été décrite plus haut.
+
+\paragraph{La fonction @create\_coef\_matrix@}
+
+Elle crée les tableaux nécessaires à la mise en mémoire des coefficients d'ondelette de chaque couleur.
+
+\paragraph{La fonction @haar@}
+
+Elle a le même effet que la fonction @haar\_grayscale@, mais elle s'applique aux 3 composantes de l'image.
+
+\paragraph{La fonction @makeimage@}
+
+Cette fonction crée une image à partir des matrices des coefficients d'approximation.
+
+\paragraph{La fonction @compression@}
+
+Cette fonction, une fois que les matrices de coefficients d'ondelette ont été créées, permet de supprimer les coefficients qui sont inférieurs au @epsilon@ passé en paramètre.
+
+\paragraph{Les fonctions @syntheseligne@ et @synthesecolonnes@}
+
+Ces fonctions appliquent la transformation inverse à l'image, à partir des coefficients d'approximation et des coefficients d'ondelette qui ont été conservés par la fonction @compression@.
+
+\paragraph{La fonction @clearimage@}
+
+Elle supprime toutes les données d'une image en la remplissant d'une couleur définie.
+
+\paragraph{La fonction @fasthaar@}
+
+Cette fonction permet d'appliquer la transformation par ondelettes sans passer par les matrices. Pour cela elle prend tous les <<carrés>> de 4 pixels d'une image et leur applique la transformation et la compression. Elle est plus rapide que les autres fonctions, mais l'inconvénient est que la récursivité n'est pas permise. Elle est donc utilisée pour compresser légèrement une image. Les résulats restent tout de même impressionnant, puisqu'elle peut faire gagner jusqu'à 45\% d'espace en seulement quelques secondes.
+
+
+
+\subsection{Le fichier @ondelettesGUI.py@}
+
+Ce fichier est l'interface graphique du programme, qui requiert le fichier @ondelettes.py@ pour fonctionner. En effet, l'interface graphique n'est qu'une façade pour les fonctions qui ont été décrites plus haut.
+
+\subsubsection{La classe @Appli@}
+
+Cette classe représente la fenêtre principale de l'application.
+
+\paragraph{La fonction @init@}
+
+Cette fonction définit simplement l'instance de la fenêtre en appelant la fonction @initUI@ décrite plus bas.
+
+\paragraph{La fonction @initUI@}
+
+Cette fonction crée tous les éléments de la fenêtre (le titre et les menus, entre autres).
+
+\paragraph{La fonction @askopenfilename@}
+
+Cette fonction ouvre une boite de dialogue demandant quel fichier ouvrir. La boite de dialogue est incluse dans l'installation de Tkinter.
+Une fois que le fichier a été choisi, la fonction crée la zone où l'image sera affichée.
+
+\paragraph{La fonction @asksaveasfilename@}
+
+Cette fonction ouvre une boite de dialogue demandant où enregistrer le fichier qui a été modifié.
+
+\paragraph{Les fonctions @askcompression@ et @askcompression2@}
+
+Elles servent à ouvrir une boite de dialogue du type @DialogScale@ (défini plus bas) pour demander à l'utilisateur le seuil de compression à utiliser lors de l'appel des fonctions @compression@ ou @compression2@.
+
+
+\paragraph{Les fonctions @compression@ et @compression2@}
+
+Ces fonctions utilisent respectivement les fonctions @haar@ et @fasthaar@ de @ondelettes.py@ pour réaliser la compression de l'image avec le seuil donné par les fonctions @askcompression@ et @askcompression2@. L'ancienne image est ensuite effacée de l'écran et la nouvelle est affichée grâce à @displayimage@;
+
+\paragraph{La fonction @grayscale@}
+
+Elle utilise les fonctions de @ondelettes.py@ pour convertir l'image en nuances de gris.
+
+\paragraph{La fonction @displayimage@}
+
+Elle crée une zone pour afficher la nouvelle image qui a été créée par compression, puis l'affiche dans cette zone.
+
+\paragraph{La fonction @onExit@}
+
+Elle est appelée lors de la fermeture de l'application et est là pour être sûr que tout est fermé correctement.
+
+
+
+\subsubsection{La classe @DialogScale@}
+
+C'est la classe qui définit la boîte de dialogue de compression (Fig.\ref{GUI2}). Elle est construite sur la même base de fenêtre que la classe @Appli@.
+
+\paragraph{La fonction @initUI@}
+
+Cette fonction crée le texte de la boîte de dialogue, le réglette qui permet de choisir la compression, et le bouton <<Ok>>.
+
+\paragraph{La fonction @onScale@}
+
+Elle est appelée lorsque l'utilisateur modifie la position de la réglette. Elle stocke la position de celle-ci en mémoire. 
+
+\paragraph{La fonction @ok@}
+
+Elle est appelée lorsque l'utilisateur clique sur le bouton <<ok>>. Elle sauvegarde la valeur de la position de la réglette, puis ferme la boîte de dialogue.
+
+\subsubsection{La fonction @main@}
+
+Elle crée simplement une instance de la classe @Appli@ et l'exécute.
+
+
+
+\clearpage
 
 \section{Annexes}
 
