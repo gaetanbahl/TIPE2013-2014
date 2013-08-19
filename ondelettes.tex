@@ -16,7 +16,7 @@
 \maketitle
 \tableofcontents
 \listoffigures
-\MakeShortVerb{ § }
+\MakeShortVerb{@}
 \clearpage
 
 \newcommand{\fonction}[5]{\begin{array}{l|rcl}
@@ -719,194 +719,194 @@ La figure \ref{GUI2} montre le sélecteur de seuil, qui apparaît lorsqu'on choi
 
 Ce qui suit est une description du code de tous nos programmes.
 
-\subsection{Le fichier | ondelettes.py | }
+\subsection{Le fichier ondelettes.py }
 
 Dans ce fichier, nous définissons des classes qui permettent le traitement des images. Il peut très bien être utilisé tout seul (sans l'interface graphique). 
 
-\subsubsection{La classe |Matrice| }
+\subsubsection{La classe Matrice }
 
-Au lieu d'utiliser la classe Matrice du module |numpy|, nous avons préféré créer la notre. En effet, nous n'avons pas besoin de toutes les fonctions qu'elle offre. Aussi, nous voulions faire un maximum de choses nous-mêmes.
+Au lieu d'utiliser la classe Matrice du module @numpy@, nous avons préféré créer la notre. En effet, nous n'avons pas besoin de toutes les fonctions qu'elle offre. Aussi, nous voulions faire un maximum de choses nous-mêmes.
 
 \paragraph{La fonction init }
 
 Cette fonction prend en argument la taille de la matrice et le premier élément qu'elle doit contenir pour ensuite créer un tableau de tableaux contenant ce premier élément. Elle enregistre aussi les dimensions de la matrice dans l'objet créé.
 
-\paragraph{La fonction @transpose@ }
+\paragraph{La fonction transpose }
 
 Comme son nom l'indique, elle transforme la matrice en sa transposée. Elle est utilisée lors de la transformation par ondelettes de Haar.
 
-\paragraph{La fonction @add@}
+\paragraph{La fonction add}
 
 Elle permet l'addition de matrices. La matrice sur laquelle est appelée la fonction est replacée par le résultat de l'addition. Elle n'est pas utilisée dans ce programme, mais pour que notre classe soit réutilisable dans d'autres projets, il fallait qu'elle soit créée.
 
-\paragraph{La fonction @multiply@}
+\paragraph{La fonction multiply}
 
 Cette fonction est analogue à la fonction @add@ pour la multiplication.
 
-\paragraph{La fonction @copy@}
+\paragraph{La fonction copy}
 
 Cette fonction transorme la matrice en celle qui est passée en argument.
 
-\paragraph{La fonction @update@}
+\paragraph{La fonction update}
 
 Cette fonction met à jour les dimensions de la matrice si le tableau a changé de taille.
 
-\paragraph{Les fonctions @save@ et @save1@} 
+\paragraph{Les fonctions save et save1} 
 
 Elles permettent de sauvegarder l'état de la matrice dans un tableau auxilliaire.
 
-\paragraph{La fonction @restore@}
+\paragraph{La fonction restore}
 
 Elle remet en place le tableau sauvegardé par la fonction @save@.
 
 
 
 
-\subsubsection{La classe @MatriceImage@}
+\subsubsection{La classe MatriceImage}
 
 Cette classe utilise la classe @Matrice@ pour stocker une image afin de pouvoir travailler dessus. Elle contient également des fonctions de compression et d'enregistrement.
 
-\paragraph{La fonction @init@}
+\paragraph{La fonction init}
 
 Cette fonction prend en argument l'emplacement d'une image et la charge à l'aide de PIL. Elle crée puis remplit une @Matrice@ avec les informations des pixels de l'image (cf. fonction @fill@).
 
-\paragraph{La fonction @fill@}
+\paragraph{La fonction fill}
 
 Cette fonction stocke les pixels de l'image dans la @Matrice@.
 
-\paragraph{Les fonctions @grayscalemean@ et @grayscalemeanmatrix@}
+\paragraph{Les fonctions grayscalemean et grayscalemeanmatrix}
 
 Elles transforment l'image en nuances de gris en remplaçant chaque couleur de chaque pixel par la moyenne des trois composantes RGB du pixel.
 @grayscalemean@ fait l'opération sur l'image directement alors que @grayscalemeanmatrix@ la fait sur la @Matrice@ de l'image.
 
-\paragraph{Les fonctions @getmatrixred@, @getmatrixgreen@ et @getmatrixblue@}
+\paragraph{Les fonctions getmatrixred, getmatrixgreen et getmatrixblue}
 
 Créent des tableaux dans l'objet et les remplissent avec les composantes RGB (respectivement) de l'image. Cela permet de traiter chaque couleur séparément.
 
-\paragraph{La fonction @save@}
+\paragraph{La fonction save}
 
 Elle prend en argument une chaîne de caractère et sauvegarde l'image sous ce nom dans le dossier courant.
 
-\paragraph{La fonction @ondelette\_haar@}
+\paragraph{La fonction ondelette\_{}haar}
 
 Cette fonction prend en argument un tableau de valeurs et le nombre de récursions qu'elle doit faire. Elle renvoie le tableau des coefficients d'approximation ainsi que le tableau des coefficients d'ondelette.
 
-\paragraph{Les fonctions @getcolonne@ et @getligne@}
+\paragraph{Les fonctions getcolonne et getligne}
 
-Ces fonctions servent à récupérer une liste contenant les données d'une colonne/d'une ligne, pour pouvoir ensuite être traitées par la fonction @ondelette\_haar@
+Ces fonctions servent à récupérer une liste contenant les données d'une colonne/d'une ligne, pour pouvoir ensuite être traitées par la fonction ondelette\_{}haar.
 
 
-\paragraph{La fonction @setcolonne@}
+\paragraph{La fonction setcolonne}
 
 Elle permet de remettre une colonne dans une matrice après traitement.
 
-\paragraph{Les fonctions @apply\_haar\_lig@ et @apply\_haar\_col@}
+\paragraph{Les fonctions apply\_{}haar\_{}lig et apply\_{}haar\_{}col}
 
 Ces fonctions appliquent la transformation avec l'ondelette de haar à toutes les lignes/toutes les colonnes d'une matrice.
 
-\paragraph{La fonction @haar\_grayscale@}
+\paragraph{La fonction haar\_{}grayscale}
 
 Cette fonction convertit une image en nuances de gris, puis applique la transformation par ondelettes sur l'image. Elle l'applique d'abord sur les lignes, puis transpose la @Matrice@, puis la réapplique sur les lignes.
 
-\paragraph{La fonction @update@}
+\paragraph{La fonction update}
 
 Elle est similaire à celle qui a été décrite plus haut.
 
-\paragraph{La fonction @create\_coef\_matrix@}
+\paragraph{La fonction create\_{}coef\_{}matrix}
 
 Elle crée les tableaux nécessaires à la mise en mémoire des coefficients d'ondelette de chaque couleur.
 
-\paragraph{La fonction @haar@}
+\paragraph{La fonction haar}
 
-Elle a le même effet que la fonction @haar\_grayscale@, mais elle s'applique aux 3 composantes de l'image.
+Elle a le même effet que la fonction @haar\_{}grayscale@, mais elle s'applique aux 3 composantes de l'image.
 
-\paragraph{La fonction @makeimage@}
+\paragraph{La fonction makeimage}
 
 Cette fonction crée une image à partir des matrices des coefficients d'approximation.
 
-\paragraph{La fonction @compression@}
+\paragraph{La fonction compression}
 
 Cette fonction, une fois que les matrices de coefficients d'ondelette ont été créées, permet de supprimer les coefficients qui sont inférieurs au @epsilon@ passé en paramètre.
 
-\paragraph{Les fonctions @syntheseligne@ et @synthesecolonnes@}
+\paragraph{Les fonctions syntheseligne et synthesecolonnes}
 
 Ces fonctions appliquent la transformation inverse à l'image, à partir des coefficients d'approximation et des coefficients d'ondelette qui ont été conservés par la fonction @compression@.
 
-\paragraph{La fonction @clearimage@}
+\paragraph{La fonction clearimage}
 
 Elle supprime toutes les données d'une image en la remplissant d'une couleur définie.
 
-\paragraph{La fonction @fasthaar@}
+\paragraph{La fonction fasthaar}
 
 Cette fonction permet d'appliquer la transformation par ondelettes sans passer par les matrices. Pour cela elle prend tous les <<carrés>> de 4 pixels d'une image et leur applique la transformation et la compression. Elle est plus rapide que les autres fonctions, mais l'inconvénient est que la récursivité n'est pas permise. Elle est donc utilisée pour compresser légèrement une image. Les résulats restent tout de même impressionnant, puisqu'elle peut faire gagner jusqu'à 45\% d'espace en seulement quelques secondes.
 
 
 
-\subsection{Le fichier @ondelettesGUI.py@}
+\subsection{Le fichier ondelettesGUI.py}
 
 Ce fichier est l'interface graphique du programme, qui requiert le fichier @ondelettes.py@ pour fonctionner. En effet, l'interface graphique n'est qu'une façade pour les fonctions qui ont été décrites plus haut.
 
-\subsubsection{La classe @Appli@}
+\subsubsection{La classe Appli}
 
 Cette classe représente la fenêtre principale de l'application.
 
-\paragraph{La fonction @init@}
+\paragraph{La fonction init}
 
 Cette fonction définit simplement l'instance de la fenêtre en appelant la fonction @initUI@ décrite plus bas.
 
-\paragraph{La fonction @initUI@}
+\paragraph{La fonction initUI}
 
 Cette fonction crée tous les éléments de la fenêtre (le titre et les menus, entre autres).
 
-\paragraph{La fonction @askopenfilename@}
+\paragraph{La fonction askopenfilename}
 
 Cette fonction ouvre une boite de dialogue demandant quel fichier ouvrir. La boite de dialogue est incluse dans l'installation de Tkinter.
 Une fois que le fichier a été choisi, la fonction crée la zone où l'image sera affichée.
 
-\paragraph{La fonction @asksaveasfilename@}
+\paragraph{La fonction asksaveasfilename}
 
 Cette fonction ouvre une boite de dialogue demandant où enregistrer le fichier qui a été modifié.
 
-\paragraph{Les fonctions @askcompression@ et @askcompression2@}
+\paragraph{Les fonctions askcompression et askcompression2}
 
 Elles servent à ouvrir une boite de dialogue du type @DialogScale@ (défini plus bas) pour demander à l'utilisateur le seuil de compression à utiliser lors de l'appel des fonctions @compression@ ou @compression2@.
 
 
-\paragraph{Les fonctions @compression@ et @compression2@}
+\paragraph{Les fonctions compression et compression2}
 
 Ces fonctions utilisent respectivement les fonctions @haar@ et @fasthaar@ de @ondelettes.py@ pour réaliser la compression de l'image avec le seuil donné par les fonctions @askcompression@ et @askcompression2@. L'ancienne image est ensuite effacée de l'écran et la nouvelle est affichée grâce à @displayimage@;
 
-\paragraph{La fonction @grayscale@}
+\paragraph{La fonction grayscale}
 
 Elle utilise les fonctions de @ondelettes.py@ pour convertir l'image en nuances de gris.
 
-\paragraph{La fonction @displayimage@}
+\paragraph{La fonction displayimage}
 
 Elle crée une zone pour afficher la nouvelle image qui a été créée par compression, puis l'affiche dans cette zone.
 
-\paragraph{La fonction @onExit@}
+\paragraph{La fonction onExit}
 
 Elle est appelée lors de la fermeture de l'application et est là pour être sûr que tout est fermé correctement.
 
 
 
-\subsubsection{La classe @DialogScale@}
+\subsubsection{La classe DialogScale}
 
 C'est la classe qui définit la boîte de dialogue de compression (Fig.\ref{GUI2}). Elle est construite sur la même base de fenêtre que la classe @Appli@.
 
-\paragraph{La fonction @initUI@}
+\paragraph{La fonction initUI}
 
 Cette fonction crée le texte de la boîte de dialogue, le réglette qui permet de choisir la compression, et le bouton <<Ok>>.
 
-\paragraph{La fonction @onScale@}
+\paragraph{La fonction onScale}
 
 Elle est appelée lorsque l'utilisateur modifie la position de la réglette. Elle stocke la position de celle-ci en mémoire. 
 
-\paragraph{La fonction @ok@}
+\paragraph{La fonction ok}
 
 Elle est appelée lorsque l'utilisateur clique sur le bouton <<ok>>. Elle sauvegarde la valeur de la position de la réglette, puis ferme la boîte de dialogue.
 
-\subsubsection{La fonction @main@}
+\subsubsection{La fonction main}
 
 Elle crée simplement une instance de la classe @Appli@ et l'exécute.
 
