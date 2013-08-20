@@ -33,7 +33,6 @@ De manière analogue à la théorie des séries de Fourier, les ondelettes sont 
 Le travail suivant fera l’objet du cas particulier de la transformation en ondelettes unidimensionnelle.
 
 
-
 \subsection{Définition 1 : Ondelette}
 
 Une ondelette est d’un point de vue géométrique et schématique une forme d’onde, l’idéalisation d’une note de musique, d’une durée limitée et qui a une valeur moyenne égale à 0. 
@@ -153,7 +152,7 @@ L’ondelette verte a été translatée à partir de l’ondelette rouge (ondele
 
 La transformation en ondelettes discrète qui a été introduite par Morlet se construit à partir de << bases >> de fonctions du type : \\
 
-$\displaystyle f_{t_{0},\Delta{}t}(t) = \frac{1}{\sqrt{\Delta{}t}}f(\frac{t-t_0}{\Delta{}t}) \text{ avec } \Delta{}t > 0, t_0 \in \mathbb{R}$ \\
+$\displaystyle f_{t_{0},\Delta{}t}(t) = \frac{1}{\sqrt{\Delta{}t}}f\left(\frac{t-t_0}{\Delta{}t}\right) \text{ avec } \Delta{}t > 0, t_0 \in \mathbb{R}$ \\
 
 $\Delta{}t$ peut être choisi << géométriquement >>; les paramètres de translations $t_0$ et $\Delta{}t$ son proportionnels (c'est-à-dire $\exists k \in \mathbb{R}, t_0 = k\cdot{}\Delta{}t$).
 
@@ -172,7 +171,7 @@ La transformation en ondelettes discrète est presque naturellement associée à
 Une famille d’ondelettes par exemple couramment utilisée dans la transformation en ondelettes discrète est la famille infinie des ondelettes orthogonales de Daubechies : c’est une des familles d’ondelettes les plus performantes.
 
 
-\section{la théorie de l'analyse multirésolution, outil pour la construction de bases d'ondelettes}
+\section{La théorie de l'analyse multirésolution, un outil pour la construction de bases d'ondelettes}
 
 Pour construire des bases d'ondelettes orthonormées, les théoriciens Mallat et Meyer ont introduit la notion d'analyse multirésolution.
 
@@ -181,15 +180,15 @@ Pour construire des bases d'ondelettes orthonormées, les théoriciens Mallat et
 Une analyse multirésolution est une suite $\{V_k\}_{k\in\mathbb{Z}}$ de sous-espaces fermés de $\mathcal{L}^2(\mathbb{R})$ tels que : \\
 
 \begin{itemize}
-\item $\forall{}(k,l) \in \mathbb{Z}^2, f \in V_k \leftrightarrow f(\cdot - 2^{k}l) \in V_k $ (propriété d'invariance par translation)
+\item $\forall{}(k,l) \in \mathbb{Z}^2, f \in V_k \Leftrightarrow f(\cdot - 2^{k}l) \in V_k $ (propriété d'invariance par translation)
 
 \item $\forall k \in \mathbb{Z}, V_{k+1} \subset V_k$
 
-\item $\forall k \in \mathbb{Z}, f \in V_k \leftrightarrow f(\frac{\cdot}{2}) \in V_{k+1}$
+\item $\forall k \in \mathbb{Z}, f \in V_k \Leftrightarrow f(\frac{\cdot}{2}) \in V_{k+1}$
 
-\item $\displaystyle \lim_{j \to \infty} V_k = \bigcap{}_{k\in\mathbb{Z}}V_k = \emptyset $
+\item $\displaystyle \lim_{j \to \infty} V_k = \bigcap_{k\in\mathbb{Z}}V_k = \textrm{Ø} $
 
-\item $\displaystyle \lim_{j \to -\infty} V_k = \overline{\bigcap{}_{k\in\mathbb{Z}}V_k} = \mathcal{L}^2(\mathbb{R}) $ où la notation $\bar{A}$ désigne l'adhérence de $A$.
+\item $\displaystyle \lim_{j \to -\infty} V_k = \overline{\bigcap_{k\in\mathbb{Z}}V_k} = \mathcal{L}^2(\mathbb{R}) $ où la notation $\bar{A}$ désigne l'adhérence de $A$.
 
 \item $\exists\phi, \{\phi(\cdot - n)\}_{n \in \mathbb{Z}}$ forme une base orthonormée de $V_0$. $\phi$ est appelée fonction d'échelle associée à l'analyse multirésolution
 \end{itemize}
@@ -198,14 +197,13 @@ Une analyse multirésolution est une suite $\{V_k\}_{k\in\mathbb{Z}}$ de sous-es
 
 La fonction $\phi$ permet notamment la connaissance de la suite $\{V_k\}_{k\in\mathbb{Z}}$ et ainsi la déduction d'une base orthonormée de $V_k$ pour tout $k \in \mathbb{Z}$. On peut alors définir une ondelette associée à l'analyse multirésolution : il s'agira de toute fonction $\psi$ qui forme avec ses translatées entières une base orthonormée de $W_0$, supplémentaire orthogonal de $V_1$ dans $V_0$. En effet, il découle de la définition de $W_k$ que $\displaystyle \mathcal{L}^2(\mathbb{R}) = \overline{\bigoplus{}_{k\in\mathbb{Z}}W_k}$. \\
 
-Par suite, la famille $\displaystyle \{\frac{1}{\sqrt{2^m}}\psi(\frac{\cdot - 2^{m}n}{2^m})\}_{(m,n)\in\mathbb{Z}^2}$ forme une base orthonormée de $\mathcal{L}^2(\mathbb{R})$.
+Par suite, la famille $ \left\{ {\displaystyle \frac{1}{\sqrt{2^{m}}}\psi\left(\frac{.-2^{m}n}{2^{m}}\right)}\right\}$ forme une base orthonormée de $\mathcal{L}^2(\mathbb{R})$.
 
-Les espaces $W_k$ pour $k\in\mathbb{Z}$ sont appelés espaces des détails. Ils ne forment pas une famille d'espaces emboîtés mais les propriétés d'échelles et d'invariance par translation sont conservées. En effet, pour $k \in \mathbb{Z}, X_{k-1}$ est orthogonal à $V_{k-1}$, d'où $W_{k-1}$ orthogonal à $W_k$ en vertu de l'égalité $\displaystyle \mathcal{L}^2(\mathbb{R}) = \overline{\bigoplus{}_{k\in\mathbb{Z}}W_k}$.
-
-
+Les espaces $W_k$ pour $k\in\mathbb{Z}$ sont appelés espaces des détails. Ils ne forment pas une famille d'espaces emboîtés mais les propriétés d'échelles et d'invariance par translation sont conservées. En effet, pour $k \in \mathbb{Z}, W_{k-1}$ est orthogonal à $V_{k-1}$, d'où $W_{k-1}$ orthogonal à $W_k$ en vertu de l'égalité $\displaystyle \mathcal{L}^2(\mathbb{R}) = \overline{\bigoplus{}_{k\in\mathbb{Z}}W_k}$.
 
 
-\section{Algorithme de decomposition en ondelettes de Stephane Mallat (1989)}
+
+\section{Algorithme de décomposition en ondelettes de Stéphane Mallat (1989)}
 
 \subsection{Principe}
 
@@ -239,7 +237,7 @@ De plus, pour $p \in \mathbb{N}$, on a $\mathbb{K}_{0} \subset \mathbb{K}_{1} \s
 
 Soit la fonction définie par \[
  h_{p,k}(x) = \begin{dcases*}
-        1 \text{ si } x \in I_{k} = [ \frac{k}{2^p},\frac{k+1}{2^p}[ \\ 
+        1 \text{ si } x \in I_{k} = [\frac{k}{2^p},\frac{k+1}{2^p}] \\ 
         0 \text{ sinon }
         \end{dcases*}
  = h(2^{p}x - k) \] (avec $h$ définie comme la fonction de Haar mais associant 1 quel que soit $x \in [0,1]$.). \\
@@ -254,7 +252,6 @@ On a bien $\forall x \in [0,1[, f(x) = f_0 \times \begin{cases} 1 \text{ si } x 
 f_{2^p - 1} \times \begin{cases} 1 \text{ si } x \in I_{2^p - 1} \\ 0 \text{ sinon } \end{cases} $.\\
 
 D'où $(h_{p,0},h_{p,1},...,h_{p,2^p -1})$ est une base de $\mathbb{K}_p$.\\
-
 
 
 Avec $F(\mathbb{R},\mathbb{R})$ muni du produit scalaire défini en \textit{définition 2}, on a : \\
@@ -293,7 +290,6 @@ Alors $F$ admet un supplémentaire orthogonal dans $E$ et ce supplémentaire est
 
 \begin{itemize}
 
-
 \item Si $F = \{0_E\}$, on a $E = F \oplus E$ de manière immédiate. De plus, si $y \in F, y = 0_E$ et $\forall x \in E, \langle x|0_E \rangle = 0 $. D'où E est un supplémentaire orthogonal à $F$. \\
 
 \item Si $F = E$, par un raisonnement analogue, on trouve que $\{0_E\}$ est un supplémentaire orthogonal à $F$. \\
@@ -304,15 +300,15 @@ L'ensemble $F^{\perp} = \{ x \in E | \forall y \in F, \langle x|y \rangle = 0 \}
 
 Soit $x \in E$.
 
-$\exists (\lambda{}_{1}, ..., \lambda{}_{p}) \in \mathbb{R}^p , x = \sum_{k = 1}^{p} \lambda{}_{k}e_k + (x - \sum_{k = 1}^{p} \lambda{}_{k}e_k)$
+$\exists (\lambda{}_{1}, ..., \lambda{}_{p}) \in \mathbb{R}^p , x =\displaystyle \sum_{k = 1}^{p} \lambda{}_{k}e_k + (x - \sum_{k = 1}^{p} \lambda{}_{k}e_k)$
 
 Or le premier vecteur de la somme est dans $F$. Donc le second entre parenthèses appartient à $F^{\perp}$ si et seulement si 
 
-$\displaystyle \forall k \in [|1,p|], \langle e_k | x - \sum_{k = 1}^{p}\lambda{}_{k}e_k \rangle = 0$, c'est-à-dire $\lambda_{k} = \langle e_k | x \rangle$
+$\displaystyle \forall k \in [|1,p|], \langle e_k | x -\displaystyle \sum_{k = 1}^{p}\lambda{}_{k}e_k \rangle = 0$, c'est-à-dire $\lambda_{k} = \langle e_k | x \rangle$
 
 Avec $x$ écrit de la manière suivante, on établit ainsi que  $E = F + F^{\perp}$.
 
-$\displaystyle x = \sum_{k = 1}^p \langle e_k | x \rangle{}\cdot{}e_k + (x - \sum_{k = 1}^p \langle e_k | x \rangle{}\cdot{})$
+$\displaystyle x = \sum_{k = 1}^p \langle e_k | x \rangle{}\cdot{}e_k + (x - \sum_{k = 1}^p \langle e_k | x \rangle{}\cdot{}e_k)$
 
 On a aussi immédiatement $F \cap F^{\perp} = \{0_E\}$, ce qui établit $E = F \oplus F^{\perp}$ et ainsi l'existence d'un supplémentaire orthogonal à $F$ 
 \end{itemize}
@@ -358,7 +354,7 @@ De plus, on a :
 
 \begin{align*}
  \langle h_{p,k}|H_{p,k'} \rangle &= \int_{0}^1 h_{p,k}(x)\cdot{}H_{p,k'}(x)\cdot{dx} \\
-&= \int_{0}^{x_k} 0dx + \int_{x_k}^{x_{k+1}} 1\cdot{}H_{p,k}(x)dx + \int_{x_{k+1}^1} 0\cdot{}dx \\
+&= \int_{0}^{x_k} 0dx + \int_{x_k}^{x_{k+1}} 1\cdot{}H_{p,k}(x)dx + \int_{x_{k+1}}^{1} 0\cdot{}dx \\
 &= \int_{x_{k'}}^{\frac{x_{k'} + x_{k'+1} }{2}} 1dx + \int_{\frac{x_{k'} + x_{k'+1} }{2}}^{x_{k'+1}} -1dx \\
 &= 0 . \\
 \end{align*}
@@ -379,14 +375,14 @@ Puisque $\mathbb{K}_{p} = \mathbb{K}_{p-1} \oplus \mathbb{S}_{p-1}, \exists{}!(\
 
 Et on peut décomposer $\Psi{}_{p-1}$ et $d_{p-1}$ comme suit :
 
-$\displaystyle \Psi{}_{p-1} = \sum_{k=0}^{2^p - 1} \Psi{}_{p-1,k}h_{p-1,k}$ et $d_{p-1} = \sum_{k=0}^{2^p - 1} d_{p-1,k}H_{p-1,k}$. \\
+$\displaystyle \Psi{}_{p-1} = \sum_{k=0}^{2^p - 1} \Psi{}_{p-1,k}h_{p-1,k}$ et $d_{p-1} =\displaystyle \sum_{k=0}^{2^p - 1} d_{p-1,k}H_{p-1,k}$. \\
 
 \subsubsection{\uppercase{é}tape principale de l'algorithme : passage à la résolution inférieure, détermination des coefficients à la résolution inférieure.}
 
 -Déterminons les $\Psi{}_{p-1,k}$ et $d_{p-1,k}$ :
 
 \paragraph{Premières égalités}
-L'orthogonalité de la base $(h_{p,1},h_{p,0},...,h_{p,2^p - 1},H_{p,0},H_{p,1},...,H_{p,2^p - 1})$ avec $\Psi{}_{p} = \Psi{}_{p-1} + d_{p-1}$ et les résultats précédents sur les produits scalaires amène à : $\langle \Psi{}_{p}|h_{p-1,k} \rangle = \frac{\Psi{}_{p-1,k}}{2^{p-1}}$ et $\langle \Psi{}_{p}|H_{p-1,k} \rangle = \frac{d_{p-1,k}}{2^{p-1}}$. \\
+L'orthogonalité de la base $(h_{p,1},h_{p,0},...,h_{p,2^p - 1},H_{p,0},H_{p,1},...,H_{p,2^p - 1})$ avec $\Psi{}_{p} = \Psi{}_{p-1} + d_{p-1}$ et les résultats précédents sur les produits scalaires amène à : \fbox{$\langle \Psi{}_{p}|h_{p-1,k} \rangle = \frac{\Psi{}_{p-1,k}}{2^{p-1}}$ }et \fbox{$\langle \Psi{}_{p}|H_{p-1,k} \rangle = \frac{d_{p-1,k}}{2^{p-1}}$}. \\
 
 \subparagraph*{Démonstration} 
 
@@ -400,19 +396,19 @@ Et on a
 \begin{align*} \displaystyle
  \langle\Psi{}_{p}|H_{p-1,k} \rangle &= \langle \Psi{}_{p-1}|H_{p-1}\rangle + \langle d_{p-1}|h_{p-1,k} \rangle  \\
 &= \sum_{i=0}^{2^{p-1}-1} \Psi{}_{p-1,i}\langle h_{p-1,i}|H_{p-1,k}\rangle + \sum_{i \neq k}d_{p-1,i}\langle{}H_{p-1,i}|H_{p-1,k} \rangle + d_{p-1,k}\langle{}H_{p-1,k}|H_{p-1,k}\rangle  \\
-&= \sum_{i=0}^{2^{p-1}-1}\Psi{}_{p-1,i}\cdot{}0 + \sum_{i \neq k}d_{p-1,i}\cdot{}0 + d_{p-1,k}\langle{}H_{p-1,k}|H_{p-1,k} \\ &= \frac{d_{p-1,k}}{2^{p-1}}
+&= \sum_{i=0}^{2^{p-1}-1}\Psi{}_{p-1,i}\cdot{}0 + \sum_{i \neq k}d_{p-1,i}\cdot{}0 + d_{p-1,k}\langle{}H_{p-1,k}|H_{p-1,k}\rangle \\ &= \frac{d_{p-1,k}}{2^{p-1}}
 \end{align*} \\
 
 \paragraph{Secondes égalités}
 
-D'autre part, on peut montrer $\displaystyle \langle{}\Psi{}_{p}|h_{p-1,k}\rangle = \frac{\Psi{}_{p,2k} + \Psi{}_{p,2k + 1} }{2^p}$ et $\displaystyle \langle{}\Psi{}_{p}|H_{p-1,k}\rangle = \frac{\Psi{}_{p,2k} - \Psi{}_{p,2k + 1} }{2^p}$ \\
+D'autre part, on peut montrer \fbox{$\displaystyle \langle{}\Psi{}_{p}|h_{p-1,k}\rangle = \frac{\Psi{}_{p,2k} + \Psi{}_{p,2k + 1} }{2^p}$} et \fbox{$\displaystyle \langle{}\Psi{}_{p}|H_{p-1,k}\rangle = \frac{\Psi{}_{p,2k} - \Psi{}_{p,2k + 1} }{2^p}$} \\
 
 
 \subparagraph*{Démonstration} 
 
 On a $\displaystyle \langle{}h_{p,k}|h_{p-1,k'}\rangle = \int_0^1 h_{p,k}(x)\cdot{}h_{p-1,k'}(x)\cdot{}dx = \int_{x_k}^{x_{k+1}}h_{p-1,k'}(x)\cdot{}dx$ \\
 
-Or, on sait par définition que \[ h_{p-1,k'}(x)= \begin{dcases} 1 \text{ si }x \in [\frac{k'}{2^{p-1}};\frac{k'+1}{2^{p-1}}] \\
+Or, on sait par définition que \[ h_{p-1,k'}(x)= \begin{dcases} 1 \text{ si }x \in [\frac{k'}{2^{p-1}};\frac{k'+1}{2^{p-1}} ] \\
 0 \text{ sinon } \end{dcases} \]\\
 D'où :
 \[ \begin{dcases}
@@ -422,11 +418,11 @@ D'où :
 \end{dcases} \]
 
 On a de même \\
- $\displaystyle \langle{}h_{p,k}|H_{p-1,k'}\rangle = \int_0^{1}h_{p,k}(x)\cdot{}H_{p-1,k'}(x)\cdot{}dx = \int_{x_k}^{}x_{k+1}H_{p-1,k'}(x)\cdot{}dx$
+ $\displaystyle \langle{}h_{p,k}|H_{p-1,k'}\rangle = \int_0^{1}h_{p,k}(x)\cdot{}H_{p-1,k'}(x)\cdot{}dx = \int_{x_k}^{x_{k+1}}H_{p-1,k'}(x)\cdot{}dx$
 
 On sait par définition que \[ H_{p-1,k'}(x) = \begin{dcases} 
-1 \text{ si } x \in [\frac{k'}{2^{p-1}};\frac{k'+\frac{1}{2}}{2^{p-1}}] \\
--1 \text{ si } x \in [\frac{k'+\frac{1}{2}}{2^{p-1}};\frac{k'+1}{2^{p-1}} \\
+1 \text{ si } x \in [\frac{k'}{2^{p-1}};\frac{k'+\frac{1}{2}}{2^{p-1}} ] \\
+-1 \text{ si } x \in []\frac{k'+\frac{1}{2}}{2^{p-1}};\frac{k'+1}{2^{p-1}} ] \\
 0 \text{ sinon }
 \end{dcases}
 \] D'où :
@@ -434,18 +430,18 @@ On sait par définition que \[ H_{p-1,k'}(x) = \begin{dcases}
 \[ \begin{dcases}
 \langle{}h_{p,k}|H_{p-1,k'}\rangle = \int_{x_k}^{x_{k+1}}1\cdot{}dx = \frac{1}{2^p} \text{ si } \frac{k'}{2^{p-1}} \leq x_k \leq x_{k+1} \leq \frac{k'+\frac{1}{2}}{2^{p-1}}, \text{ ou encore } k = 2k' \\
 \langle{}h_{p,k}|H_{p-1,k'}\rangle = \int_{x_k}^{x_{k+1}}-1\cdot{}dx = -\frac{1}{2^p} \text{ si } \frac{k'+\frac{1}{2}}{2^{p-1}} \leq x_k \leq x_{k+1} \leq \frac{k'+1}{2^{p-1}}, \text{ soit } k = 2k'+1 \\
-\langle{}h_{p,k}|H_{p-1,k'}\rangle = \int_{x_k}^{x_{k+1}}0\cdot{}dx = 0 si k \notin \{2k',2k'+1\}
+\langle{}h_{p,k}|H_{p-1,k'}\rangle = \int_{x_k}^{x_{k+1}}0\cdot{}dx = 0 \text{ si } k \notin \{2k',2k'+1\}
 \end{dcases}
 \]
 
 \uppercase{à} partir de cela, il est facile de décomposer comme suit et d'obtenir les résultats :
 
 \begin{itemize}
-\item \begin{align*}\displaystyle \langle \Psi{}_{p}|h_{p-1,k}\rangle &=  \langle \sum_{k=0}^{2^{p-1}}\Psi{}_{p,k}h_{p,k}|h_{p-1,k}\rangle \\ &=  \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle + \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle  \\ 
+\item \begin{align*}\displaystyle \langle \Psi{}_{p}|h_{p-1,k}\rangle &=  \langle \sum_{k=0}^{2^{p}-1}\Psi{}_{p,k}h_{p,k}|h_{p-1,k}\rangle \\ &=  \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle + \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle  \\ 
 &= 0 + \Psi{}_{p,2k}\cdot{}\frac{1}{2^p} + \Psi{}_{p,2k+1}\cdot{}\frac{1}{2^p} 
 \end{align*} 
 
-\item \begin{align*} \displaystyle \langle \Psi{}_{p}|H_{p-1,k}\rangle &= \langle \sum_{k=0}^{2^{p-1}}\Psi{}_{p,k}h_{p,k}|H_{p-1,k}\rangle \\ &= 
+\item \begin{align*} \displaystyle \langle \Psi{}_{p}|H_{p-1,k}\rangle &= \langle \sum_{k=0}^{2^{p}-1}\Psi{}_{p,k}h_{p,k}|H_{p-1,k}\rangle \\ &= 
  \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|H_{p-1,k}\rangle + \sum_{i\notin{}\{2k',2k'+1\}}\Psi{}_{p,i}\langle{}h_{p,i}|h_{p-1,k}\rangle  \\ 
 &= 0 + \Psi{}_{p,2k}\cdot{}\frac{1}{2^p} + \Psi{}_{p,2k+1}\cdot{}\frac{-1}{2^p}
 \end{align*} \\
@@ -470,7 +466,7 @@ $$ \underbrace{\mathbb{K}_p}_{\text{Signal à la résolution } 2^p}
 L’intérêt principal de cet algorithme est qu’il permet de passer d’un échantillon de taille $2^p$ à un nouvel échantillon principal de taille $2^{p-1}$ et un échantillon de taille $2^{p-1}$ en utilisant que des sommes ou des différences.
 
 
-\subsection{Shématisation de l'algorithme de Mallat (compression d'un signal $\Psi{}_{p}$ par des ondelettes)} 
+\subsection{Schématisation de l'algorithme de Mallat (compression d'un signal $\Psi{}_{p}$ par des ondelettes)} 
 
 \begin{tabular}{cccc}
            &             & Etape 1      & \\
@@ -508,19 +504,19 @@ Les équations d’échelle (c’est-à-dire le passage d’une résolution à l
 0 & \frac{1}{2} & 0 & \frac{1}{2} \\
 0 & \frac{1}{2} & 0 & -\frac{1}{2}
 \end{pmatrix}
-\] est la matrice 4*4 associée à l’algorithme utilisant les ondelettes de Haar.
+\] est la matrice $4*4$ associée à l’algorithme utilisant les ondelettes de Haar.
 
 On retrouve bien le fait que les deux premières colonnes (moitié gauche) représentent l’échantillon principal et que les deux dernières colonnes (moitié droite) de la matrice symbolisent les détails.
 
 \[H_3 = \begin{pmatrix}
-\frac{1}{2} & 0 & 0 & 0 \frac{1}{2} & 0 & 0 & 0 \\
-\frac{1}{2} & 0 & 0 & 0 -\frac{1}{2} & 0 & 0 & 0\\
+\frac{1}{2} & 0 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 \\
+\frac{1}{2} & 0 & 0 & 0 & -\frac{1}{2} & 0 & 0 & 0\\
 0 & \frac{1}{2} & 0 & 0 & 0 & \frac{1}{2} &0 & 0 \\
 0 & \frac{1}{2} & 0 & 0 & 0 & -\frac{1}{2} & 0 & 0 \\
-0 & 0 & \frac{1}{2} & 0 & 0 & 0 \frac{1}{2} & 0 \\ 
-0 & 0 & \frac{1}{2} & 0 & 0 & 0 -\frac{1}{2} & 0 \\ 
-0 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 \frac{1}{2} \\ 
-0 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 -\frac{1}{2} 
+0 & 0 & \frac{1}{2} & 0 & 0 & 0 & \frac{1}{2} & 0 \\ 
+0 & 0 & \frac{1}{2} & 0 & 0 & 0 & -\frac{1}{2} & 0 \\ 
+0 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 & \frac{1}{2} \\ 
+0 & 0 & 0 & \frac{1}{2} & 0 & 0 & 0 & -\frac{1}{2} 
 \end{pmatrix}
 \] est la matrice 8*8 associée à l'algorithme de Mallat.
 
@@ -530,7 +526,7 @@ L’intérêt du choix de telles matrices réside dans leur adaptation pour la m
 
 \subsubsection{Exemple}
 
-On nomme $M_2$ une matrice 4*4 quelconque associée à une famille de pixels.
+On nomme $M_2$ une matrice $4*4$ quelconque associée à une famille de pixels.
 
 \[ M_2 = \begin{pmatrix}
  a & b & c & d \\
@@ -553,7 +549,7 @@ On obtient \[ M_1 = M_1 \times H_2 =
 
 On obtient alors en première moitié verticale de la matrice le nouvel échantillon principal et en seconde moitié les coefficients représentants les nouveaux détails.
 
-On réitère ensuite le processus et on obtient finalement à partir d’une matrice initiale de pixels $M_p$ les matrices $M_(p-1), M_(p-2),… M_1, M_0$ avec la relation de récurrence $M_(k-1) = M_k \times H_p (k \in \{p,p-1,…,1\}$ et $H_p$ désigne la matrice carrée $2^p \times 2^p$ spécifique à l’algorithme de Haar, choisie de telle sorte que son nombre $p$ de colonnes et de lignes soit celui des colonnes et lignes de la matrice initiale de pixels). 
+On réitère ensuite le processus et on obtient finalement à partir d’une matrice initiale de pixels $M_p$ les matrices $M_{p-1}, M_{p-2},… M_1, M_0$ avec la relation de récurrence $M_{k-1} = M_k \times H_p (k \in \{p,p-1,…,1\}$ et $H_p$ désigne la matrice carrée $2^p * 2^p$ spécifique à l’algorithme de Haar, choisie de telle sorte que son nombre $p$ de colonnes et de lignes soit celui des colonnes et lignes de la matrice initiale de pixels). 
 
 En reprenant l’exemple précédent, il resterait à calculer $M_0 = M_1 \times H_2$.
 
@@ -565,7 +561,7 @@ On obtiendrait \[ M_0 = \begin{pmatrix}
 \end{pmatrix}
 \]
 
-Mais en pratique, pour chaque matrice $M_k$)calculée, on ne garde que les coefficients supérieurs à une certaine précision choisie $\epsilon$ on effectue une \emph{compression}. Les coefficients d’ondelettes inférieurs à cette précision sont remplacés par des 0.
+Mais en pratique, pour chaque matrice $M_k$ calculée, on ne garde que les coefficients supérieurs à une certaine précision choisie $\epsilon$ on effectue une \emph{compression}. Les coefficients d’ondelettes inférieurs à cette précision sont remplacés par des 0.
 Lors de l’étape inverse de \emph{décompression} ou synthèse, pour réobtenir la matrice initiale $M_p$, il suffit de calculer les nouvelles matrices $M'_1,M'_2,…,M'_p$ par la relation de récurrence suivante :
 
 $M'_{k+1} = M'_{k} \times (H_{p})^{-1}$, avec $k \in \{0,1,\dots{},p-1\}, (H_p)^{-1}$ désigne la matrice inverse de $H_p$ et $M'_0 = M_0$
@@ -645,9 +641,6 @@ La figure \ref{chat1} montre l'image à laquelle nous avons appliqué la compres
 \label{chat1}
 \end{figure}
 
-
-
-
 La figure \ref{chat2} représente l'image une fois que la compression a été appliquée avec un seuil assez petit pour garder la plupart des détails importants de l'image mais assez grand pour compresser les <<aplats>> de couleur, les ombres, etc. L'image compressée occupe 35\% de mémoire en moins par rapport à l'image de départ. Ce qui montre que la compression par ondelettes est plutôt efficace et que notre algorithme est fonctionnel.
 
 \begin{figure}[!ht]
@@ -656,8 +649,6 @@ La figure \ref{chat2} représente l'image une fois que la compression a été ap
 \caption{L'image compressée}
 \label{chat2}
 \end{figure}
-
-
 
 Sur la figure \ref{chat3}, on peut voir l'image compressé avec le seuil maximal. Ici, tous les détails ont été éliminés. Cela revient simplement à diviser la résolution de l'image par deux.
 
@@ -685,7 +676,6 @@ L'application graphique que nous avons créée permet plusieurs choses :
 \end{itemize}
 
 La figure \ref{GUI} montre la fenêtre principale de l'application, avec une image en cours d'édition. L'interface est minimaliste, mais suffisante.
-
 
 
 \begin{figure}[!hb]
@@ -716,7 +706,6 @@ La figure \ref{GUI2} montre le sélecteur de seuil, qui apparaît lorsqu'on choi
 
 
 \cleardoublepage
-
 
 \subsection{L'algorithme fasthaar}
 
@@ -905,10 +894,6 @@ La figure \ref{bench1} représente le temps de traitement d'une image (en second
 \end{center}
 \end{figure}
 
-
-
-
-
 \clearpage
 
 \section{Description du code}
@@ -954,8 +939,6 @@ Elles permettent de sauvegarder l'état de la matrice dans un tableau auxilliair
 \paragraph{La fonction restore}
 
 Elle remet en place le tableau sauvegardé par la fonction @save@.
-
-
 
 
 \subsubsection{La classe MatriceImage}
@@ -1034,8 +1017,7 @@ Elle supprime toutes les données d'une image en la remplissant d'une couleur d�
 
 \paragraph{La fonction fasthaar}
 
-Cette fonction permet d'appliquer la transformation par ondelettes sans passer par les matrices. Pour cela elle prend tous les <<carrés>> de 4 pixels d'une image et leur applique la transformation et la compression. Elle est plus rapide que les autres fonctions, mais l'inconvénient est que la récursivité n'est pas permise. Elle est donc utilisée pour compresser légèrement une image. Les résulats restent tout de même impressionnant, puisqu'elle peut faire gagner jusqu'à 45\% d'espace en seulement quelques secondes.
-
+Cette fonction permet d'appliquer la transformation par ondelettes sans passer par les matrices. Pour cela elle prend tous les <<carrés>> de 4 pixels d'une image et leur applique la transformation et la compression. Elle est plus rapide que les autres fonctions, mais l'inconvénient est que la récursivité n'est pas permise. Elle est donc utilisée pour compresser légèrement une image. Les résulats restent tout de même impressionnants puisqu'elle peut faire gagner jusqu'à 45\% d'espace en seulement quelques secondes.
 
 
 \subsection{Le fichier ondelettesGUI.py}
@@ -1056,17 +1038,16 @@ Cette fonction crée tous les éléments de la fenêtre (le titre et les menus, 
 
 \paragraph{La fonction askopenfilename}
 
-Cette fonction ouvre une boite de dialogue demandant quel fichier ouvrir. La boite de dialogue est incluse dans l'installation de Tkinter.
+Cette fonction ouvre une boîte de dialogue demandant quel fichier ouvrir. La boite de dialogue est incluse dans l'installation de Tkinter.
 Une fois que le fichier a été choisi, la fonction crée la zone où l'image sera affichée.
 
 \paragraph{La fonction asksaveasfilename}
 
-Cette fonction ouvre une boite de dialogue demandant où enregistrer le fichier qui a été modifié.
+Cette fonction ouvre une boîte de dialogue demandant où enregistrer le fichier qui a été modifié.
 
 \paragraph{Les fonctions askcompression et askcompression2}
 
-Elles servent à ouvrir une boite de dialogue du type @DialogScale@ (défini plus bas) pour demander à l'utilisateur le seuil de compression à utiliser lors de l'appel des fonctions @compression@ ou @compression2@.
-
+Elles servent à ouvrir une boîte de dialogue du type @DialogScale@ (défini plus bas) pour demander à l'utilisateur le seuil de compression à utiliser lors de l'appel des fonctions @compression@ ou @compression2@.
 
 \paragraph{Les fonctions compression et compression2}
 
@@ -1085,14 +1066,13 @@ Elle crée une zone pour afficher la nouvelle image qui a été créée par comp
 Elle est appelée lors de la fermeture de l'application et est là pour être sûr que tout est fermé correctement.
 
 
-
 \subsubsection{La classe DialogScale}
 
 C'est la classe qui définit la boîte de dialogue de compression (Fig.\ref{GUI2}). Elle est construite sur la même base de fenêtre que la classe @Appli@.
 
 \paragraph{La fonction initUI}
 
-Cette fonction crée le texte de la boîte de dialogue, le réglette qui permet de choisir la compression, et le bouton <<Ok>>.
+Cette fonction crée le texte de la boîte de dialogue, la réglette qui permet de choisir la compression, et le bouton <<Ok>>.
 
 \paragraph{La fonction onScale}
 
@@ -1105,7 +1085,6 @@ Elle est appelée lorsque l'utilisateur clique sur le bouton <<ok>>. Elle sauveg
 \subsubsection{La fonction main}
 
 Elle crée simplement une instance de la classe @Appli@ et l'exécute.
-
 
 
 \subsection{Le fichier bench.py}
@@ -1153,6 +1132,7 @@ Elle appelle la fonction @bench_square@ sur un tableau de nombres allant de 1 à
 \subsection{Fichier client.py}
 \lstinputlisting{client.py}
 
+
 \section{Liens}
 
 \begin{itemize}
@@ -1168,3 +1148,4 @@ Elle appelle la fonction @bench_square@ sur un tableau de nombres allant de 1 à
 \item Source http://www.cmi.univ-mrs.fr/\textasciitilde{}melot/Master2/TPsignal\_PS.html
 \end{itemize}
 \end{document}
+
