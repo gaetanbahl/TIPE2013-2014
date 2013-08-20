@@ -8,6 +8,8 @@
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{mathtools}
+\usepackage{soul}
+\usepackage{color}
 
 \title{TIPE: Introduction à la théorie des ondelettes}
 \author{Xavier Friederich et Gaétan Bahl}
@@ -715,6 +717,188 @@ La figure \ref{GUI2} montre le sélecteur de seuil, qui apparaît lorsqu'on choi
 
 \cleardoublepage
 
+
+\subsection{L'algorithme fasthaar}
+
+Nous avons mis au point un autre algorithme de compression n'utilisant pas de matrices. Celui-ci est plus rapide et moins gourmand en mémoire que @haar@, mais l'inconvénient est qu'il il ne permet pas de sauvegarder les coefficients d'ondelettes.
+
+\subsubsection{Fonctionnement}
+
+L'algorithme découpe l'image en carrés de 4 pixels, qu'il va traiter à la suite, colonne par colonne. Comme montré sur la figure \ref{algo}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.8]{minichat.jpg}
+\caption{Fonctionnement de l'algorithme}
+\label{algo}
+\end{figure}
+
+\paragraph{Analyse :}
+
+Pour chaque carré de 4 pixels, l'algorithme applique la transformation par ondelettes discrète. On commence par stocker les valeurs RGB des 4 pixels dans un tableau. Nous allons, pour l'exemple, utiliser les 4 pixels mis en valeur sur la figure \ref{algo}. Le tableau créé est montré par la figure \ref{tab1}.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+171    & 147   &   137  & 109 &   109  & 86   \\ 
+\hline
+169    & 140   &   135  & 102 &   107  & 79 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau créé par l'algorithme}
+\label{tab1}
+\end{figure}
+
+
+L'algorithme remplace ensuite les valeurs des colonnes de gauche de chaque couleur par la moyenne  de chaque ligne et les valeurs des colonnes de droite par la différence divisée par deux. Ce qui nous donne le tableau de la figure \ref{tab2}. Les coefficients d'ondelette sont surlignés.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+160    & \hl{11}   &   123  & \hl{14} &   97.5  & \hl{11.5}   \\ 
+\hline
+154.5    & \hl{14.5}   &   118.5  & \hl{16.5} &   93  & \hl{14} \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après l'étape 1}
+\label{tab2}
+\end{figure}
+
+
+Enfin, l'algorithme remplace la case en haut à gauche de chaque couleur par la moyenne des lignes et la case en bas à gauche par la différence divisée par deux. Le résultat est montré par la figure \ref{tab3}.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157.25    & \hl{11}   &   120.75  & \hl{14} &   95.25  & \hl{11.5}   \\ 
+\hline
+\hl{2.75}    & \hl{14.5}   &   \hl{2.25}  & \hl{16.5} &   \hl{2.25}  & \hl{14} \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après l'étape 2}
+\label{tab3}
+\end{figure}
+
+
+
+\paragraph{Compression et synthèse :}
+
+Après la phase d'analyse vient la phase de compression. On va supprimer les coefficients d'ondelettes inférieurs à un certain seuil. Pour l'exemple, nous allons choisir un seuil de 12.
+
+Après compression, le tableau est celui de la figure \ref{tab4}.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157.25    & \hl{0}   &   120.75  & \hl{14} &   95.25  & \hl{0}   \\ 
+\hline
+\hl{0}    & \hl{14.5}   &   \hl{0}  & \hl{16.5} &   \hl{0}  & \hl{14} \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après compression}
+\label{tab4}
+\end{figure}
+
+Ensuite, l'algorithme reconstitue l'image avec les coefficients restants. On effectue d'abord pour la colonne de gauche de chaque couleur une addition pour retrouver le coefficient du haut, et une soustraction pour le coefficient du bas. Ce qui nous donne le tableau de la figure \ref{tab5}. Puisque les coefficients étaient égaux à 0, les pixels ne sont pas changés.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157.25    & \hl{0}   &   120.75  & \hl{14} &   95.25  & \hl{0}   \\ 
+\hline
+157.25    & \hl{14.5}   &   120.75  & \hl{16.5} &   95.25  & \hl{14} \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après synthèse sur les colonnes}
+\label{tab5}
+\end{figure}
+
+L'algorithme effectue ensuite les mêmes opérations sur les lignes. Le résultat est donné par la figure  \ref{tab6}
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157.25    & 157.25   &   134.75  & 106.75 &   95.25  & 95.25   \\ 
+\hline
+171.75    & 143   &   137.25  & 104.25 &   109.25  & 81.25 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après synthèse sur les lignes}
+\label{tab6}
+\end{figure}
+
+Enfin, on arrondit les valeurs à l'entier le plus proche. Le tableau final est donné par la figure \ref{tab7}. La figure \ref{after} montre une comparaison entre l'état des pixels avant traitement, et l'état des pixels après.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157    & 157  &   135  & 107 &   95  & 95   \\ 
+\hline
+172   & 143   &   137  & 104 &   109  & 81 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après synthèse sur les lignes}
+\label{tab7}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.4]{aprescompress.jpg}
+\caption{Pixels avant et après traitement}
+\label{after}
+\end{figure}
+
+Les pixels peuvent sembler réellement différents après traitement, mais la valeur moyenne des couleurs est conervée, ce qui, au final, donnera le même rendu quand les pixels seront à leur taille normale.
+
+\clearpage
+
+\subsubsection{Coût et Performance}
+
+Nous avons été curieux de voir les performances de l'algorithme @fasthaar@.
+
+
+\begin{figure}
+\begin{center}
+\input{graph.tex}
+\label{bench}
+\caption{Coût temporel de l'algorithme fasthaar en fonction de la taille de l'image}
+\end{center}
+\end{figure}
+
+
+
+
+
+
+
 \section{Description du code}
 
 Ce qui suit est une description du code de tous nos programmes.
@@ -912,6 +1096,7 @@ Elle crée simplement une instance de la classe @Appli@ et l'exécute.
 
 
 
+
 \clearpage
 \lstset{language=Python,frame=single,breaklines=true,extendedchars=true, numbers=left,basicstyle=\footnotesize}
 \section{Annexes}
@@ -921,6 +1106,10 @@ Elle crée simplement une instance de la classe @Appli@ et l'exécute.
 
 \subsection{Fichier ondelettesGUI.py}
 \lstinputlisting{ondelettesGUI.py}
+
+\subsection{Fichier bench.py}
+\lstinputlisting{bench.py}
+
 
 \section{Liens}
 
