@@ -15,36 +15,39 @@ import Image
 
 
 
-def recvImage(socket,msg):
+def recvImage(conn,msg):
     title = msg.split(' ')
     image = Image.new("RGB", (int(title[1]),int(title[2])), "white" )
     pix = image.load()
-    socket.send(b"ok")
-    blbl = socket.recv(2)
+    conn.send(b"ok")
+    blbl = conn.recv(2)
     while blbl != b"en":
                 
-        msg_recu = socket.recv(int(blbl.decode()))
+        msg_recu = conn.recv(int(blbl.decode()))
         msg = msg_recu.decode()
         pixel = msg.split()
         print blbl
-        print pixel
+        print msg
         pix[int(pixel[0]), int(pixel[1])] = (int(pixel[2]), int(pixel[3]), int(pixel[4]))
-        blbl = socket.recv(2)
+        #conn.send(b"ok")
+        blbl = conn.recv(2)
                 
     image.save("srv" + title[3], 'JPEG', quality = 100)
-    socket.send(b'saved image')
+    conn.send(b'saved image')
                 
-def fasthaar_srv(socket, msg, epsilon):
+def fasthaar_srv(socket, msg, epsilon=0):
     t = msg.split(' ')
     image = Image.open(t[1])
     pix = image.load()
     
-    file = open(t[1] + "coef", 'w')
+    file = open(t[1] + "coef", 'wb')
+    sizex,sizey = image.size
 
+    file.write(str(sizex) + " " + str(sizey) + " \n")
+    
+    for x in range(sizex/2):
 
-    for x in range(xa / 2, xb / 2):
-
-        for y in range(ya / 2, yb / 2):
+        for y in range(sizey/2):
 
             carres = []
             pixelscoef = str(x) + " " + str(y)
@@ -65,36 +68,29 @@ def fasthaar_srv(socket, msg, epsilon):
             ondlmix = [(carres[i][0][0] - carres[i][0][1]) / 2
               for i in range(3)]
 
-            for i in range(3):
-                carres[i][0][0] = (carres[i][0][0] + carres[i][0][1]) / 2
-
+           
             for i in range(3):
                 if ondlmix[i] < epsilon:
-                    carres[i][0][1] = carres[i][0][0]
+                    pixelscoef += " 0"
                 else:
-                    carres[i][0][1] = carres[i][0][0] - ondlmix[i]
-                    carres[i][0][0] = carres[i][0][0] + ondlmix[i]
+                    pixelscoef += " " + str(ondlmix[i])
 
                 if ondlhaut[i] < epsilon:
-                    carres[i][1][0] = carres[i][0][0]
+                    pixelscoef += ",0"
                 else:
-                    carres[i][1][0] = carres[i][0][0] - ondlhaut[i]
-                    carres[i][0][0] = carres[i][0][0] + ondlhaut[i]
+                    pixelscoef += "," + str(ondlhaut[i])
 
                 if ondlbas[i] < epsilon:
-                    carres[i][1][1] = carres[i][0][1]
+                    pixelscoef += ",0"
                 else:
-                    carres[i][1][1] = carres[i][0][1] - ondlbas[i]
-                    carres[i][0][1] = carres[i][0][1] + ondlbas[i]
+                    pixelscoef += "," + str(ondlbas[i])
 
-            for i in [2 * x, 2 * x + 1]:
-                for j in [2 * y, 2 * y + 1]:
-                    pix[i, j] = (carres[0][i - 2 * x][j - 2 * y],
-                     carres[1][i - 2 * x][j - 2 * y],
-                     carres[2][i - 2 * x][j - 2 * y])
+            file.write(pixelscoef + " \n")
 
 
-
+    file.close()
+    print 'compression OK'
+    socket.send(b"OK")
 
 def main():
          
@@ -112,12 +108,11 @@ def main():
     while msg_recu != b"stop":
                 
         msg = msg_recu.decode()
-        print msg
                 
         if msg.startswith('sendimg'):
             recvImage(connexion_client, msg)
                 
-        if msg.startswith('compress')
+        if msg.startswith('compress'):
             fasthaar_srv(connexion_client, msg)
                   
         msg_recu = connexion_client.recv(1024)

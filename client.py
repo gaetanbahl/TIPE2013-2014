@@ -24,14 +24,19 @@ def sendImage(socket,link):
                         for j in range(y):
                                 r,g,b = pix[i,j]
                                 pixel = str(i) + " " + str(j) + " " + str(r) + " " + str(g) + " " + str(b)
-                                print pixel
+                                
                                 leng = str(len(pixel))
-                                print leng
+                                if len(leng) < 2:
+                                    leng = "0" + leng 
+                                print pixel
                                 socket.send(leng.encode('ascii'))
+                               
                                 socket.send(pixel.encode('ascii'))
+                                
+                                #socket.recv(2)
         
         socket.send(b"end")            
-        reply = socket.recv(32)
+        reply = socket.recv(11)
         
         return reply
 
@@ -51,16 +56,26 @@ def storeImage(link):
                         b = (((pix[2 * i, 2 * j][2] + pix[2 * i + 1, 2 * j][2]) / 2) + ((pix[2 * i, 2 * j + 1][2] + pix[2 * i + 1, 2 * j + 1][2]) / 2)) / 2
                         pi[i, j] = (r,g,b)
                         
-        image.save("stor" + link, 'JPEG', quality = 100)
+        im.save("stor" + link, 'JPEG', quality = 100)
         
-        
+def askcompress(connexion, nom):
+
+    mess = "compress " + nom 
+    connexion.send(mess.encode('ascii'))
+    reply = connexion.recv(2)
+    print reply
+    return reply
+
 def main():
 
         connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #connexion.connect(('srv.ordiclic.eu', 13337))
         connexion.connect(('localhost', 13337))
-        sendImage(connexion, 'chatongris.jpg')
+        sendImage(connexion, 'chat.jpg')
+        #askcompress(connexion, 'srvchat.jpg')
+        connexion.send(b"stop")
         connexion.close()
-        
+        #storeImage('chat.jpg')
 
 if __name__ == "__main__":
         main()
