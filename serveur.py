@@ -19,26 +19,25 @@ import StringIO
 
 def recvImage(conn,msg):
     title = msg.split(' ')
-    image = Image.new("RGB", (int(title[1]),int(title[2])), "white" )
+    sizex,sizey = int(title[1]),int(title[2])
+    image = Image.new("RGB", (sizex,sizey), "white" )
     pix = image.load()
     conn.send(b"ok")
     msg, img = "", ""
-     
+    unpacker = struct.Struct("<BBB")
     while msg.endswith("end") == False:
         img += msg
-        msg = conn.recv(4096)
-        #msg = msg_recu.decode()
+        msg = conn.recv(65536)
+        
         
     print "pixels recus"
         
-    #pixels = img.split(struct.pack("<c", ' '))
-    for i in range(int(title[1])*int(title[2])):
-        
-        pixel = struct.unpack_from("<HHBBB",img,5)
-        
-        print pixel
-        pix[int(pixel[0]), int(pixel[1])] = (int(pixel[2]), int(pixel[3]), int(pixel[4]))
-        img = img[6:]
+    for i in range(sizex):
+        for j in range(sizey):
+            pixel = unpacker.unpack(img[(i*sizey + j)*unpacker.size:(i*sizey + j + 1)*unpacker.size])
+            #print i,j
+            pix[i, j] = (int(pixel[0]), int(pixel[1]), int(pixel[2]))
+          
      
     print "image created"
     

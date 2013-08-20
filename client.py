@@ -22,13 +22,17 @@ def sendImage(socket,link):
     socket.send(string.encode('ascii'))
     reply = socket.recv(32)
     if reply == b"ok":
+        t = ""
         for i in range(x):
+            
             for j in range(y):
                 r,g,b = pix[i,j]
-                                
-                pixel = struct.pack("<HHBBB", i, j, r, g, b)       
-                                                    
-                socket.send(pixel)
+                packer = struct.Struct("<BBB")
+                pixel = packer.pack(r, g, b)       
+                t = t + pixel                                   
+                
+        socket.send(t)
+        time.sleep(0.005)
                                        
     socket.send(b"end")            
     reply = socket.recv(11)
@@ -69,8 +73,8 @@ def askcompress(connexion, nom):
 def main():
 
     connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #connexion.connect(('srv.ordiclic.eu', 13337))
-    connexion.connect(('localhost', 13337))
+    connexion.connect(('srv.ordiclic.eu', 13337))
+    #connexion.connect(('localhost', 13337))
         
     sendImage(connexion, 'chat.jpg')
     #askcompress(connexion, 'srvchat.jpg')
