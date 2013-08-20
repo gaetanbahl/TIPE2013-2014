@@ -893,7 +893,7 @@ La place de l'algorithme @fasthaar@ en mémoire est donc de $3\times{}l\times{}L
 
 \paragraph{Coût temporel :}
 
-Vu le principe de fonctionnement de @fasthaar@, on peut deviner que celui-ci a un coût en $O(l\cdot L)$ (ou $O(n²)$ pour une image carrée de côté $n$). Nous avons créé un fichier @bench.py@ servant à mesurer le temps que prend l'algorithme à traiter des images de différentes tailles. L'algorithme génère une image d'une taille donnée avec des pixels aléatoires puis lui applique @fasthaar@ en chronométrant. 
+Vu le principe de fonctionnement de @fasthaar@, on peut deviner que celui-ci a un coût en $O(l\cdot L)$ (ou $O(n^2)$ pour une image carrée de côté $n$). Nous avons créé un fichier @bench.py@ servant à mesurer le temps que prend l'algorithme à traiter des images de différentes tailles. L'algorithme génère une image d'une taille donnée avec des pixels aléatoires puis lui applique @fasthaar@ en chronométrant. 
 
 La figure \ref{bench} représente le temps de traitement d'une image (en secondes) en fonction de sa taille (pixels d'un côté divisé par 2). On vérifie donc que le coût est bien quadratique. 
 
