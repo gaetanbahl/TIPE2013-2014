@@ -895,12 +895,12 @@ La place de l'algorithme @fasthaar@ en mémoire est donc de $3\times{}l\times{}L
 
 Vu le principe de fonctionnement de @fasthaar@, on peut deviner que celui-ci a un coût en $O(l\cdot L)$ (ou $O(n^2)$ pour une image carrée de côté $n$). Nous avons créé un fichier @bench.py@ servant à mesurer le temps que prend l'algorithme à traiter des images de différentes tailles. L'algorithme génère une image d'une taille donnée avec des pixels aléatoires puis lui applique @fasthaar@ en chronométrant. 
 
-La figure \ref{bench} représente le temps de traitement d'une image (en secondes) en fonction de sa taille (pixels d'un côté divisé par 2). On vérifie donc que le coût est bien quadratique. 
+La figure \ref{bench1} représente le temps de traitement d'une image (en secondes) en fonction de sa taille (pixels d'un côté divisé par 2). On vérifie donc que le coût est bien quadratique. 
 
 \begin{figure}[!h]
 \begin{center}
 \input{graph.tex}
-\label{bench}
+\label{bench1}
 \caption{Coût temporel de l'algorithme fasthaar en fonction de la taille de l'image}
 \end{center}
 \end{figure}
@@ -1106,6 +1106,31 @@ Elle est appelée lorsque l'utilisateur clique sur le bouton <<ok>>. Elle sauveg
 
 Elle crée simplement une instance de la classe @Appli@ et l'exécute.
 
+
+
+\subsection{Le fichier bench.py}
+
+Ce fichier a été utilisé pour le chronométrage de l'algorithme @fasthaar@, expliqué plus haut.
+
+\subsubsection{La fonction image\_gen}
+
+Cette fonction crée une instance d'une image PIL dont la taille est passée en paramètre.
+
+\subsubsection{La fonction randomize}
+
+Elle prend en paramètre une image créée par @image_gen@, pour la remplir de pixels aléatoires. Afin d'être sûr que l'algorithme @fasthaar@ fera des calculs.
+
+\subsubsection{La fonction bench\_square}
+
+Cette fonction prend en argument un tableau de nombres qui vont servir à créer des images de tailles différentes avec @image_gen@, puis les remplir avec @randomize@ et enfin chronométrer le traitement de celles-ci avec le module @time@ de Python.
+
+\subsubsection{La fonction fasthaar}
+
+C'est la même que celle du fichier @ondelettes.py@ sauf qu'elle n'a pas besoin de la classe @ImageMatrice@ pour fonctionner.
+
+\subsubsection{La fonction main}
+
+Elle appelle la fonction @bench_square@ sur un tableau de nombres allant de 1 à 1000 (pour des images de 2 à 2000 pixels de côté).
 
 
 
