@@ -11,6 +11,8 @@
 
 import socket
 import Image
+import time
+import struct
 
 def sendImage(socket,link):
         image = Image.open(link)
@@ -23,22 +25,15 @@ def sendImage(socket,link):
                 for i in range(x):
                         for j in range(y):
                                 r,g,b = pix[i,j]
-                                pixel = str(i) + " " + str(j) + " " + str(r) + " " + str(g) + " " + str(b)
                                 
-                                leng = str(len(pixel))
-                                if len(leng) < 2:
-                                    leng = "0" + leng 
-                                print pixel
-                                socket.send(leng.encode('ascii'))
-                               
-                                socket.send(pixel.encode('ascii'))
-                                
-                                #socket.recv(2)
-        
+                                pixel = struct.pack("<HHBBB", i, j, r, g, b)       
+                                                    
+                                socket.send(pixel)
+                                       
         socket.send(b"end")            
         reply = socket.recv(11)
         
-        return reply
+        print  reply
 
 
 def storeImage(link):
@@ -66,11 +61,17 @@ def askcompress(connexion, nom):
     print reply
     return reply
 
+#def askcoeff(connexion, nom):
+
+
+
+
 def main():
 
         connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         #connexion.connect(('srv.ordiclic.eu', 13337))
         connexion.connect(('localhost', 13337))
+        
         sendImage(connexion, 'chat.jpg')
         #askcompress(connexion, 'srvchat.jpg')
         connexion.send(b"stop")

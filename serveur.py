@@ -12,7 +12,9 @@
 
 import socket
 import Image
-
+import time
+import struct
+import StringIO
 
 
 def recvImage(conn,msg):
@@ -20,30 +22,41 @@ def recvImage(conn,msg):
     image = Image.new("RGB", (int(title[1]),int(title[2])), "white" )
     pix = image.load()
     conn.send(b"ok")
-    blbl = conn.recv(2)
-    while blbl != b"en":
-                
-        msg_recu = conn.recv(int(blbl.decode()))
-        msg = msg_recu.decode()
-        pixel = msg.split()
-        print blbl
-        print msg
+    msg, img = "", ""
+     
+    while msg.endswith("end") == False:
+        img += msg
+        msg = conn.recv(4096)
+        #msg = msg_recu.decode()
+        
+    print "pixels recus"
+        
+    #pixels = img.split(struct.pack("<c", ' '))
+    for i in range(int(title[1])*int(title[2])):
+        
+        pixel = struct.unpack_from("<HHBBB",img,5)
+        
+        print pixel
         pix[int(pixel[0]), int(pixel[1])] = (int(pixel[2]), int(pixel[3]), int(pixel[4]))
-        #conn.send(b"ok")
-        blbl = conn.recv(2)
-                
+        img = img[6:]
+     
+    print "image created"
+    
     image.save("srv" + title[3], 'JPEG', quality = 100)
+    print "image enregistree"
     conn.send(b'saved image')
+  
                 
 def fasthaar_srv(socket, msg, epsilon=0):
     t = msg.split(' ')
     image = Image.open(t[1])
     pix = image.load()
     
-    file = open(t[1] + "coef", 'wb')
+    fichier = open(t[1] + "coef", 'wb')
     sizex,sizey = image.size
-
-    file.write(str(sizex) + " " + str(sizey) + " \n")
+    
+    txt = struct.pack("<HHc",sizex,sizey,"\n")
+    fichier.write(txt)
     
     for x in range(sizex/2):
 
@@ -76,19 +89,19 @@ def fasthaar_srv(socket, msg, epsilon=0):
                     pixelscoef += " " + str(ondlmix[i])
 
                 if ondlhaut[i] < epsilon:
-                    pixelscoef += ",0"
+                    pixelscoef += " 0"
                 else:
-                    pixelscoef += "," + str(ondlhaut[i])
+                    pixelscoef += " " + str(ondlhaut[i])
 
                 if ondlbas[i] < epsilon:
-                    pixelscoef += ",0"
+                    pixelscoef += " 0"
                 else:
-                    pixelscoef += "," + str(ondlbas[i])
-
-            file.write(pixelscoef + " \n")
-
-
-    file.close()
+                    pixelscoef += " " + str(ondlbas[i])
+            t = pixelscoef.split(' ')           
+            fichier.write(struct.pack("<BBBc",int(t[2]),int(t[3]),int(t[4])," "))
+        fichier.write(struct.pack("<c",'\n'))
+    
+    fichier.close()
     print 'compression OK'
     socket.send(b"OK")
 
@@ -104,15 +117,18 @@ def main():
     msg_recu = b""
     connexion_client, infos_connexion = connexion.accept()
 
-        
+    print "client connected"
+    
     while msg_recu != b"stop":
-                
+        time.sleep(0.1)
         msg = msg_recu.decode()
                 
         if msg.startswith('sendimg'):
+            print "image en cours de reception"
             recvImage(connexion_client, msg)
                 
         if msg.startswith('compress'):
+            print "compression en cours"
             fasthaar_srv(connexion_client, msg)
                   
         msg_recu = connexion_client.recv(1024)
