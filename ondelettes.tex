@@ -871,12 +871,12 @@ Enfin, on arrondit les valeurs à l'entier le plus proche. Le tableau final est 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.4]{aprescompress.jpg}
+\includegraphics[scale=0.3]{aprescompress.jpg}
 \caption{Pixels avant et après traitement}
 \label{after}
 \end{figure}
 
-Les pixels peuvent sembler réellement différents après traitement, mais la valeur moyenne des couleurs est conervée, ce qui, au final, donnera le même rendu quand les pixels seront à leur taille normale.
+Les pixels peuvent sembler réellement différents après traitement, mais la valeur moyenne des couleurs est conservée, ce qui, au final, donnera le même rendu quand les pixels seront à leur taille normale.
 
 \clearpage
 
@@ -884,8 +884,20 @@ Les pixels peuvent sembler réellement différents après traitement, mais la va
 
 Nous avons été curieux de voir les performances de l'algorithme @fasthaar@.
 
+\paragraph{Coût en mémoire :}
 
-\begin{figure}
+Cet algorithme est peu coûteux en mémoire, par rapport à la version matricielle. En effet, ce dernier devait stocker plusieurs matrices contenant l'image, les coefficients d'ondelettes, les différentes couleurs, etc. @fasthaar@, quant à lui, ne stocke que l'image et les valeurs de 4 pixels. Un pixel est un tuple contenant 3 entiers codés sur 8 bits (= 1 octet). 
+
+Soient $L$ et $l$ la longueur et la largeur de l'image à traiter. 
+La place de l'algorithme @fasthaar@ en mémoire est donc de $3\times{}l\times{}L + 4 \times{} 3$ octets.
+
+\paragraph{Coût temporel :}
+
+Vu le principe de fonctionnement de @fasthaar@, on peut deviner que celui-ci a un coût en $O(l\cdot L)$ (ou $O(n²)$ pour une image carrée de côté $n$). Nous avons créé un fichier @bench.py@ servant à mesurer le temps que prend l'algorithme à traiter des images de différentes tailles. L'algorithme génère une image d'une taille donnée avec des pixels aléatoires puis lui applique @fasthaar@ en chronométrant. 
+
+La figure \ref{bench} représente le temps de traitement d'une image (en secondes) en fonction de sa taille (pixels d'un côté divisé par 2). On vérifie donc que le coût est bien quadratique. 
+
+\begin{figure}[!h]
 \begin{center}
 \input{graph.tex}
 \label{bench}
@@ -897,7 +909,7 @@ Nous avons été curieux de voir les performances de l'algorithme @fasthaar@.
 
 
 
-
+\clearpage
 
 \section{Description du code}
 
