@@ -642,6 +642,10 @@ Ce module nous a été utile lors du chronométrage de nos algorithmes et pour i
 Le module @struct@ a pour but de transformer des chaînes de caractères (et autres objets Python) en variables binaires (telles que celles utilisées par le langage C). Par exemple, le nombre "123" utilise 3 octets quand il est écrit en chaîne de caractères Python, alors que quand il est écrit en mémoire en tant que variable de type @byte@, il n'utilise qu'un octet. Nous avons donc utilisé cela pour la sauvegarde de coefficients d'ondelettes et les transferts d'images entre client et serveur. En effet, les valeurs RGB des pixels ne peuvent être supérieures à 255 et tiennent donc dans un seul octet. Ce qui nous donne au final des paquets et des fichiers 3 fois plus petits. Cela augmente aussi la vitesse des transferts.
 
 
+\subsubsection{Le module socket}
+
+Ce module a été utilisé pour transférer des images à travers le réseau. Nous avons préféré utiliser ce module plutôt que les sockets d'une librairie externe (telle que @PySFML@), car celui-ci est inclus dans Python et nous voulions que le programme reste simple.
+
 \subsection{Exemples d'images traitées avec notre algorithme}
 
 Nous avons mis au point un algorithme de compression utilisant des matrices. Celui-ci applique deux fois la transformation par ondelettes de Haar (une fois pour la hauteur, une fois pour la largeur), et stocke les coefficients d'ondelettes dans des matrices séparées de l'image. On peut ensuite supprimer certains de ces coefficients au-delà d'un certain seuil, pour compresser l'image.
@@ -908,6 +912,47 @@ La figure \ref{bench1} représente le temps de traitement d'une image (en second
 \label{bench1}
 \end{center}
 \end{figure}
+
+\clearpage
+
+
+\subsection{Transferts et échanges d'images par le réseau}
+
+Nous avons créé un programme serveur/client permettant de transférer des images et des coefficients d'ondelette par le réseau.
+
+\subsubsection{But du programme}
+
+
+Ce programme permet de stocker les coefficients d'ondelette d'une image sur un serveur distant pour ensuite ne garder sur la machine locale que les coefficients d'approximation (c-à-d l'image réduite de moitié sur chaque dimension). Ainsi une version légère de l'image est gardée pour que l'on puisse toujours savoir quelle image nous voulons (thumbnail), mais celle-ci occupe 4 fois moins de place en mémoire. Lorsque l'utilisateur veut afficher l'image en grandeur réelle, la machine locale demande les coefficients d'ondelette au serveur et reconstitue l'image de départ.
+
+Ceci peut être très utile, par exemple dans le cas d'un périphérique de stockage amovible de taille réduite, tel qu'une clef USB - on peut ainsi stocker 4 fois plus d'images pour la même capacité.
+
+
+\subsubsection{Étapes d'archivage}
+
+\paragraph{Étape 1}
+
+Le client ouvre l'image à stocker et encode les pixels, ainsi que les dimensions de l'image en binaire, puis envoie ces données au serveur par des sockets TCP. Chaque pixel de l'image occupe 3 bits, donc, si $L$ et $l$ sont les dimensions de l'image, le client doit envoyer $3\cdot{}l\cdot{}L + 2$ octets au serveur.
+
+\paragraph{Étape 2}
+
+Le serveur ouvre l'image qu'il vient de réceptionner pour la compresser et stocker les coefficients d'ondelette. Il applique pour cela une version modifiée de @fasthaar@ qui ne garde que les coefficients d'ondelette et les encode en binaire grâce à @struct@ pour les enregistrer dans un fichier.
+
+\paragraph{Étape 3}
+
+Le client reçoit un signal de la part du serveur indiquant si oui ou non le tranfert et la compression se sont bien déroulés. Si c'est le cas, le client crée une nouvelle image, de dimensions $\frac{L}{2}$ et $\frac{l}{2}$ et la remplit avec la moyenne des carrés de 4 pixels de l'image de départ (coefficients d'approximation). \\
+
+
+La figure \ref{save} montre le processus d'archivage.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{save.png}
+\caption{Processus d'archivage}
+\label{save}
+\end{figure}
+
+
 
 \clearpage
 
