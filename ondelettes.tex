@@ -598,7 +598,12 @@ Bien que l’analyse par les ondelettes soit encore loin de nous donner une rép
 
 \section{Utilisation pratique de la transformation par ondelettes discrète}
 
-Nous avons choisi de mettre en pratique ce que nous avons vu plus haut de manière théorique. Notre but a été de mettre en place un algorithme de compression d'image utilisant la compression par ondelettes, ainsi que plusieurs applications graphiques qui utilisent cet algorithme.
+Nous avons choisi de mettre en pratique ce que nous avons vu plus haut
+de manière théorique. Notre but a été de mettre en place un
+algorithme de compression d'image utilisant la compression par
+ondelettes, ainsi que des applications graphiques qui utilisent cet algorithme.
+
+Pour que notre travail rentre dans le cadre du thème de cette année,qui est "Transfert, Échange", nous avons aussi créé une application client/serveur utilisant la compression par ondelettes.
 
 Le code complet de nos algorithmes est disponible en annexe à la fin de ce dossier, mais aussi sur le Github de notre projet (cf. section Liens).
 
@@ -606,6 +611,7 @@ Le code complet de nos algorithmes est disponible en annexe à la fin de ce doss
 
 \subsection{Le choix des outils}
 
+Pour nos programmes, nous avons utilisé le langage Python, ainsi que plusieurs librairies.
 
 \subsubsection{Le langage : Python}
 
@@ -626,6 +632,14 @@ Nous n'avons pas utilisé les autres fonctionnalités de cette librairie, bien e
 Pour la partie <<interface graphique utilisateur>> (ou GUI), nous avons utilisé la librairie Tkinter, qui est incluse par défaut avec l'installation standard de Python. Elle est simple d'utilisation et convenait parfaitement à ce que nous voulions en faire, c'est-à-dire une simple application montrant la compression d'une image en utilisant notre algorithme.
 
 Beaucoup d'autres librairies existent pour la réalisation de GUI, mais celles-ci sont à télécharger en plus de Python, et nous ne voulions pas surcharger notre projet. De plus, les fonctionnalités qu'elles apportent n'auraient pas été utilisées dans le cadre de notre projet.
+
+\subsubsection{Le module time}
+
+Ce module nous a été utile lors du chronométrage de nos algorithmes et pour introduire des délais dans l'envoi de données dans le programme client/serveur. Nous avons préféré celui-ci à d'autres (comme @timeit@) pour sa simplicité d'utilisation et sa précision suffisante.
+
+\subsubsection{Le module struct}
+
+Le module @struct@ a pour but de transformer des chaînes de caractères (et autres objets Python) en variables binaires (telles que celles utilisées par le langage C). Par exemple, le nombre "123" utilise 3 octets quand il est écrit en chaîne de caractères Python, alors que quand il est écrit en mémoire en tant que variable de type @byte@, il n'utilise qu'un octet. Nous avons donc utilisé cela pour la sauvegarde de coefficients d'ondelettes et les transferts d'images entre client et serveur. En effet, les valeurs RGB des pixels ne peuvent être supérieures à 255 et tiennent donc dans un seul octet. Ce qui nous donne au final des paquets et des fichiers 3 fois plus petits. Cela augmente aussi la vitesse des transferts.
 
 
 \subsection{Exemples d'images traitées avec notre algorithme}
@@ -889,8 +903,9 @@ La figure \ref{bench1} représente le temps de traitement d'une image (en second
 \begin{figure}[!h]
 \begin{center}
 \input{graph.tex}
-\label{bench1}
+
 \caption{Coût temporel de l'algorithme fasthaar en fonction de la taille de l'image}
+\label{bench1}
 \end{center}
 \end{figure}
 
