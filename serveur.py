@@ -14,7 +14,7 @@ import socket
 import Image
 import time
 import struct
-import StringIO
+
 
 
 def recvImage(conn,msg):
@@ -24,7 +24,7 @@ def recvImage(conn,msg):
     pix = image.load()
     conn.send(b"ok")
     msg, img = "", ""
-    unpacker = struct.Struct("<BBB")
+    unpacker = struct.Struct("BBB")
     while msg.endswith("end") == False:
         img += msg
         msg = conn.recv(65536)
@@ -35,9 +35,9 @@ def recvImage(conn,msg):
     for i in range(sizex):
         for j in range(sizey):
             pixel = unpacker.unpack(img[(i*sizey + j)*unpacker.size:(i*sizey + j + 1)*unpacker.size])
-            #print i,j
+            
             pix[i, j] = (int(pixel[0]), int(pixel[1]), int(pixel[2]))
-          
+        print i
      
     print "image created"
     
@@ -54,7 +54,7 @@ def fasthaar_srv(socket, msg, epsilon=0):
     fichier = open(t[1] + "coef", 'wb')
     sizex,sizey = image.size
     
-    txt = struct.pack("<HHc",sizex,sizey,"\n")
+    txt = struct.pack("HH",sizex,sizey)
     fichier.write(txt)
     
     for x in range(sizex/2):
@@ -97,8 +97,8 @@ def fasthaar_srv(socket, msg, epsilon=0):
                 else:
                     pixelscoef += " " + str(ondlbas[i])
             t = pixelscoef.split(' ')           
-            fichier.write(struct.pack("<BBBc",int(t[2]),int(t[3]),int(t[4])," "))
-        fichier.write(struct.pack("<c",'\n'))
+            fichier.write(struct.pack("BBB",int(t[2]),int(t[3]),int(t[4])))
+        
     
     fichier.close()
     print 'compression OK'
