@@ -1202,6 +1202,23 @@ Elle appelle la fonction @bench_square@ sur un tableau de nombres allant de 1 à
 
 Ce fichier est celui qui est exécuté en permanence sur le serveur, comme décrit à la page \pageref{net}.
 
+\subsubsection{La fonction main}
+
+C'est la fonction principale du programme qui contient la boucle d'exécution du serveur. Elle commence par créer un @socket@ qui va attendre un client sur le port @13337@.
+
+Lors de la connexion d'un client, le serveur entre dans la boucle d'exécution, qui tourne jusqu'à ce que le client envoie "stop" au serveur. À chaque fois que le client envoie un message au serveur, ce dernier en analyse les premières lettres pour connaître la commande que le client veut exécuter, puis l'exécute.
+
+\subsubsection{La fonction recvImage}
+
+Cette fonction est exécutée quand le client envoie "sendimg" au serveur. Le serveur récupère les dimensions de l'image, puis se met en attente des pixels de l'image, qu'il réceptionne dans une chaîne de caractères qui fait office de buffer. La réception se termine quand le client envoie "end". Le serveur décode ensuite la chaîne de caractère pixel par pixel en la parcourant par morceaux de 3 bytes, et insère les pixels décodés dans une image aux dimensions égales à celles qui ont été envoyées. Enfin, il enregistre l'image et signale au client que l'opération s'est complétée avec succès.
+
+\subsubsection{La fonction fasthaar_srv}
+
+C'est une fonction qui ressemble à @fasthaar@ du fichier @ondelettes.py@, mais elle ouvre elle même un image à partir du nom envoyé par le client. Ensuite elle opère la transformation par ondelettes discrète et sauvegarde ceux-ci après les avoir encodés en binaire, uniquement s'ils sont supérieurs au paramètre optionnel epsilon (fixé à 0 par défaut, pour garder des images entières). Une fois que la transformation est terminée, le serveur le signale au client.
+
+\subsection{Le fichier client.py}
+
+
 
 
 
