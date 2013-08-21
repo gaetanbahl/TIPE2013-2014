@@ -652,27 +652,27 @@ Nous avons mis au point un algorithme de compression utilisant des matrices. Cel
 
 La figure \ref{chat1} montre l'image à laquelle nous avons appliqué la compression.
 
-\begin{figure}[!hb]
+\begin{figure}[!h]
 \centering
-\includegraphics[scale=2]{chat.jpg}
+\includegraphics[scale=1.9]{chat.jpg}
 \caption{L'image de départ}
 \label{chat1}
 \end{figure}
 
 La figure \ref{chat2} représente l'image une fois que la compression a été appliquée avec un seuil assez petit pour garder la plupart des détails importants de l'image mais assez grand pour compresser les <<aplats>> de couleur, les ombres, etc. L'image compressée occupe 35\% de mémoire en moins par rapport à l'image de départ. Ce qui montre que la compression par ondelettes est plutôt efficace et que notre algorithme est fonctionnel.
 
-\begin{figure}[!ht]
+\begin{figure}[!h]
 \centering
-\includegraphics[scale=0.8]{chat_compress.jpg}
+\includegraphics[scale=0.55]{chat_compress.jpg}
 \caption{L'image compressée}
 \label{chat2}
 \end{figure}
 
 Sur la figure \ref{chat3}, on peut voir l'image compressé avec le seuil maximal. Ici, tous les détails ont été éliminés. Cela revient simplement à diviser la résolution de l'image par deux.
 
-\begin{figure}[!hb]
+\begin{figure}[!h]
 \centering
-\includegraphics[scale=0.8]{chat_compress255.jpg}
+\includegraphics[scale=0.6]{chat_compress255.jpg}
 \caption{L'image compressée à 100\%}
 \label{chat3}
 \end{figure}
@@ -727,7 +727,7 @@ La figure \ref{GUI2} montre le sélecteur de seuil, qui apparaît lorsqu'on choi
 
 \subsection{L'algorithme fasthaar}
 
-Nous avons mis au point un autre algorithme de compression n'utilisant pas de matrices. Celui-ci est plus rapide et moins gourmand en mémoire que @haar@, mais l'inconvénient est qu'il il ne permet pas de sauvegarder les coefficients d'ondelettes.
+Nous avons mis au point un autre algorithme de compression n'utilisant pas de matrices. Celui-ci est plus rapide et moins gourmand en mémoire que @haar@, mais l'inconvénient est qu'il ne permet pas d'utiliser la transformation par ondelettes discrète à un niveau de récursivité plus grand que 1.
 
 \subsubsection{Fonctionnement}
 
@@ -917,7 +917,7 @@ La figure \ref{bench1} représente le temps de traitement d'une image (en second
 
 
 \subsection{Transferts et échanges d'images par le réseau}
-
+\label{net}
 Nous avons créé un programme serveur/client permettant de transférer des images et des coefficients d'ondelette par le réseau.
 
 \subsubsection{But du programme}
@@ -928,7 +928,7 @@ Ce programme permet de stocker les coefficients d'ondelette d'une image sur un s
 Ceci peut être très utile, par exemple dans le cas d'un périphérique de stockage amovible de taille réduite, tel qu'une clef USB - on peut ainsi stocker 4 fois plus d'images pour la même capacité.
 
 
-\subsubsection{Étapes d'archivage}
+\subsubsection{Processus d'archivage}
 
 \paragraph{Étape 1}
 
@@ -952,6 +952,30 @@ La figure \ref{save} montre le processus d'archivage.
 \label{save}
 \end{figure}
 
+
+\subsubsection{Processus de restauration}
+
+\paragraph{Étape 1}
+
+Le client crée une image à partir de celle qui avait été stockée en doublant ses dimensions, ainsi, chaque pixel devient un carré de 4 pixels.
+
+\paragraph{Étape 2}
+
+Le client demande les coefficients d'ondelette au serveur en spécifiant le nom de l'image. Le serveur lit le fichier qui contient les coefficients qu'il avait enregistrés et envoie directement les données au client.
+
+\paragraph{Étape 3}
+
+Le client décode les données binaires reçues et opère la transformation inverse en remplaçant les pixels de chaque carré par les valeurs qu'il obtient. Ensuite, il peut afficher l'image ou la stocker.\\
+
+La figure \ref{load} illustre ce processus
+
+ 
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{load.png}
+\caption{Processus de restauration}
+\label{load}
+\end{figure}
 
 
 \clearpage
@@ -1170,6 +1194,14 @@ C'est la même que celle du fichier @ondelettes.py@ sauf qu'elle n'a pas besoin 
 \subsubsection{La fonction main}
 
 Elle appelle la fonction @bench_square@ sur un tableau de nombres allant de 1 à 1000 (pour des images de 2 à 2000 pixels de côté).
+
+
+
+\subsection{Le fichier serveur.py}
+
+
+Ce fichier est celui qui est exécuté en permanence sur le serveur, comme décrit à la page \pageref{net}.
+
 
 
 
