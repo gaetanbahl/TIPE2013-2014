@@ -24,63 +24,94 @@ def sendImage(socket,link):
     if reply == b"ok":
         t = ""
         for i in range(x):
-            
+
             for j in range(y):
                 r,g,b = pix[i,j]
-                packer = struct.Struct("<BBB")
-                pixel = packer.pack(r, g, b)       
-                t = t + pixel                                   
-                
-        socket.send(t)
-        time.sleep(0.005)
-                                       
-    socket.send(b"end")            
+                packer = struct.Struct("BBB")
+                pixel = packer.pack(r, g, b)
+                #t = t + pixel
+
+                socket.send(pixel)
+            #time.sleep(0.01)
+
+    socket.send(b"end")
     reply = socket.recv(11)
-        
-    print  reply
+
+    print  "server says : " + reply
 
 
 def storeImage(link):
     image = Image.open(link)
     pix = image.load()
     x,y = image.size
-        
+
     im = Image.new("RGB", (x / 2, y / 2), "white")
     pi = im.load()
-        
+
     for i in range(x / 2):
         for j in range(y / 2):
             r = (((pix[2 * i, 2 * j][0] + pix[2 * i + 1, 2 * j][0]) / 2) + ((pix[2 * i, 2 * j + 1][0] + pix[2 * i + 1, 2 * j + 1][0]) / 2)) / 2
             g = (((pix[2 * i, 2 * j][1] + pix[2 * i + 1, 2 * j][1]) / 2) + ((pix[2 * i, 2 * j + 1][1] + pix[2 * i + 1, 2 * j + 1][1]) / 2)) / 2
             b = (((pix[2 * i, 2 * j][2] + pix[2 * i + 1, 2 * j][2]) / 2) + ((pix[2 * i, 2 * j + 1][2] + pix[2 * i + 1, 2 * j + 1][2]) / 2)) / 2
             pi[i, j] = (r,g,b)
-                        
+
     im.save("stor" + link, 'JPEG', quality = 100)
-        
+
 def askcompress(connexion, nom):
 
-    mess = "compress " + nom 
+    mess = "compress " + nom
     connexion.send(mess.encode('ascii'))
     reply = connexion.recv(2)
-    print reply
+    print "server says : " + reply
     return reply
 
-#def askcoeff(connexion, nom):
+def askcoeff(conn, nom):
 
+    unpacker = struct.Struct("bbbbbbbbb")
 
+    print 'demande en cours'
+    mess = "coef " + nom
+    conn.send(mess.encode("ascii"))
+
+    print "reception coefs"
+    coefs = ''
+    msg = ''
+    while msg.endswith(b'end') == False:
+        coefs += msg
+        msg = conn.recv(9)
+    print str(len(coefs)) + " octets recus"
+    print "reconstitution image"
+    image = Image.open("stor" + nom)
+    pix = image.load()
+    dim = image.size
+    im =  Image.new("RGB", (dim[0] * 2, dim[1] * 2), "white" )
+    px = im.load()
+    for i in range(dim[0]):
+        for j in range(dim[1]):
+            tab = unpacker.unpack(coefs[(i*dim[1] + j)* unpacker.size : (i*dim[1] + j +1)* unpacker.size])
+            
+            px[2*i,2*j] = ( pix[i,j][0] + tab[0] + tab[3], pix[i,j][1] + tab[1] + tab[4], pix[i,j][2] + tab[2] + tab[5])
+            px[2*i+1,2*j] = ( pix[i,j][0] + tab[0] - tab[3], pix[i,j][1] + tab[1] - tab[4], pix[i,j][2] + tab[2] - tab[5])
+            px[2*i,2*j + 1] = ( pix[i,j][0] - tab[0] + tab[6], pix[i,j][1] - tab[1] + tab[7], pix[i,j][2] - tab[2] + tab[8])
+            px[2*i+1,2*j+1] = ( pix[i,j][0] - tab[0] - tab[6], pix[i,j][1] - tab[1] - tab[7], pix[i,j][2] - tab[2] - tab[8])
+
+            
+    print "enregistrement"
+    im.save('2' + nom, 'JPEG', quality = 100)
 
 
 def main():
 
     connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    connexion.connect(('srv.ordiclic.eu', 13337))
-    #connexion.connect(('localhost', 13337))
-        
-    sendImage(connexion, 'chat.jpg')
+    #connexion.connect(('srv.ordiclic.eu', 13337))
+    connexion.connect(('localhost', 13337))
+
+    #sendImage(connexion, 'chat.jpg')
     #askcompress(connexion, 'srvchat.jpg')
+    askcoeff(connexion, 'chat.jpg')
     connexion.send(b"stop")
     connexion.close()
-    #storeImage('chat.jpg')
+    #storeImage('test.jpg')
 
 if __name__ == "__main__":
     main()

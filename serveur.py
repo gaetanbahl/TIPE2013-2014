@@ -27,7 +27,7 @@ def recvImage(conn,msg):
     unpacker = struct.Struct("BBB")
     while msg.endswith("end") == False:
         img += msg
-        msg = conn.recv(65536)
+        msg = conn.recv(3)
 
 
     print "pixels recus"
@@ -35,10 +35,8 @@ def recvImage(conn,msg):
     for i in range(sizex):
         for j in range(sizey):
             pixel = unpacker.unpack(img[(i*sizey + j)*unpacker.size:(i*sizey + j + 1)*unpacker.size])
-
             pix[i, j] = (int(pixel[0]), int(pixel[1]), int(pixel[2]))
-        print i
-
+        
     print "image created"
 
     image.save("srv" + title[3], 'JPEG', quality = 100)
@@ -51,17 +49,16 @@ def fasthaar_srv(socket, msg, epsilon=0):
     image = Image.open(t[1])
     pix = image.load()
 
-    fichier = open(t[1] + "coef", 'wb')
+    fichier = open("coef/" + t[1][:-4] + ".odl", 'wb')
     sizex,sizey = image.size
 
-    txt = struct.pack("HH",sizex,sizey)
-    fichier.write(txt)
+
     print "compression en cours"
     for x in range(sizex/2):
         for y in range(sizey/2):
 
             carres = []
-            
+
             for i in range(3):
                 carres.append([[pix[2 * x, 2 * y][i], pix[2 * x, 2 * y + 1][i]],
                      [pix[2 * x + 1, 2 * y][i], pix[2 * x + 1, 2 * y + 1][i]]])
@@ -79,14 +76,8 @@ def fasthaar_srv(socket, msg, epsilon=0):
               for i in range(3)]
 
 
-            for i in range(3):
-                if ondlmix[i] < epsilon:
-                    ondlmix[i] = 0
-                if ondlhaut[i] < epsilon:
-                    ondlhaut[i] = 0
-                if ondlbas[i] < epsilon:
-                    ondlbas[i] = 0
-				fichier.write(struct.pack("BBB",ondlmix[i],ondlhaut[i],ondlbas[i]))
+            for i in [ondlmix,ondlhaut,ondlbas]:       
+                fichier.write(struct.pack("bbb",i[0],i[1],i[2]))
 
 
     fichier.close()
@@ -95,12 +86,17 @@ def fasthaar_srv(socket, msg, epsilon=0):
 
 
 def sendCoef(sock, msg):
-	banana = msg.split(" ")
-	fichier = open(banana[1] + "coef", 'rb')
-	print "envoi des coefficients"
-
-
-
+    banana = msg.split(" ")
+    fichier = open("coef/srv" + banana[1][:-4] + ".odl", 'rb')
+    print "envoi des coefficients"
+    txt = fichier.readlines()
+    for i in txt:
+        sock.send(i)
+    print "coefficients envoyes"
+    sock.send(b'end')
+    ms = sock.recv(2)
+    print ms.decode()
+    fichier.close()
 
 
 
@@ -111,32 +107,28 @@ def main():
 
     connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     connexion.bind((hote, port))
-	while 1:
-		connexion.listen(5)
+    while 1:
+        connexion.listen(5)
 
-		msg_recu = b""
-		connexion_client, infos_connexion = connexion.accept()
+        msg_recu = b""
+        connexion_client, infos_connexion = connexion.accept()
 
-		print "client connected"
+        print "client connected"
 
-		while msg_recu != b"stop":
-			time.sleep(0.1)
-			msg = msg_recu.decode()
+        while msg_recu != b"stop":
+            time.sleep(0.1)
+            msg = msg_recu.decode()
 
-			if msg.startswith('sendimg'):
-				print "image en cours de reception"
-				recvImage(connexion_client, msg)
-
-			if msg.startswith('compress'):
-
-				fasthaar_srv(connexion_client, msg)
-
-			if msg.startswith('coef'):
-
-				sendCoef(connexion_client, msg)
+            if msg.startswith('sendimg'):
+                print "image en cours de reception"
+                recvImage(connexion_client, msg)
+            if msg.startswith('compress'):
+                fasthaar_srv(connexion_client, msg)
+            if msg.startswith('coef'):
+                sendCoef(connexion_client, msg)
 
 
-			msg_recu = connexion_client.recv(1024)
+            msg_recu = connexion_client.recv(1024)
 
 
 
