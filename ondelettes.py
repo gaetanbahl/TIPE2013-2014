@@ -278,19 +278,19 @@ class MatriceImage():
 
                 ##SYNTHESE
                 for i in range(3):
-                    if ondlmix[i] < epsilon:
+                    if abs(ondlmix[i]) < epsilon:
                         carres[i][0][1] = carres[i][0][0]
                     else:
                         carres[i][0][1] = carres[i][0][0] - ondlmix[i]
                         carres[i][0][0] = carres[i][0][0] + ondlmix[i]
 
-                    if ondlhaut[i] < epsilon:
+                    if abs(ondlhaut[i]) < epsilon:
                         carres[i][1][0] = carres[i][0][0]
                     else:
                         carres[i][1][0] = carres[i][0][0] - ondlhaut[i]
                         carres[i][0][0] = carres[i][0][0] + ondlhaut[i]
 
-                    if ondlbas[i] < epsilon:
+                    if abs(ondlbas[i]) < epsilon:
                         carres[i][1][1] = carres[i][0][1]
                     else:
                         carres[i][1][1] = carres[i][0][1] - ondlbas[i]
