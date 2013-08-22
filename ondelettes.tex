@@ -10,6 +10,12 @@
 \usepackage{mathtools}
 \usepackage{soul}
 \usepackage{color}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+%\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\lhead{Introduction à la théorie des ondelettes}
+\rhead{Xavier Friederich et Gaétan Bahl}
 
 \title{TIPE: Introduction à la théorie des ondelettes}
 \author{Xavier Friederich et Gaétan Bahl}
@@ -591,9 +597,6 @@ Or, une image contient généralement relativement peu de contours, et est régu
 Il suffit alors de s’imposer une précision $\epsilon$. On ne va garder ainsi que les coefficients d’ondelettes supérieurs à $\epsilon$. On dit alors qu’on effectue une compression du signal.
 
 Il y a notamment des applications de la compression par ondelettes dans le domaine de l’imagerie médicale. Le cinéma numérique a quant à lui adopté le format JPEG 2000 qui utilise également la transformée en ondelettes. 
-
-La théorie des ondelettes symbolise en quelque sorte l’évolution des sciences mathématiques induite par l’introduction de l’outil informatique. 
-Bien que l’analyse par les ondelettes soit encore loin de nous donner une réponse universelle et finale au problème de la représentation et du codage des signaux, elle se révèle être un outil mathématique particulièrement performant dans plusieurs domaines. 
 
 
 \section{Utilisation pratique de la transformation par ondelettes discrète}
@@ -1264,16 +1267,43 @@ C'est la dernière fonction appelée quand la commande @s@ est utilisée. Cette 
 Cette fonction est appelée lors de l'utilisation de la commande @d@. Elle demande au serveur d'envoyer les coefficients d'ondelette de l'image. La fonction décode ensuite les coefficients reçus, puis ouvre l'image réduite qui avait été enregistrée par storeImage. Le client crée une image de la taille de l'image originale, puis opère la transformation par ondelettes inverse. Après ça, le client enregistre l'image.
 
 
+\section{Conclusion}
+
+
+La théorie des ondelettes symbolise en quelque sorte l'évolution des sciences mathématiques induite par l'introduction de l'outil informatique.
+ 
+Bien que l'analyse par les ondelettes soit encore loin de nous donner une réponse universelle et finale au problème de la représentation et du codage des signaux, elle se révèle être un outil mathématique particulièrement performant dans plusieurs domaines, comme l'aura très nettement montré notre implémentation informatique.
+D'ailleurs, nous aurons nous-mêmes pu exploiter la richesse des ondelettes dans le domaine de transferts-échanges de fichiers en proposant un service qui permet la compression d'images et leur affichage grâce à la connexion à un ordinateur distant.
+
+
+
+\section{Bibliographie, Liens et Remerciements}
+\label{links}
+\begin{itemize}
+\item http://www.cmi.univ-mrs.fr/\textasciitilde{}melot/Master2/TPsignal\_PS.html
+
+\item Tous les fichiers .tex, .py de ce document :
+
+https://github.com/timosis/TIPE2013-2014
+
+\item L'interpréteur Python : http://www.python.org/
+
+\item La librairie PIL pour Python : http://www.pythonware.com/products/pil/
+
+\item La licence Creative Commons BY-SA :
+
+http://creativecommons.org/licenses/by-sa/3.0/
+
+\item Remerciements à : M. Petitjean
+\end{itemize}
+
+
 \clearpage
 \lstset{language=Python,frame=single,breaklines=true,extendedchars=true, numbers=left,basicstyle=\footnotesize}
 \section{Annexes}
 
 Tout le code de ce projet est sous licence Creatice Commons BY-SA (voir p.\pageref{links}).
 
-\begin{center}
-\includegraphics{88x31.png}
-
-\end{center}
 
 \subsection{Fichier ondelettes.py}
 \lstinputlisting{ondelettes.py}
@@ -1290,21 +1320,11 @@ Tout le code de ce projet est sous licence Creatice Commons BY-SA (voir p.\pager
 \subsection{Fichier client.py}
 \lstinputlisting{client.py}
 
+\begin{center}
+\includegraphics{88x31.png}
 
-\section{Liens}
-\label{links}
-\begin{itemize}
-\item Tous les fichiers .tex, .py de ce document : https://github.com/timosis/TIPE2013-2014
+\end{center}
 
-\item L'interpréteur Python : http://www.python.org/
 
-\item La librairie PIL pour Python : http://www.pythonware.com/products/pil/
-
-\item La licence GNU GPL : http://www.gnu.org/licenses/gpl-3.0.en.html
-
-\item La licence Creative Commons BY-SA (sous laquelle notre code est placé) : http://creativecommons.org/licenses/by-sa/3.0/
-
-\item Source http://www.cmi.univ-mrs.fr/\textasciitilde{}melot/Master2/TPsignal\_PS.html
-\end{itemize}
 \end{document}
 
