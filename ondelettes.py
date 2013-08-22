@@ -306,25 +306,9 @@ def main():
 
     image = MatriceImage("chat.jpg")
     start = time.time()
-##    image.getmatrixblue()
-##    image.getmatrixgreen()
-##    image.getmatrixred()
-##    image.create_coef_matrix()
-##
-##    #image.grayscalemeanmatrix()
-##    #image.makeimagegray(image.matrixgray).save("piano_gris.jpg")
-##
-##    image.haar()
-##
-##
-##    #image.makeimage().save("1px.jpg",'JPEG',quality = 100)
-##    image.compression(10)
-##    image.clearimage()
-##    image.syntheselignes()
-##    image.synthesecolonnes()
-##
+
     image.fasthaar(2,0,image.sizex,0,image.sizey)
-##    image.fill()
+
     end = time.time()
     print end - start
     image.image.save("chat_compress.jpg",'JPEG',quality = 100)
