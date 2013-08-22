@@ -14,6 +14,7 @@ import tkFileDialog, ImageTk
 from ondelettes import *
 from ttk import Frame, Style
 from Tkconstants import *
+from subprocess import call
 
 
 class Appli(Frame):
@@ -35,6 +36,7 @@ class Appli(Frame):
         fileMenu.add_command(label="Ouvrir", command=self.askopenfilename)
         fileMenu.add_command(label="Enregistrer", command=self.asksaveasfilename)
         fileMenu.add_command(label="Exit", command=self.onExit)
+        fileMenu.add_command(label="Send to Server", command=self.send)
         menubar.add_cascade(label="Fichier", menu=fileMenu)
 
         editMenu = Menu(menubar)
@@ -49,6 +51,7 @@ class Appli(Frame):
     def askopenfilename(self):
 
         filename = tkFileDialog.askopenfilename(defaultextension = "jpg")
+        self.filename = filename
         self.matriceimage = MatriceImage(filename)
         self.image = self.matriceimage.image
         self.imgtk = ImageTk.PhotoImage(self.image)
@@ -122,6 +125,11 @@ class Appli(Frame):
         self.labelimg.place(x = 0,y=0)
         self.labelimg.pack()
         self.update()
+
+	def send(self):
+		call(["./client.py", "sr", self.filename])
+		
+
 
     def onExit(self):
         self.quit()
