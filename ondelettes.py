@@ -2,10 +2,10 @@
 # Name:        ondelettes.py
 # Purpose:     definition de classes de traitement d'image
 #
-# Author:      gaetan
+# Author:      Gaetan
 #
 # Created:     10/07/2013
-# Copyright:   (c) Gaetan 2013
+# Copyright:   (c) Gaetan Bahl 2013
 # Licence:     CC-BY-SA
 #---------------------------------------------------------
 

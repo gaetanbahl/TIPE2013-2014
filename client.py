@@ -3,10 +3,10 @@
 # Name:        client.py
 # Purpose:     client du TIPE sur les ondelettes
 #
-# Author:      Gaetan
+# Author:      Gaetan Bahl
 #
 # Created:     20/08/2013
-# Copyright:   (c) Gaetan 2013
+# Copyright:   (c) Gaetan Bahl 2013
 # Licence:     CC-BY-SA
 #-------------------------------------------------------------
 

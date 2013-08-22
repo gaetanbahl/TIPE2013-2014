@@ -2,10 +2,10 @@
 # Name:        ondelettesGUI.py
 # Purpose:     interface graphique du TIPE sur les ondelettes
 #
-# Author:      Gaetan
+# Author:      Gaetan Bahl
 #
 # Created:     08/08/2013
-# Copyright:   (c) Gaetan 2013
+# Copyright:   (c) Gaetan Bahl/Xavier Friederich 2013
 # Licence:     CC-BY-SA
 #-------------------------------------------------------------
 

@@ -2,10 +2,10 @@
 # Name:        bench.py
 # Purpose:     benchmarking d'algorithmes
 #
-# Author:      gaetan
+# Author:      Gaetan Bahl
 #
 # Created:     19/08/2013
-# Copyright:   (c) Gaetan 2013
+# Copyright:   (c) Gaetan Bahl 2013
 # Licence:     CC-BY-SA
 #---------------------------------------------------------
 
