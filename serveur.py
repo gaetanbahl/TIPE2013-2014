@@ -112,6 +112,7 @@ def main():
         connexion.listen(5)
 
         msg_recu = b""
+        print "attente d'un client"
         connexion_client, infos_connexion = connexion.accept()
 
         print "client connected"

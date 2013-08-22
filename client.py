@@ -31,17 +31,22 @@ def sendImage(socket,link):
                 r,g,b = pix[i,j]
                 packer = struct.Struct("BBB")
                 pixel = packer.pack(r, g, b)
-                #t = t + pixel
-
                 socket.send(pixel)
-            #time.sleep(0.01)
+           
 
     socket.send(b"end")
     reply = socket.recv(11)
 
     print  "server says : " + reply
 
+def askcompress(connexion, nom):
 
+    mess = "compress " + nom
+    connexion.send(mess.encode('ascii'))
+    reply = connexion.recv(2)
+    print "server says : " + reply
+    return reply
+    
 def storeImage(link):
     image = Image.open(link)
     pix = image.load()
@@ -59,13 +64,7 @@ def storeImage(link):
 
     im.save("stor" + link, 'JPEG', quality = 100)
 
-def askcompress(connexion, nom):
 
-    mess = "compress " + nom
-    connexion.send(mess.encode('ascii'))
-    reply = connexion.recv(2)
-    print "server says : " + reply
-    return reply
 
 def askcoeff(conn, nom):
 
@@ -100,22 +99,25 @@ def askcoeff(conn, nom):
             
     print "enregistrement"
     im.save('2' + nom, 'JPEG', quality = 100)
-    conne.send(b'ok')
+    conn.send(b'ok')
 
 
 def main(arg):
     
     connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    if r in arg[1]:
-        connexion.connect(('srv.ordiclic.eu', 13337))
+    if 'r' in arg[1]:
+        try :
+            connexion.connect((argv[3], 13337))
+        except:
+            connexion.connect(('srv.ordiclic.eu', 13337))
     else:
         connexion.connect(('localhost', 13337))
 
-    if s in arg[1]:
+    if 's' in arg[1]:
         sendImage(connexion, arg[2])
         askcompress(connexion, 'srv' + arg[2])
         storeImage(arg[2])
-    if d in arg[1]:
+    if 'd' in arg[1]:
         askcoeff(connexion, arg[2])
         
     connexion.send(b"stop")
