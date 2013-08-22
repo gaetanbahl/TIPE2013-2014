@@ -650,35 +650,41 @@ Ce module a été utilisé pour transférer des images à travers le réseau. No
 
 Nous avons mis au point un algorithme de compression utilisant des matrices. Celui-ci applique deux fois la transformation par ondelettes de Haar (une fois pour la hauteur, une fois pour la largeur), et stocke les coefficients d'ondelettes dans des matrices séparées de l'image. On peut ensuite supprimer certains de ces coefficients au-delà d'un certain seuil, pour compresser l'image.
 
-La figure \ref{chat1} montre l'image à laquelle nous avons appliqué la compression.
+La figure \ref{chat1} montre l'image à laquelle nous avons appliqué la compression. La figure \ref{dchat} montre un détail de l'image.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=1.9]{chat.jpg}
+\includegraphics[scale=0.8]{chat.jpg}
 \caption{L'image de départ}
 \label{chat1}
 \end{figure}
 
-La figure \ref{chat2} représente l'image une fois que la compression a été appliquée avec un seuil assez petit pour garder la plupart des détails importants de l'image mais assez grand pour compresser les <<aplats>> de couleur, les ombres, etc. L'image compressée occupe 35\% de mémoire en moins par rapport à l'image de départ. Ce qui montre que la compression par ondelettes est plutôt efficace et que notre algorithme est fonctionnel.
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=2]{chat_orig.jpg}
+\caption{Détail de l'image de départ}
+\label{dchat}
+\end{figure}
+
+La figure \ref{chat2} représente le même détail de l'image une fois que la compression a été appliquée avec un seuil assez petit pour garder la plupart des détails importants de l'image mais assez grand pour compresser les <<aplats>> de couleur, les ombres, etc. L'image compressée occupe 35\% de mémoire en moins par rapport à l'image de départ. Ce qui montre que la compression par ondelettes est plutôt efficace et que notre algorithme est fonctionnel.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.55]{chat_compress.jpg}
-\caption{L'image compressée}
+\includegraphics[scale=2]{chat_compress.jpg}
+\caption{Détail de l'image compressée}
 \label{chat2}
 \end{figure}
 
-Sur la figure \ref{chat3}, on peut voir l'image compressé avec le seuil maximal. Ici, tous les détails ont été éliminés. Cela revient simplement à diviser la résolution de l'image par deux.
+Sur la figure \ref{chat3}, on peut voir le même détail quand l'image a été compressée avec le seuil maximal. Ici, tous les détails ont été éliminés. Cela revient simplement à diviser la résolution de l'image par deux.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.6]{chat_compress255.jpg}
-\caption{L'image compressée à 100\%}
+\includegraphics[scale=2]{chat_compress255.jpg}
+\caption{Détail de l'image compressée à 100\%}
 \label{chat3}
 \end{figure}
 
 
-\clearpage
 
 \subsection{L'application graphique}
 
@@ -1216,10 +1222,45 @@ Cette fonction est exécutée quand le client envoie "sendimg" au serveur. Le se
 
 C'est une fonction qui ressemble à @fasthaar@ du fichier @ondelettes.py@, mais elle ouvre elle même un image à partir du nom envoyé par le client. Ensuite elle opère la transformation par ondelettes discrète et sauvegarde ceux-ci après les avoir encodés en binaire, uniquement s'ils sont supérieurs au paramètre optionnel epsilon (fixé à 0 par défaut, pour garder des images entières). Une fois que la transformation est terminée, le serveur le signale au client.
 
+\subsubsection{La fonction sendCoef}
+
+Cette fonction est appelée quand le client veut reconstituer une image. Il envoie alors @'coef nom_image'@. Le serveur ouvre le fichier qui contient les coefficients d'ondelette, et les envoie au client sans les décoder. Une fois que c'est terminé, le client envoie @"ok"@ en binaire au serveur pour lui signaler que l'opération s'est bien déroulée.
+
 \subsection{Le fichier client.py}
 
+Ce fichier est exécuté par le l'utilisateur quand il veut demander quelque chose au serveur (soit demander le stockage d'une image, soit demander des coefficients). Celui-ci est appelé de cette façon : @./client.py [arguments:-rsd] image.jpg [serveur])@
+
+\subsubsection{La fonction main}
+
+Cette fonction a pour arguments ceux passés par l'utilisateur en ligne de commande. Ils peuvent être :
+
+\begin{itemize}
+\item @r@ pour communiquer avec un serveur distant. Ce paramètre peut être omis pour établir la connection à un serveur local.
+
+\item @s@ pour stocker une image. C'est à dire : envoi de l'image au serveur, compression de l'image par le serveur, enregistrement de l'image réduite par le client.
+
+\item @d@ pour récupérer les coefficients d'ondelette d'une image et la reconstituer.
+
+\end{itemize}
 
 
+Dans le cas de l'utilisation de la commande @r@, on peut utiliser un serveur autre que celui définit par défaut en en spécifiant l'adresse après le nom de l'image à traiter. Une fois que l'échange client/serveur est terminé, la fonction envoie @"stop"@ au serveur, lui signifiant la fin de la connexion.
+
+\subsubsection{La fonction sendImage}
+
+Cette fonction est appelée lors de l'utilisation de la commande @s@, elle envoie au serveur @"sendimg"@ suivi des dimensions du nom de l'image et de ses dimensions. Ensuite l'image est encodée en binaire puis envoyée au serveur. Le client signale ensuite que le transfert est terminé en envoyant @"end"@ au serveur. Le client affiche ensuite la réponse du serveur.
+
+\subsubsection{La fonction askcompress}
+
+C'est la deuxième fonction appelée quand la commande @s@ est utilisée. Elle demande au serveur de compresser l'image qui a été envoyée plus tôt, avec @"compress"@ suivi du nom de l'image. Le client affiche ensuite la réponse du serveur.
+
+\subsubsection{La fonction storeImage}
+
+C'est la dernière fonction appelée quand la commande @s@ est utilisée. Cette fonction crée une image dont les dimensions ont été divisées par deux (par rapport à l'image originale) et y copie les coefficients d'approximation. Cette image est très légère et peut être affichée.
+
+\subsubsection{La fonction askcoeff}
+
+Cette fonction est appelée lors de l'utilisation de la commande @d@. Elle demande au serveur d'envoyer les coefficients d'ondelette de l'image. La fonction décode ensuite les coefficients reçus, puis ouvre l'image réduite qui avait été enregistrée par storeImage. Le client crée une image de la taille de l'image originale, puis opère la transformation par ondelettes inverse. Après ça, le client enregistre l'image.
 
 
 \clearpage
