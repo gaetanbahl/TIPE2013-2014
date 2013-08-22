@@ -5,7 +5,7 @@
 # Author:      Gaetan Bahl
 #
 # Created:     08/08/2013
-# Copyright:   (c) Gaetan Bahl/Xavier Friederich 2013
+# Copyright:   (c) Gaetan Bahl 2013
 # Licence:     CC-BY-SA
 #-------------------------------------------------------------
 
