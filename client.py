@@ -1,3 +1,4 @@
+#!/usr/bin/python2
 #-------------------------------------------------------------
 # Name:        client.py
 # Purpose:     client du TIPE sur les ondelettes
@@ -13,6 +14,7 @@ import socket
 import Image
 import time
 import struct
+import sys
 
 def sendImage(socket,link):
     image = Image.open(link)
@@ -98,20 +100,27 @@ def askcoeff(conn, nom):
             
     print "enregistrement"
     im.save('2' + nom, 'JPEG', quality = 100)
+    conne.send(b'ok')
 
 
-def main():
-
+def main(arg):
+    
     connexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #connexion.connect(('srv.ordiclic.eu', 13337))
-    connexion.connect(('localhost', 13337))
+    if r in arg[1]:
+        connexion.connect(('srv.ordiclic.eu', 13337))
+    else:
+        connexion.connect(('localhost', 13337))
 
-    #sendImage(connexion, 'chat.jpg')
-    #askcompress(connexion, 'srvchat.jpg')
-    askcoeff(connexion, 'chat.jpg')
+    if s in arg[1]:
+        sendImage(connexion, arg[2])
+        askcompress(connexion, 'srv' + arg[2])
+        storeImage(arg[2])
+    if d in arg[1]:
+        askcoeff(connexion, arg[2])
+        
     connexion.send(b"stop")
     connexion.close()
-    #storeImage('test.jpg')
+    
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)
