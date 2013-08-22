@@ -1,3 +1,4 @@
+#!/usr/bin/python2
 #-------------------------------------------------------------
 # Name:        serveur.py
 # Purpose:     serveur du TIPE sur les ondelettes
