@@ -36,7 +36,7 @@ class Appli(Frame):
         fileMenu.add_command(label="Ouvrir", command=self.askopenfilename)
         fileMenu.add_command(label="Enregistrer", command=self.asksaveasfilename)
         fileMenu.add_command(label="Exit", command=self.onExit)
-        fileMenu.add_command(label="Send to Server", command=self.send)
+        fileMenu.add_command(label="Send to Server", command=self.envoi)
         menubar.add_cascade(label="Fichier", menu=fileMenu)
 
         editMenu = Menu(menubar)
@@ -126,7 +126,7 @@ class Appli(Frame):
         self.labelimg.pack()
         self.update()
 
-	def send(self):
+	def envoi(self):
 		call(["./client.py", "sr", self.filename])
 		
 
