@@ -11,6 +11,7 @@
 \usepackage{soul}
 \usepackage{color}
 \usepackage{fancyhdr}
+\usepackage{verbatim}
 \pagestyle{fancy}
 %\renewcommand{\footrulewidth}{0.4pt}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -30,6 +31,9 @@
 \newcommand{\fonction}[5]{\begin{array}{l|rcl}
 #1: & #2 & \longrightarrow & #3 \\
     & #4 & \longmapsto & #5 \end{array}}
+
+\include{fourier}
+
 
 \section{Premières définitions}
 
@@ -175,6 +179,22 @@ $\displaystyle f = \sum_{(k,p) \in \mathbb{Z}^2}f_{k,p}\psi{}_{k,p}$ où les $f_
 La transformation en ondelettes discrète est presque naturellement associée à des algorithmes plus efficaces et plus rapides que des algorithmes du type FFT qui utilisent la transformée de Fourier.
 
 Une famille d’ondelettes par exemple couramment utilisée dans la transformation en ondelettes discrète est la famille infinie des ondelettes orthogonales de Daubechies : c’est une des familles d’ondelettes les plus performantes.
+
+\subsection{Comparaison avec la transformation de Fourier}
+
+
+Un des avantages de la transformation par les ondelettes (en comparaison avec la transformation de Fourier), c'est que le fait de modifier ou de supprimer un des coefficients de la transformée d'un signal ne va en rien dégrader le signal. \\
+En outre, les algorithmes de transformation en ondelettes 2D s'appliquent à la totalité de l'image et non pas à des blocs de pixels comme par exemple les algorithmes type FFT, ce qui permet d'éviter les carrés uniformes lorsque le taux de compression est relativement élevé. \\
+Enfin, l'utilisation d'une ondelette réversible permet une compression sans perte de données. \\ \\ \\
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.4]{comparaison.jpg}
+\caption{Comparaison des méthodes de compression}
+\end{figure} \\
+La figure ci-dessus montre les résultats de deux compressions de la même image de départ, l'une utilisant la transformation de Fourier (à gauche), l'autre utilisant la transformation en ondelettes (à droite). \\ \\
+Enfin, le coût d'un algorithme utilisant les ondelettes, c'est-à-dire le nombre d'opérations à effectuer, est en $O(N)$, ce qui est mieux que le coût des meilleurs algorithmes type FFT en $O(N\log N)$.
+
+
 
 
 \section{La théorie de l'analyse multirésolution, un outil pour la construction de bases d'ondelettes}
