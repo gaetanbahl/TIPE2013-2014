@@ -12,6 +12,9 @@
 \usepackage{color}
 \usepackage{fancyhdr}
 \usepackage{verbatim}
+\usepackage{geometry}
+\usepackage{tikz}
+\geometry{hmargin=2.5cm,vmargin=2.5cm}
 \pagestyle{fancy}
 %\renewcommand{\footrulewidth}{0.4pt}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -669,9 +672,14 @@ Le module @struct@ a pour but de transformer des chaînes de caractères (et aut
 
 Ce module a été utilisé pour transférer des images à travers le réseau. Nous avons préféré utiliser ce module plutôt que les sockets d'une librairie externe (telle que @PySFML@), car celui-ci est inclus dans Python et nous voulions que le programme reste simple.
 
+
+\input{matriciel}
+
+
+
+
 \subsection{Exemples d'images traitées avec notre algorithme}
 
-Nous avons mis au point un algorithme de compression utilisant des matrices. Celui-ci applique deux fois la transformation par ondelettes de Haar (une fois pour la hauteur, une fois pour la largeur), et stocke les coefficients d'ondelettes dans des matrices séparées de l'image. On peut ensuite supprimer certains de ces coefficients au-delà d'un certain seuil, pour compresser l'image.
 
 La figure \ref{chat1} montre l'image à laquelle nous avons appliqué la compression. La figure \ref{dchat} montre un détail de l'image.
 
@@ -707,7 +715,7 @@ Sur la figure \ref{chat3}, on peut voir le même détail quand l'image a été c
 \label{chat3}
 \end{figure}
 
-
+\cleardoublepage
 
 \subsection{L'application graphique}
 
@@ -751,6 +759,7 @@ La figure \ref{GUI2} montre le sélecteur de seuil, qui apparaît lorsqu'on choi
 \caption{Le sélecteur de seuil de compression}
 \label{GUI2}
 \end{figure}
+
 
 
 \cleardoublepage

@@ -1,0 +1,26 @@
+%algorithme matriciel
+
+\subsection{L'algorithme matriciel}
+
+Nous avons mis au point un algorithme de compression utilisant des matrices. Celui-ci applique deux fois la transformation par ondelettes de Haar (une fois pour la hauteur, une fois pour la largeur), et stocke les coefficients d'ondelettes dans des matrices séparées de l'image. On peut ensuite supprimer certains de ces coefficients au-delà d'un certain seuil, pour compresser l'image.
+
+La figure \ref{mat1} est un schéma-bloc montrant l'algorithme. La partie <<Transformation DWT>> est explicitée par la figure \ref{mat2}
+\begin{figure}[!h]
+\centering
+\scalebox{0.8}{
+\input{schemabloc1}}
+\caption{L'algorithme matriciel}
+\label{mat1}
+\end{figure}
+
+
+\begin{figure}[!h]
+\centering
+\scalebox{0.8}{
+\input{schemabloc2}}
+\caption{La transformation appliquée aux matrices}
+\label{mat2}
+\end{figure}
+
+
+\clearpage
