@@ -86,7 +86,7 @@ On pourra remarquer que $\mathcal{H}$ est discontinue en $\frac{1}{2}$.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=1.1]{haar.png}
+\includegraphics[scale=1.1]{images/haar.png}
 \caption{Ondelette de Haar}
 \label{haar}
 \end{figure}
@@ -99,7 +99,7 @@ On peut définir cette fonction par $\begin{array}{lrcl}
     
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.2]{chapeau_mexicain.png}
+\includegraphics[scale=0.2]{images/chapeau_mexicain.png}
 \caption{Ondelette "chapeau mexicain"}
 \label{chapmex}
 \end{figure}
@@ -112,7 +112,7 @@ On peut définir cette fonction par $\begin{array}{lrcl}
     
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.2]{morlet.png}
+\includegraphics[scale=0.2]{images/morlet.png}
 \caption{Ondelette de Morlet}
 \label{morlet}
 \end{figure}
@@ -146,7 +146,7 @@ L’ondelette verte a été dilatée à partir de l’ondelette rouge (ondelette
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.22]{dilatation.png}
+\includegraphics[scale=0.22]{images/dilatation.png}
 \caption{Dilatation d'ondelette}
 \label{dilat}
 \end{figure}
@@ -156,7 +156,7 @@ L’ondelette verte a été translatée à partir de l’ondelette rouge (ondele
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.22]{translation.png}
+\includegraphics[scale=0.22]{images/translation.png}
 \caption{Translation d'ondelette}
 \label{translat}
 \end{figure}
@@ -191,7 +191,11 @@ En outre, les algorithmes de transformation en ondelettes 2D s'appliquent à la 
 Enfin, l'utilisation d'une ondelette réversible permet une compression sans perte de données. \\ \\ \\
 \begin{figure}[!h]
 \centering
+<<<<<<< HEAD
 \includegraphics[scale=0.4]{comparaison.jpg}
+=======
+\includegraphics[scale=0.4]{images/comparaison.jpg}
+>>>>>>> d5245ec323332736ffd68589bb833e4bf5a5f8bb
 \caption{Comparaison des méthodes de compression}
 \end{figure} \\
 La figure ci-dessus montre les résultats de deux compressions de la même image de départ, l'une utilisant la transformation de Fourier (à gauche), l'autre utilisant la transformation en ondelettes (à droite). \\ \\
@@ -685,14 +689,14 @@ La figure \ref{chat1} montre l'image à laquelle nous avons appliqué la compres
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.8]{chat.jpg}
+\includegraphics[scale=0.8]{images/chat.jpg}
 \caption{L'image de départ}
 \label{chat1}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=2]{chat_orig.jpg}
+\includegraphics[scale=2]{images/chat_orig.jpg}
 \caption{Détail de l'image de départ}
 \label{dchat}
 \end{figure}
@@ -701,7 +705,7 @@ La figure \ref{chat2} représente le même détail de l'image une fois que la co
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=2]{chat_compress.jpg}
+\includegraphics[scale=2]{images/chat_compress.jpg}
 \caption{Détail de l'image compressée}
 \label{chat2}
 \end{figure}
@@ -710,7 +714,7 @@ Sur la figure \ref{chat3}, on peut voir le même détail quand l'image a été c
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=2]{chat_compress255.jpg}
+\includegraphics[scale=2]{images/chat_compress255.jpg}
 \caption{Détail de l'image compressée à 100\%}
 \label{chat3}
 \end{figure}
@@ -736,7 +740,7 @@ La figure \ref{GUI} montre la fenêtre principale de l'application, avec une ima
 
 \begin{figure}[!hb]
 \centering
-\includegraphics[scale=0.5]{OndelettesGUI.png}
+\includegraphics[scale=0.5]{images/OndelettesGUI.png}
 \caption{Fenêtre principale de l'application}
 \label{GUI}
 \end{figure}
@@ -746,7 +750,7 @@ La figure \ref{GUI1} montre les menus de l'application, qui permettent de choisi
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[scale=0.8]{OndelettesGUI1.png}
+\includegraphics[scale=0.8]{images/OndelettesGUI1.png}
 \caption{Menus de l'application}
 \label{GUI1}
 \end{figure}
@@ -755,7 +759,7 @@ La figure \ref{GUI2} montre le sélecteur de seuil, qui apparaît lorsqu'on choi
 
 \begin{figure}[!hb]
 \centering
-\includegraphics[scale=0.8]{Compression.png}
+\includegraphics[scale=0.8]{images/Compression.png}
 \caption{Le sélecteur de seuil de compression}
 \label{GUI2}
 \end{figure}
@@ -774,7 +778,7 @@ L'algorithme découpe l'image en carrés de 4 pixels, qu'il va traiter à la sui
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.8]{minichat.jpg}
+\includegraphics[scale=0.8]{images/minichat.jpg}
 \caption{Fonctionnement de l'algorithme}
 \label{algo}
 \end{figure}
@@ -917,7 +921,7 @@ Enfin, on arrondit les valeurs à l'entier le plus proche. Le tableau final est 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.3]{aprescompress.jpg}
+\includegraphics[scale=0.3]{images/aprescompress.jpg}
 \caption{Pixels avant et après traitement}
 \label{after}
 \end{figure}
@@ -986,7 +990,7 @@ La figure \ref{save} montre le processus d'archivage.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.5]{save.png}
+\includegraphics[scale=0.5]{images/save.png}
 \caption{Processus d'archivage}
 \label{save}
 \end{figure}
@@ -1011,7 +1015,7 @@ La figure \ref{load} illustre ce processus
  
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.5]{load.png}
+\includegraphics[scale=0.5]{images/load.png}
 \caption{Processus de restauration}
 \label{load}
 \end{figure}
@@ -1350,7 +1354,7 @@ Tout le code de ce projet est sous licence Creatice Commons BY-SA (voir p.\pager
 \lstinputlisting{client.py}
 
 \begin{center}
-\includegraphics{88x31.png}
+\includegraphics{images/88x31.png}
 
 \end{center}
 
