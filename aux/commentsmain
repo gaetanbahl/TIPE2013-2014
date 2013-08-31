@@ -1,0 +1,17 @@
+##    image.getmatrixblue()
+##    image.getmatrixgreen()
+##    image.getmatrixred()
+##    image.create_coef_matrix()
+##
+##    #image.grayscalemeanmatrix()
+##    #image.makeimagegray(image.matrixgray).save("piano_gris.jpg")
+##
+##    image.haar()
+##
+##
+##    #image.makeimage().save("1px.jpg",'JPEG',quality = 100)
+##    image.compression(10)
+##    image.clearimage()
+##    image.syntheselignes()
+##    image.synthesecolonnes()
+####    image.fill()
