@@ -1,0 +1,254 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+ANALYSE MULTIRESOLUTRION # un outil pour la construction de bases d'ondelettes
+\end_layout
+
+\begin_layout Standard
+Pour construire des bases d'ondelettes orthonormées, les théoriciens Mallat
+ et Meyer ont introduit la notion d'analyse multirésolution.
+\end_layout
+
+\begin_layout Standard
+Définition :
+\end_layout
+
+\begin_layout Standard
+Une analyse multirésolution est une suite 
+\begin_inset Formula $\left\{ V_{k}\right\} _{k\in\mathbb{Z}}$
+\end_inset
+
+de sous-espaces fermés de 
+\begin_inset Formula $\mathcal{L^{\mathit{\mathrm{2}}}\mathrm{(\mathbb{R})}}$
+\end_inset
+
+tels que :
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall(k,l)\in\mathbb{Z^{\mathrm{2}}\mathrm{,}\,\mathrm{\mathit{f}}\in\mathit{\mathrm{\mathit{V}}_{k}\Longleftrightarrow\mathit{f(.-2^{k}l)\in\mathrm{\mathit{V}}_{k}}}}$
+\end_inset
+
+ # propriété d'invariance par translation
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall k\in\mathbb{Z\mathrm{,\,}}\mathrm{\mathit{V}}_{k+1}\subset V_{k}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall k\in\mathbb{Z\mathrm{,\,}}\mathrm{\mathit{f}}\in\mathit{\mathrm{\mathit{V}}_{k}\Longleftrightarrow\mathit{f\left(\dfrac{.}{2}\right)\in\mathrm{\mathit{V}}_{k+\mathrm{1}}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\lim_{{\displaystyle j\rightarrow\infty}}V_{k}={\displaystyle {\displaystyle \bigcap_{k\in\mathbb{Z}}V_{k}=\textrm{Ø}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\lim_{{\displaystyle j\rightarrow-\infty}}V_{k}={\displaystyle {\displaystyle \overline{\bigcap_{k\in\mathbb{Z}}V_{k}}=\mathcal{L^{\mathit{\mathrm{2}}}\mathrm{(\mathbb{R})}}}}$
+\end_inset
+
+ où la notation 
+\begin_inset Formula $\overline{A}$
+\end_inset
+
+ désigne l'adhérence de 
+\begin_inset Formula $\mathrm{\mathit{A}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\exists\varphi,$
+\end_inset
+
+
+\begin_inset Formula $\,\left\{ \varphi(.-n)\right\} _{n\in\mathbb{Z}}$
+\end_inset
+
+forme une base orthonormée de 
+\begin_inset Formula $\mathit{V_{0}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\varphi$
+\end_inset
+
+est appelée fonction d'échelle associée à l'analyse multirésolution.
+ Cette fonction permet notamment la connaissance de la suite 
+\begin_inset Formula $\left\{ V_{k}\right\} _{k\in\mathbb{Z}}$
+\end_inset
+
+et ainsi la déduction d'une base orthonormée de 
+\begin_inset Formula $\mathit{V_{k}}$
+\end_inset
+
+ pour tout 
+\begin_inset Formula $\mathit{k\in\mathbb{Z}}$
+\end_inset
+
+.
+ On peut alors définir une ondelette associée à l'analyse multirésolution
+ : il s'agira de toute fonction 
+\begin_inset Formula $\psi$
+\end_inset
+
+ qui forme avec ses translatées entières une base orthonormée de 
+\begin_inset Formula $\mathit{W_{0}}$
+\end_inset
+
+, supplémentaire orthogonal de 
+\begin_inset Formula $\mathit{V_{1}}$
+\end_inset
+
+dans 
+\begin_inset Formula $\mathit{V_{0}}$
+\end_inset
+
+.
+ En effet, il découle de la définition de 
+\begin_inset Formula $\mathit{W_{k}}$
+\end_inset
+
+que 
+\begin_inset Formula $\mathcal{L^{\mathit{\mathrm{2}}}\mathrm{(\mathbb{R})}}$
+\end_inset
+
+=
+\begin_inset Formula $\overline{{\displaystyle \bigoplus_{k\in\mathbb{Z}}}W_{k}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Par suite la famille 
+\begin_inset Formula $\left\{ {\displaystyle \dfrac{1}{\sqrt{2^{m}}}\psi\left(\dfrac{.-2^{m}n}{2^{m}}\right)}\right\} _{\left(m,n\right)\in\mathbb{Z^{\mathrm{2}}}}$
+\end_inset
+
+forme une base orthonormée de 
+\begin_inset Formula $\mathcal{L^{\mathit{\mathrm{2}}}\mathrm{(\mathbb{R})}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Les espaces 
+\begin_inset Formula $\mathit{W_{k}}$
+\end_inset
+
+pour 
+\begin_inset Formula $\mathit{k\in\mathbb{Z}}$
+\end_inset
+
+ sont appelés espaces des détails.
+ Ils ne forment pas une famille d'espaces emboîtés mais les propriétés d'échelle
+s et d'invariance par translation sont conservées.
+ En effet, pour 
+\begin_inset Formula $\mathit{k\in\mathbb{Z}}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathit{W_{k-1}}$
+\end_inset
+
+est orthogonal à 
+\begin_inset Formula $\mathit{V_{k-1}}$
+\end_inset
+
+, d'où 
+\begin_inset Formula $\mathit{W_{k-1}}$
+\end_inset
+
+orthogonal à 
+\begin_inset Formula $\mathit{W_{k}}$
+\end_inset
+
+ en vertu de l'égalité 
+\begin_inset Formula $\mathcal{L^{\mathit{\mathrm{2}}}\mathrm{(\mathbb{R})}}$
+\end_inset
+
+=
+\begin_inset Formula $\overline{{\displaystyle \bigoplus_{k\in\mathbb{Z}}}W_{k}}$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,142 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}L'analyse de Fourier, outil certes efficace mais insuffisant}{4}
+\contentsline {subsection}{\numberline {1.1}Le cas des signaux p\IeC {\'e}riodiques : l'utilisation des s\IeC {\'e}ries de Fourier}{4}
+\contentsline {subsection}{\numberline {1.2}L'utilisation de la transform\IeC {\'e}e de Fourier}{5}
+\contentsline {subsubsection}{\numberline {1.2.1}D\IeC {\'e}finition de la transformation de Fourier}{5}
+\contentsline {subsubsection}{\numberline {1.2.2}Propri\IeC {\'e}t\IeC {\'e}s de la transformation de Fourier}{5}
+\contentsline {subsubsection}{\numberline {1.2.3}Transform\IeC {\'e}e inverse}{6}
+\contentsline {subsubsection}{\numberline {1.2.4}Ce qu'apporte la transform\IeC {\'e}e de Fourier d'un signal}{6}
+\contentsline {subsubsection}{\numberline {1.2.5}Exemples de transform\IeC {\'e}e de Fourier}{6}
+\contentsline {subsubsection}{\numberline {1.2.6}Application de la transformation de Fourier}{7}
+\contentsline {subsection}{\numberline {1.3}Transform\IeC {\'e}e de Fourier Discr\IeC {\`e}te ou TFD et limites}{8}
+\contentsline {subsubsection}{\numberline {1.3.1}D\IeC {\'e}finition}{8}
+\contentsline {subsubsection}{\numberline {1.3.2}Des applications de la TFD}{8}
+\contentsline {subsubsection}{\numberline {1.3.3}Des limites \IeC {\`a} la Transform\IeC {\'e}e de Fourier Discr\IeC {\`e}te}{9}
+\contentsline {section}{\numberline {2}Premi\IeC {\`e}res d\IeC {\'e}finitions}{10}
+\contentsline {subsection}{\numberline {2.1}D\IeC {\'e}finition 1 : Ondelette}{10}
+\contentsline {subsection}{\numberline {2.2}Exemples d\IeC {\textquoteright }ondelettes m\IeC {\`e}res :}{10}
+\contentsline {subsubsection}{\numberline {2.2.1}Ondelette de Haar :}{10}
+\contentsline {subsubsection}{\numberline {2.2.2}Ondelette "chapeau mexicain" :}{10}
+\contentsline {subsubsection}{\numberline {2.2.3}Ondelette de Morlet :}{11}
+\contentsline {section}{\numberline {3}Transformation en ondelettes}{12}
+\contentsline {subsection}{\numberline {3.1}Transformation en ondelette continue}{12}
+\contentsline {subsection}{\numberline {3.2}Transformation en ondelettes discr\IeC {\`e}te.}{12}
+\contentsline {subsection}{\numberline {3.3}Comparaison avec la transformation de Fourier}{13}
+\contentsline {section}{\numberline {4}La th\IeC {\'e}orie de l'analyse multir\IeC {\'e}solution, un outil pour la construction de bases d'ondelettes}{14}
+\contentsline {subsection}{\numberline {4.1}D\IeC {\'e}finition d'une analyse multir\IeC {\'e}solution.}{14}
+\contentsline {subsection}{\numberline {4.2}Int\IeC {\'e}ret d'une analyse multir\IeC {\'e}solution}{14}
+\contentsline {section}{\numberline {5}Algorithme de d\IeC {\'e}composition en ondelettes de St\IeC {\'e}phane Mallat (1989)}{15}
+\contentsline {subsection}{\numberline {5.1}Principe}{15}
+\contentsline {subsection}{\numberline {5.2}D\IeC {\'e}monstration dans un cas simple : le cas des ondelettes de Haar.}{15}
+\contentsline {subsubsection}{\numberline {5.2.1}Introduction et d\IeC {\'e}finition des notations}{15}
+\contentsline {subsubsection}{\numberline {5.2.2}Propri\IeC {\'e}t\IeC {\'e} math\IeC {\'e}matique : Orthogonalit\IeC {\'e} dans les espaces euclidiens}{16}
+\contentsline {paragraph}{\uppercase {\IeC {\'e}}nonc\IeC {\'e}}{16}
+\contentsline {paragraph}{D\IeC {\'e}monstration}{16}
+\contentsline {subsubsection}{\numberline {5.2.3}Utilisation de la propri\IeC {\'e}t\IeC {\'e} : d\IeC {\'e}composition orthogonale en somme directe.}{17}
+\contentsline {subsubsection}{\numberline {5.2.4}\uppercase {\IeC {\'e}}tape principale de l'algorithme : passage \IeC {\`a} la r\IeC {\'e}solution inf\IeC {\'e}rieure, d\IeC {\'e}termination des coefficients \IeC {\`a} la r\IeC {\'e}solution inf\IeC {\'e}rieure.}{18}
+\contentsline {paragraph}{Premi\IeC {\`e}res \IeC {\'e}galit\IeC {\'e}s}{18}
+\contentsline {paragraph}{Secondes \IeC {\'e}galit\IeC {\'e}s}{18}
+\contentsline {paragraph}{Conclusion}{19}
+\contentsline {subsection}{\numberline {5.3}Sch\IeC {\'e}matisation de l'algorithme de Mallat (compression d'un signal $\Psi {}_{p}$ par des ondelettes)}{20}
+\contentsline {subsection}{\numberline {5.4}Repr\IeC {\'e}sentation matricielle de l\IeC {\textquoteright }algorithme utilisant les ondelettes de Haar}{20}
+\contentsline {subsubsection}{\numberline {5.4.1}Exemple}{21}
+\contentsline {section}{\numberline {6}Application \IeC {\`a} la compression des donn\IeC {\'e}es}{22}
+\contentsline {section}{\numberline {7}Utilisation pratique de la transformation par ondelettes discr\IeC {\`e}te}{22}
+\contentsline {subsection}{\numberline {7.1}Le choix des outils}{22}
+\contentsline {subsubsection}{\numberline {7.1.1}Le langage : Python}{22}
+\contentsline {subsubsection}{\numberline {7.1.2}La librairie de traitement d'image : PIL}{22}
+\contentsline {subsubsection}{\numberline {7.1.3}La librairie d'interface graphique : Tkinter}{23}
+\contentsline {subsubsection}{\numberline {7.1.4}Le module time}{23}
+\contentsline {subsubsection}{\numberline {7.1.5}Le module struct}{23}
+\contentsline {subsubsection}{\numberline {7.1.6}Le module socket}{23}
+\contentsline {subsection}{\numberline {7.2}L'algorithme matriciel}{23}
+\contentsline {subsection}{\numberline {7.3}Exemples d'images trait\IeC {\'e}es avec notre algorithme}{25}
+\contentsline {subsection}{\numberline {7.4}L'application graphique}{27}
+\contentsline {subsection}{\numberline {7.5}L'algorithme fasthaar}{29}
+\contentsline {subsubsection}{\numberline {7.5.1}Fonctionnement}{29}
+\contentsline {paragraph}{Analyse :}{29}
+\contentsline {paragraph}{Compression et synth\IeC {\`e}se :}{30}
+\contentsline {subsubsection}{\numberline {7.5.2}Co\IeC {\^u}t et Performance}{32}
+\contentsline {paragraph}{Co\IeC {\^u}t en m\IeC {\'e}moire :}{32}
+\contentsline {paragraph}{Co\IeC {\^u}t temporel :}{32}
+\contentsline {subsection}{\numberline {7.6}Transferts et \IeC {\'e}changes d'images par le r\IeC {\'e}seau}{33}
+\contentsline {subsubsection}{\numberline {7.6.1}But du programme}{33}
+\contentsline {subsubsection}{\numberline {7.6.2}Processus d'archivage}{33}
+\contentsline {paragraph}{\IeC {\'E}tape 1}{33}
+\contentsline {paragraph}{\IeC {\'E}tape 2}{33}
+\contentsline {paragraph}{\IeC {\'E}tape 3}{33}
+\contentsline {subsubsection}{\numberline {7.6.3}Processus de restauration}{34}
+\contentsline {paragraph}{\IeC {\'E}tape 1}{34}
+\contentsline {paragraph}{\IeC {\'E}tape 2}{34}
+\contentsline {paragraph}{\IeC {\'E}tape 3}{34}
+\contentsline {section}{\numberline {8}Description du code}{35}
+\contentsline {subsection}{\numberline {8.1}Le fichier ondelettes.py }{35}
+\contentsline {subsubsection}{\numberline {8.1.1}La classe Matrice }{35}
+\contentsline {paragraph}{La fonction init }{35}
+\contentsline {paragraph}{La fonction transpose }{35}
+\contentsline {paragraph}{La fonction add}{35}
+\contentsline {paragraph}{La fonction multiply}{35}
+\contentsline {paragraph}{La fonction copy}{35}
+\contentsline {paragraph}{La fonction update}{35}
+\contentsline {paragraph}{Les fonctions save et save1}{35}
+\contentsline {paragraph}{La fonction restore}{35}
+\contentsline {subsubsection}{\numberline {8.1.2}La classe MatriceImage}{35}
+\contentsline {paragraph}{La fonction init}{35}
+\contentsline {paragraph}{La fonction fill}{35}
+\contentsline {paragraph}{Les fonctions grayscalemean et grayscalemeanmatrix}{35}
+\contentsline {paragraph}{Les fonctions getmatrixred, getmatrixgreen et getmatrixblue}{36}
+\contentsline {paragraph}{La fonction save}{36}
+\contentsline {paragraph}{La fonction ondelette\_{}haar}{36}
+\contentsline {paragraph}{Les fonctions getcolonne et getligne}{36}
+\contentsline {paragraph}{La fonction setcolonne}{36}
+\contentsline {paragraph}{Les fonctions apply\_{}haar\_{}lig et apply\_{}haar\_{}col}{36}
+\contentsline {paragraph}{La fonction haar\_{}grayscale}{36}
+\contentsline {paragraph}{La fonction update}{36}
+\contentsline {paragraph}{La fonction create\_{}coef\_{}matrix}{36}
+\contentsline {paragraph}{La fonction haar}{36}
+\contentsline {paragraph}{La fonction makeimage}{36}
+\contentsline {paragraph}{La fonction compression}{36}
+\contentsline {paragraph}{Les fonctions syntheseligne et synthesecolonnes}{36}
+\contentsline {paragraph}{La fonction clearimage}{36}
+\contentsline {paragraph}{La fonction fasthaar}{36}
+\contentsline {subsection}{\numberline {8.2}Le fichier ondelettesGUI.py}{37}
+\contentsline {subsubsection}{\numberline {8.2.1}La classe Appli}{37}
+\contentsline {paragraph}{La fonction init}{37}
+\contentsline {paragraph}{La fonction initUI}{37}
+\contentsline {paragraph}{La fonction askopenfilename}{37}
+\contentsline {paragraph}{La fonction asksaveasfilename}{37}
+\contentsline {paragraph}{Les fonctions askcompression et askcompression2}{37}
+\contentsline {paragraph}{Les fonctions compression et compression2}{37}
+\contentsline {paragraph}{La fonction grayscale}{37}
+\contentsline {paragraph}{La fonction displayimage}{37}
+\contentsline {paragraph}{La fonction onExit}{37}
+\contentsline {subsubsection}{\numberline {8.2.2}La classe DialogScale}{37}
+\contentsline {paragraph}{La fonction initUI}{37}
+\contentsline {paragraph}{La fonction onScale}{37}
+\contentsline {paragraph}{La fonction ok}{37}
+\contentsline {subsubsection}{\numberline {8.2.3}La fonction main}{38}
+\contentsline {subsection}{\numberline {8.3}Le fichier bench.py}{38}
+\contentsline {subsubsection}{\numberline {8.3.1}La fonction image\_gen}{38}
+\contentsline {subsubsection}{\numberline {8.3.2}La fonction randomize}{38}
+\contentsline {subsubsection}{\numberline {8.3.3}La fonction bench\_square}{38}
+\contentsline {subsubsection}{\numberline {8.3.4}La fonction fasthaar}{38}
+\contentsline {subsubsection}{\numberline {8.3.5}La fonction main}{38}
+\contentsline {subsection}{\numberline {8.4}Le fichier serveur.py}{38}
+\contentsline {subsubsection}{\numberline {8.4.1}La fonction main}{38}
+\contentsline {subsubsection}{\numberline {8.4.2}La fonction recvImage}{38}
+\contentsline {subsubsection}{\numberline {8.4.3}La fonction fasthaar\_srv}{39}
+\contentsline {subsubsection}{\numberline {8.4.4}La fonction sendCoef}{39}
+\contentsline {subsection}{\numberline {8.5}Le fichier client.py}{39}
+\contentsline {subsubsection}{\numberline {8.5.1}La fonction main}{39}
+\contentsline {subsubsection}{\numberline {8.5.2}La fonction sendImage}{39}
+\contentsline {subsubsection}{\numberline {8.5.3}La fonction askcompress}{39}
+\contentsline {subsubsection}{\numberline {8.5.4}La fonction storeImage}{39}
+\contentsline {subsubsection}{\numberline {8.5.5}La fonction askcoeff}{40}
+\contentsline {section}{\numberline {9}Conclusion}{40}
+\contentsline {section}{\numberline {10}Bibliographie, Liens et Remerciements}{40}
+\contentsline {section}{\numberline {11}Annexes}{41}
+\contentsline {subsection}{\numberline {11.1}Fichier ondelettes.py}{41}
+\contentsline {subsection}{\numberline {11.2}Fichier ondelettesGUI.py}{46}
+\contentsline {subsection}{\numberline {11.3}Fichier bench.py}{48}
+\contentsline {subsection}{\numberline {11.4}Fichier serveur.py}{50}
+\contentsline {subsection}{\numberline {11.5}Fichier client.py}{52}
