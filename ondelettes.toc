@@ -21,35 +21,35 @@
 \contentsline {section}{\numberline {3}Transformation en ondelettes}{12}
 \contentsline {subsection}{\numberline {3.1}Transformation en ondelette continue}{12}
 \contentsline {subsection}{\numberline {3.2}Transformation en ondelettes discr\IeC {\`e}te.}{12}
-\contentsline {subsection}{\numberline {3.3}Comparaison avec la transformation de Fourier}{13}
-\contentsline {section}{\numberline {4}La th\IeC {\'e}orie de l'analyse multir\IeC {\'e}solution, un outil pour la construction de bases d'ondelettes}{14}
-\contentsline {subsection}{\numberline {4.1}D\IeC {\'e}finition d'une analyse multir\IeC {\'e}solution.}{14}
-\contentsline {subsection}{\numberline {4.2}Int\IeC {\'e}ret d'une analyse multir\IeC {\'e}solution}{14}
+\contentsline {subsection}{\numberline {3.3}Comparaison avec la transformation de Fourier}{14}
+\contentsline {section}{\numberline {4}La th\IeC {\'e}orie de l'analyse multir\IeC {\'e}solution, un outil pour la construction de bases d'ondelettes}{15}
+\contentsline {subsection}{\numberline {4.1}D\IeC {\'e}finition d'une analyse multir\IeC {\'e}solution.}{15}
+\contentsline {subsection}{\numberline {4.2}Int\IeC {\'e}ret d'une analyse multir\IeC {\'e}solution}{15}
 \contentsline {section}{\numberline {5}Algorithme de d\IeC {\'e}composition en ondelettes de St\IeC {\'e}phane Mallat (1989)}{15}
 \contentsline {subsection}{\numberline {5.1}Principe}{15}
 \contentsline {subsection}{\numberline {5.2}D\IeC {\'e}monstration dans un cas simple : le cas des ondelettes de Haar.}{15}
-\contentsline {subsubsection}{\numberline {5.2.1}Introduction et d\IeC {\'e}finition des notations}{15}
-\contentsline {subsubsection}{\numberline {5.2.2}Propri\IeC {\'e}t\IeC {\'e} math\IeC {\'e}matique : Orthogonalit\IeC {\'e} dans les espaces euclidiens}{16}
-\contentsline {paragraph}{\uppercase {\IeC {\'e}}nonc\IeC {\'e}}{16}
-\contentsline {paragraph}{D\IeC {\'e}monstration}{16}
+\contentsline {subsubsection}{\numberline {5.2.1}Introduction et d\IeC {\'e}finition des notations}{16}
+\contentsline {subsubsection}{\numberline {5.2.2}Propri\IeC {\'e}t\IeC {\'e} math\IeC {\'e}matique : Orthogonalit\IeC {\'e} dans les espaces euclidiens}{17}
+\contentsline {paragraph}{\uppercase {\IeC {\'e}}nonc\IeC {\'e}}{17}
+\contentsline {paragraph}{D\IeC {\'e}monstration}{17}
 \contentsline {subsubsection}{\numberline {5.2.3}Utilisation de la propri\IeC {\'e}t\IeC {\'e} : d\IeC {\'e}composition orthogonale en somme directe.}{17}
 \contentsline {subsubsection}{\numberline {5.2.4}\uppercase {\IeC {\'e}}tape principale de l'algorithme : passage \IeC {\`a} la r\IeC {\'e}solution inf\IeC {\'e}rieure, d\IeC {\'e}termination des coefficients \IeC {\`a} la r\IeC {\'e}solution inf\IeC {\'e}rieure.}{18}
 \contentsline {paragraph}{Premi\IeC {\`e}res \IeC {\'e}galit\IeC {\'e}s}{18}
-\contentsline {paragraph}{Secondes \IeC {\'e}galit\IeC {\'e}s}{18}
-\contentsline {paragraph}{Conclusion}{19}
+\contentsline {paragraph}{Secondes \IeC {\'e}galit\IeC {\'e}s}{19}
+\contentsline {paragraph}{Conclusion}{20}
 \contentsline {subsection}{\numberline {5.3}Sch\IeC {\'e}matisation de l'algorithme de Mallat (compression d'un signal $\Psi {}_{p}$ par des ondelettes)}{20}
-\contentsline {subsection}{\numberline {5.4}Repr\IeC {\'e}sentation matricielle de l\IeC {\textquoteright }algorithme utilisant les ondelettes de Haar}{20}
+\contentsline {subsection}{\numberline {5.4}Repr\IeC {\'e}sentation matricielle de l\IeC {\textquoteright }algorithme utilisant les ondelettes de Haar}{21}
 \contentsline {subsubsection}{\numberline {5.4.1}Exemple}{21}
 \contentsline {section}{\numberline {6}Application \IeC {\`a} la compression des donn\IeC {\'e}es}{22}
 \contentsline {section}{\numberline {7}Utilisation pratique de la transformation par ondelettes discr\IeC {\`e}te}{22}
-\contentsline {subsection}{\numberline {7.1}Le choix des outils}{22}
-\contentsline {subsubsection}{\numberline {7.1.1}Le langage : Python}{22}
-\contentsline {subsubsection}{\numberline {7.1.2}La librairie de traitement d'image : PIL}{22}
+\contentsline {subsection}{\numberline {7.1}Le choix des outils}{23}
+\contentsline {subsubsection}{\numberline {7.1.1}Le langage : Python}{23}
+\contentsline {subsubsection}{\numberline {7.1.2}La librairie de traitement d'image : PIL}{23}
 \contentsline {subsubsection}{\numberline {7.1.3}La librairie d'interface graphique : Tkinter}{23}
 \contentsline {subsubsection}{\numberline {7.1.4}Le module time}{23}
 \contentsline {subsubsection}{\numberline {7.1.5}Le module struct}{23}
-\contentsline {subsubsection}{\numberline {7.1.6}Le module socket}{23}
-\contentsline {subsection}{\numberline {7.2}L'algorithme matriciel}{23}
+\contentsline {subsubsection}{\numberline {7.1.6}Le module socket}{24}
+\contentsline {subsection}{\numberline {7.2}L'algorithme matriciel}{24}
 \contentsline {subsection}{\numberline {7.3}Exemples d'images trait\IeC {\'e}es avec notre algorithme}{25}
 \contentsline {subsection}{\numberline {7.4}L'application graphique}{27}
 \contentsline {subsection}{\numberline {7.5}L'algorithme fasthaar}{29}

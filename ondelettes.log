@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Arch Linux) (format=pdflatex 2013.8.16)  31 AUG 2013 17:37
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Arch Linux) (format=pdflatex 2013.8.16)  1 SEP 2013 14:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -763,48 +763,56 @@ File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
 (/usr/share/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrary
 topaths.code.tex
 File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
-))) (./ondelettes.aux (./fourier.aux))
+))) (/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count138
+\float@exts=\toks41
+\float@box=\box39
+\@float@everytoks=\toks42
+\@floatcapt=\box40
+)
+(./ondelettes.aux (./fourier.aux))
 \openout1 = `ondelettes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 28.
 
 (/usr/share/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \degres on input line 27.
-LaTeX Info: Redefining \dots on input line 27.
-LaTeX Info: Redefining \up on input line 27.
+LaTeX Info: Redefining \degres on input line 28.
+LaTeX Info: Redefining \dots on input line 28.
+LaTeX Info: Redefining \up on input line 28.
 
 
 Package frenchb.ldf Warning: OT1 encoding should not be used for French. 
 (frenchb.ldf)                Add \usepackage[T1]{fontenc} to the preamble
-(frenchb.ldf)                of your document, on input line 27.
+(frenchb.ldf)                of your document, on input line 28.
 
 (/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count138
+\scratchcounter=\count139
 \scratchdimen=\dimen184
-\scratchbox=\box39
-\nofMPsegments=\count139
-\nofMParguments=\count140
-\everyMPshowfont=\toks41
-\MPscratchCnt=\count141
+\scratchbox=\box41
+\nofMPsegments=\count140
+\nofMParguments=\count141
+\everyMPshowfont=\toks43
+\MPscratchCnt=\count142
 \MPscratchDim=\dimen185
-\MPnumerator=\count142
-\makeMPintoPDFobject=\count143
-\everyMPtoPDFconversion=\toks42
+\MPnumerator=\count143
+\makeMPintoPDFobject=\count144
+\everyMPtoPDFconversion=\toks44
 ) (/usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -849,7 +857,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count144
+\c@lstlisting=\count145
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -886,35 +894,35 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 28.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 29.
 
 (/usr/share/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 28.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 29.
 
 
 (/usr/share/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 28.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 29.
 
 
 (/usr/share/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 28.
+(Font)              <12> on input line 29.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 28.
+(Font)              <8> on input line 29.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 28.
-LaTeX Font Info:    Try loading font information for U+msa on input line 28.
+(Font)              <6> on input line 29.
+LaTeX Font Info:    Try loading font information for U+msa on input line 29.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 28.
+LaTeX Font Info:    Try loading font information for U+msb on input line 29.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -935,7 +943,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 \tf@lof=\write5
 \openout5 = `ondelettes.lof'.
 
-Package shortvrb Info: Made  a short reference for \verb on input line 31.
+Package shortvrb Info: Made  a short reference for \verb on input line 32.
  [3]
 \openout2 = `fourier.aux'.
 
@@ -948,7 +956,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--20
 [4
 
 
-] <images/sinusoides.png, id=30, 1003.75pt x 1003.75pt>
+] <images/sinusoides.png, id=31, 1003.75pt x 1003.75pt>
 File: images/sinusoides.png Graphic file (type png)
 
 <use images/sinusoides.png>
@@ -1063,19 +1071,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 163--169
  []
 
 ) [9]
-Underfull \hbox (badness 10000) in paragraph at lines 61--62
+Underfull \hbox (badness 10000) in paragraph at lines 62--63
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--64
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
 
  []
 
 <images/haar.png, id=62, 127.22531pt x 97.11281pt>
 File: images/haar.png Graphic file (type png)
  <use images/haar.png>
-Package pdftex.def Info: images/haar.png used on input line 89.
+Package pdftex.def Info: images/haar.png used on input line 90.
 (pdftex.def)             Requested size: 139.94826pt x 106.8244pt.
 
 
@@ -1085,7 +1093,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: images/chapeau_mexicain.png Graphic file (type png)
 
 <use images/chapeau_mexicain.png>
-Package pdftex.def Info: images/chapeau_mexicain.png used on input line 102.
+Package pdftex.def Info: images/chapeau_mexicain.png used on input line 103.
 (pdftex.def)             Requested size: 284.55809pt x 111.7154pt.
 
 
@@ -1094,39 +1102,39 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <images/morlet.png, id=64, 1177.39874pt x 943.27406pt>
 File: images/morlet.png Graphic file (type png)
  <use images/morlet.png>
-Package pdftex.def Info: images/morlet.png used on input line 115.
+Package pdftex.def Info: images/morlet.png used on input line 116.
 (pdftex.def)             Requested size: 235.47557pt x 188.65146pt.
 
 [10
 
 ] [11 <./images/haar.png> <./images/chapeau_mexicain.png> <./images/morlet.png>
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--135
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--137
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--139
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--143
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 144--146
+Underfull \hbox (badness 10000) in paragraph at lines 145--147
 
  []
 
@@ -1134,116 +1142,115 @@ Underfull \hbox (badness 10000) in paragraph at lines 144--146
 File: images/dilatation.png Graphic file (type png)
 
 <use images/dilatation.png>
-Package pdftex.def Info: images/dilatation.png used on input line 149.
+Package pdftex.def Info: images/dilatation.png used on input line 150.
 (pdftex.def)             Requested size: 317.65775pt x 146.40742pt.
 
 <images/translation.png, id=75, 1443.89438pt x 665.48625pt>
 File: images/translation.png Graphic file (type png)
 
 <use images/translation.png>
-Package pdftex.def Info: images/translation.png used on input line 159.
+Package pdftex.def Info: images/translation.png used on input line 160.
 (pdftex.def)             Requested size: 317.65775pt x 146.40742pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 166--167
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 168--169
+Underfull \hbox (badness 10000) in paragraph at lines 169--170
 
  []
 
 [12 <./images/dilatation.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 174--175
+Underfull \hbox (badness 10000) in paragraph at lines 175--176
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
+Underfull \hbox (badness 10000) in paragraph at lines 177--178
 
  []
 
-<images/comparaison.jpg, id=80, 785.93625pt x 367.3725pt>
+(./ajout.tex <images/graphe3D.jpg, id=80, 511.15968pt x 375.65344pt>
+File: images/graphe3D.jpg Graphic file (type jpg)
+
+<use images/graphe3D.jpg>
+Package pdftex.def Info: images/graphe3D.jpg used on input line 7.
+(pdftex.def)             Requested size: 306.69817pt x 225.3938pt.
+ [13 <./images/translation.png>])
+<images/comparaison.jpg, id=86, 785.93625pt x 367.3725pt>
 File: images/comparaison.jpg Graphic file (type jpg)
 
 <use images/comparaison.jpg>
-Package pdftex.def Info: images/comparaison.jpg used on input line 194.
+Package pdftex.def Info: images/comparaison.jpg used on input line 198.
 (pdftex.def)             Requested size: 314.36893pt x 146.94638pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 189--199
+Underfull \hbox (badness 10000) in paragraph at lines 193--203
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 189--199
+Underfull \hbox (badness 10000) in paragraph at lines 193--203
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 189--199
+Underfull \hbox (badness 10000) in paragraph at lines 193--203
 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (1.45018pt too wide) in paragraph at lines 203--203
+[14 <./images/graphe3D.jpg> <./images/comparaison.jpg>]
+Overfull \hbox (1.45018pt too wide) in paragraph at lines 206--206
 []\OT1/lmr/bx/n/14.4 La th^^Seorie de l'ana-lyse mul-tir^^Sesolution, un ou-til
  pour la construc-
  []
 
-[13 <./images/translation.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--228
+Underfull \hbox (badness 10000) in paragraph at lines 230--231
 
  []
 
-[14 <./images/comparaison.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 253--258
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 259--260
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 256--261
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
+Underfull \hbox (badness 10000) in paragraph at lines 262--263
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 272--273
+Underfull \hbox (badness 10000) in paragraph at lines 268--269
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 274--275
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 276--277
+Underfull \hbox (badness 10000) in paragraph at lines 277--278
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 278--282
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 283--284
+Underfull \hbox (badness 10000) in paragraph at lines 281--285
 
  []
 
@@ -1253,153 +1260,158 @@ Underfull \hbox (badness 10000) in paragraph at lines 286--287
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 292--293
-
- []
-
-[15]
-Underfull \hbox (badness 10000) in paragraph at lines 311--314
+Underfull \hbox (badness 10000) in paragraph at lines 289--290
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 311--314
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 322--323
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 324--325
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 326--327
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 328--329
+Underfull \hbox (badness 10000) in paragraph at lines 295--296
 
  []
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 351--352
+Underfull \hbox (badness 10000) in paragraph at lines 314--317
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 356--357
+Underfull \hbox (badness 10000) in paragraph at lines 314--317
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 360--361
+Underfull \hbox (badness 10000) in paragraph at lines 325--326
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 398--399
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 329--330
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--332
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 354--355
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 359--360
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 363--364
 
  []
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 403--404
+Underfull \hbox (badness 10000) in paragraph at lines 401--402
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 407--408
+Underfull \hbox (badness 10000) in paragraph at lines 406--407
 
  []
 
 
-Overfull \hbox (54.44725pt too wide) in paragraph at lines 414--415
+Underfull \hbox (badness 10000) in paragraph at lines 410--411
+
+ []
+
+
+Overfull \hbox (54.44725pt too wide) in paragraph at lines 417--418
 \OT1/lmr/m/n/10 	[][] + \OML/lmm/m/it/10 d[]$ \OT1/lmr/m/n/10 et les r^^Sesulta
 ts pr^^Sec^^Sedents sur les pro-duits sca-laires am^^Rene ^^Ra : []et []. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 414--415
+Underfull \hbox (badness 10000) in paragraph at lines 417--418
+
+ []
+
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 432--433
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 429--430
-
- []
-
-
-Overfull \hbox (51.9962pt too wide) in paragraph at lines 433--434
+Overfull \hbox (51.9962pt too wide) in paragraph at lines 436--437
  \OT1/lmr/bx/n/10 Se-condes []egalit[]es[] \OT1/lmr/m/n/10 D'autre part, on peu
 t mon-trer [] et [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 433--434
+Underfull \hbox (badness 10000) in paragraph at lines 436--437
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 438--439
+Underfull \hbox (badness 10000) in paragraph at lines 441--442
 
- []
-
-[18]
-Underfull \hbox (badness 10000) in paragraph at lines 476--477
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 483--484
-
- []
-
-
-Overfull \hbox (21.39705pt too wide) detected at line 487
-[]
  []
 
 [19]
-Underfull \hbox (badness 10000) in paragraph at lines 500--505
+Underfull \hbox (badness 10000) in paragraph at lines 479--480
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 506--507
+Underfull \hbox (badness 10000) in paragraph at lines 486--487
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 509--515
+Overfull \hbox (21.39705pt too wide) detected at line 490
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 503--508
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 516--517
+Underfull \hbox (badness 10000) in paragraph at lines 509--510
 
  []
 
 [20]
+Underfull \hbox (badness 10000) in paragraph at lines 512--518
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 581.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 581.
+ []
 
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 594.
+Underfull \hbox (badness 10000) in paragraph at lines 519--520
 
-[21] [22]
-LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 664
+ []
+
+[21]
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 584.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 584.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 597.
+
+[22]
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 667
 .
  (/usr/share/texmf-dist/tex/latex/lm/ot1lmtt.fd
 File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) (./matriciel.tex
+) [23] (./matriciel.tex
 (./aux/schemabloc1.tex
 \du=\skip63
 )
@@ -1407,45 +1419,39 @@ Overfull \hbox (14.89201pt too wide) in paragraph at lines 11--12
  [][] 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 (./aux/schemabloc2.tex)
 Overfull \hbox (52.55568pt too wide) in paragraph at lines 20--21
  [][] 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[23] [24]) <images/chat.jpg, id=121, 401.5pt x 427.5975pt>
+[24]) <images/chat.jpg, id=122, 401.5pt x 427.5975pt>
 File: images/chat.jpg Graphic file (type jpg)
-
-<use images/chat.jpg>
-Package pdftex.def Info: images/chat.jpg used on input line 688.
+ <use images/chat.jpg>
+Package pdftex.def Info: images/chat.jpg used on input line 691.
 (pdftex.def)             Requested size: 321.20042pt x 342.07846pt.
- <images/chat_orig.jpg, id=122, 46.1725pt x 37.13875pt>
+
+<images/chat_orig.jpg, id=123, 46.1725pt x 37.13875pt>
 File: images/chat_orig.jpg Graphic file (type jpg)
 
 <use images/chat_orig.jpg>
-Package pdftex.def Info: images/chat_orig.jpg used on input line 695.
+Package pdftex.def Info: images/chat_orig.jpg used on input line 698.
 (pdftex.def)             Requested size: 92.34473pt x 74.27731pt.
 
-<images/chat_compress.jpg, id=123, 46.1725pt x 37.13875pt>
+<images/chat_compress.jpg, id=124, 46.1725pt x 37.13875pt>
 File: images/chat_compress.jpg Graphic file (type jpg)
 
 <use images/chat_compress.jpg>
-Package pdftex.def Info: images/chat_compress.jpg used on input line 704.
+Package pdftex.def Info: images/chat_compress.jpg used on input line 707.
 (pdftex.def)             Requested size: 92.34473pt x 74.27731pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<images/chat_compress255.jpg, id=124, 46.1725pt x 37.13875pt>
+<images/chat_compress255.jpg, id=125, 46.1725pt x 37.13875pt>
 File: images/chat_compress255.jpg Graphic file (type jpg)
 
 <use images/chat_compress255.jpg>
-Package pdftex.def Info: images/chat_compress255.jpg used on input line 713.
+Package pdftex.def Info: images/chat_compress255.jpg used on input line 716.
 (pdftex.def)             Requested size: 92.34473pt x 74.27731pt.
 
 
@@ -1455,34 +1461,34 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
  <./images/chat.jpg> <./images/chat_orig.jpg>] [26 <./images/chat_compress.jpg>
  <./images/chat_compress255.jpg>]
-<images/OndelettesGUI.png, id=132, 615.29875pt x 550.055pt>
+<images/OndelettesGUI.png, id=133, 615.29875pt x 550.055pt>
 File: images/OndelettesGUI.png Graphic file (type png)
 
 <use images/OndelettesGUI.png>
-Package pdftex.def Info: images/OndelettesGUI.png used on input line 739.
+Package pdftex.def Info: images/OndelettesGUI.png used on input line 742.
 (pdftex.def)             Requested size: 307.64862pt x 275.02682pt.
 
-<images/OndelettesGUI1.png, id=133, 394.47375pt x 206.7725pt>
+<images/OndelettesGUI1.png, id=134, 394.47375pt x 206.7725pt>
 File: images/OndelettesGUI1.png Graphic file (type png)
 
 <use images/OndelettesGUI1.png>
-Package pdftex.def Info: images/OndelettesGUI1.png used on input line 749.
+Package pdftex.def Info: images/OndelettesGUI1.png used on input line 752.
 (pdftex.def)             Requested size: 315.57942pt x 165.41821pt.
 
-<images/Compression.png, id=134, 309.155pt x 126.4725pt>
+<images/Compression.png, id=135, 309.155pt x 126.4725pt>
 File: images/Compression.png Graphic file (type png)
 
 <use images/Compression.png>
-Package pdftex.def Info: images/Compression.png used on input line 758.
+Package pdftex.def Info: images/Compression.png used on input line 761.
 (pdftex.def)             Requested size: 247.32433pt x 101.17813pt.
  [27
 
  <./images/OndelettesGUI.png>] [28 <./images/OndelettesGUI1.png> <./images/Comp
 ression.png>]
-<images/minichat.jpg, id=144, 401.5pt x 401.5pt>
+<images/minichat.jpg, id=145, 401.5pt x 401.5pt>
 File: images/minichat.jpg Graphic file (type jpg)
  <use images/minichat.jpg>
-Package pdftex.def Info: images/minichat.jpg used on input line 777.
+Package pdftex.def Info: images/minichat.jpg used on input line 780.
 (pdftex.def)             Requested size: 321.20042pt x 321.20042pt.
 
 
@@ -1494,41 +1500,41 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<images/aprescompress.jpg, id=148, 803.0pt x 401.5pt>
+<images/aprescompress.jpg, id=149, 803.0pt x 401.5pt>
 File: images/aprescompress.jpg Graphic file (type jpg)
 
 <use images/aprescompress.jpg>
-Package pdftex.def Info: images/aprescompress.jpg used on input line 920.
+Package pdftex.def Info: images/aprescompress.jpg used on input line 923.
 (pdftex.def)             Requested size: 240.90186pt x 120.45091pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [30] [31 <./images/aprescompress.jpg>] (./aux/graph.tex
-\plotpoint=\box40
+\plotpoint=\box42
 ) [32
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 982--983
+Underfull \hbox (badness 10000) in paragraph at lines 985--986
 
  []
 
-<images/save.png, id=159, 642.4pt x 401.5pt>
+<images/save.png, id=160, 642.4pt x 401.5pt>
 File: images/save.png Graphic file (type png)
  <use images/save.png>
-Package pdftex.def Info: images/save.png used on input line 989.
+Package pdftex.def Info: images/save.png used on input line 992.
 (pdftex.def)             Requested size: 321.19922pt x 200.7495pt.
  [33
 
  <./images/save.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1007--1008
+Underfull \hbox (badness 10000) in paragraph at lines 1010--1011
 
  []
 
-<images/load.png, id=164, 642.4pt x 401.5pt>
+<images/load.png, id=165, 642.4pt x 401.5pt>
 File: images/load.png Graphic file (type png)
  <use images/load.png>
-Package pdftex.def Info: images/load.png used on input line 1014.
+Package pdftex.def Info: images/load.png used on input line 1017.
 (pdftex.def)             Requested size: 321.19922pt x 200.7495pt.
  [34 <./images/load.png>] [35
 
@@ -1556,20 +1562,20 @@ LaTeX Font Info:    Font shape `OML/lmr/m/n' in size <8> not available
 (Font)              Font shape `OML/lmm/m/it' tried instead on input line 226.
  [44]) [45] (./ondelettesGUI.py
 [46] [47]) (./bench.py [48] [49]) (./serveur.py [50] [51]) (./client.py
-[52] [53]) <images/88x31.png, id=232, 88.33pt x 31.11626pt>
+[52] [53]) <images/88x31.png, id=233, 88.33pt x 31.11626pt>
 File: images/88x31.png Graphic file (type png)
 
 <use images/88x31.png>
-Package pdftex.def Info: images/88x31.png used on input line 1353.
+Package pdftex.def Info: images/88x31.png used on input line 1356.
 (pdftex.def)             Requested size: 88.32977pt x 31.11617pt.
  [54 <./images/88x31.png>] (./ondelettes.aux
 (./fourier.aux)) ) 
 Here is how much of TeX's memory you used:
- 15387 strings out of 493315
- 262137 string characters out of 6143704
- 610021 words of memory out of 5000000
- 18429 multiletter control sequences out of 15000+600000
- 74317 words of font info for 60 fonts, out of 8000000 for 9000
+ 15454 strings out of 493315
+ 263010 string characters out of 6143704
+ 611465 words of memory out of 5000000
+ 18487 multiletter control sequences out of 15000+600000
+ 77259 words of font info for 61 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  56i,15n,55p,770b,1756s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/sha
@@ -1595,10 +1601,10 @@ pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf-di
 st/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/lm
 /lmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on ondelettes.pdf (54 pages, 1701393 bytes).
+Output written on ondelettes.pdf (54 pages, 1765951 bytes).
 PDF statistics:
- 327 PDF objects out of 1000 (max. 8388607)
+ 328 PDF objects out of 1000 (max. 8388607)
  209 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 123 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 128 words of extra memory for PDF output out of 10000 (max. 10000000)
 

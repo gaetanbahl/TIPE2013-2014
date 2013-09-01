@@ -8,25 +8,26 @@
 \contentsline {figure}{\numberline {7}{\ignorespaces Ondelette de Morlet}}{11}
 \contentsline {figure}{\numberline {8}{\ignorespaces Dilatation d'ondelette}}{12}
 \contentsline {figure}{\numberline {9}{\ignorespaces Translation d'ondelette}}{13}
-\contentsline {figure}{\numberline {10}{\ignorespaces Comparaison des m\IeC {\'e}thodes de compression}}{14}
-\contentsline {figure}{\numberline {11}{\ignorespaces L'algorithme matriciel}}{24}
-\contentsline {figure}{\numberline {12}{\ignorespaces La transformation appliqu\IeC {\'e}e aux matrices}}{24}
-\contentsline {figure}{\numberline {13}{\ignorespaces L'image de d\IeC {\'e}part}}{25}
-\contentsline {figure}{\numberline {14}{\ignorespaces D\IeC {\'e}tail de l'image de d\IeC {\'e}part}}{25}
-\contentsline {figure}{\numberline {15}{\ignorespaces D\IeC {\'e}tail de l'image compress\IeC {\'e}e}}{26}
-\contentsline {figure}{\numberline {16}{\ignorespaces D\IeC {\'e}tail de l'image compress\IeC {\'e}e \IeC {\`a} 100\%}}{26}
-\contentsline {figure}{\numberline {17}{\ignorespaces Fen\IeC {\^e}tre principale de l'application}}{27}
-\contentsline {figure}{\numberline {18}{\ignorespaces Menus de l'application}}{28}
-\contentsline {figure}{\numberline {19}{\ignorespaces Le s\IeC {\'e}lecteur de seuil de compression}}{28}
-\contentsline {figure}{\numberline {20}{\ignorespaces Fonctionnement de l'algorithme}}{29}
-\contentsline {figure}{\numberline {21}{\ignorespaces Tableau cr\IeC {\'e}\IeC {\'e} par l'algorithme}}{29}
-\contentsline {figure}{\numberline {22}{\ignorespaces Tableau apr\IeC {\`e}s l'\IeC {\'e}tape 1}}{30}
-\contentsline {figure}{\numberline {23}{\ignorespaces Tableau apr\IeC {\`e}s l'\IeC {\'e}tape 2}}{30}
-\contentsline {figure}{\numberline {24}{\ignorespaces Tableau apr\IeC {\`e}s compression}}{30}
-\contentsline {figure}{\numberline {25}{\ignorespaces Tableau apr\IeC {\`e}s synth\IeC {\`e}se sur les colonnes}}{30}
-\contentsline {figure}{\numberline {26}{\ignorespaces Tableau apr\IeC {\`e}s synth\IeC {\`e}se sur les lignes}}{30}
-\contentsline {figure}{\numberline {27}{\ignorespaces Tableau apr\IeC {\`e}s synth\IeC {\`e}se sur les lignes}}{31}
-\contentsline {figure}{\numberline {28}{\ignorespaces Pixels avant et apr\IeC {\`e}s traitement}}{31}
-\contentsline {figure}{\numberline {29}{\ignorespaces Co\IeC {\^u}t temporel de l'algorithme fasthaar en fonction de la taille de l'image}}{32}
-\contentsline {figure}{\numberline {30}{\ignorespaces Processus d'archivage}}{33}
-\contentsline {figure}{\numberline {31}{\ignorespaces Processus de restauration}}{34}
+\contentsline {figure}{\numberline {10}{\ignorespaces Le graphe de la fonction $\mathcal {W}(a;b)(\Pi )$}}{14}
+\contentsline {figure}{\numberline {11}{\ignorespaces Comparaison des m\IeC {\'e}thodes de compression}}{14}
+\contentsline {figure}{\numberline {12}{\ignorespaces L'algorithme matriciel}}{24}
+\contentsline {figure}{\numberline {13}{\ignorespaces La transformation appliqu\IeC {\'e}e aux matrices}}{24}
+\contentsline {figure}{\numberline {14}{\ignorespaces L'image de d\IeC {\'e}part}}{25}
+\contentsline {figure}{\numberline {15}{\ignorespaces D\IeC {\'e}tail de l'image de d\IeC {\'e}part}}{25}
+\contentsline {figure}{\numberline {16}{\ignorespaces D\IeC {\'e}tail de l'image compress\IeC {\'e}e}}{26}
+\contentsline {figure}{\numberline {17}{\ignorespaces D\IeC {\'e}tail de l'image compress\IeC {\'e}e \IeC {\`a} 100\%}}{26}
+\contentsline {figure}{\numberline {18}{\ignorespaces Fen\IeC {\^e}tre principale de l'application}}{27}
+\contentsline {figure}{\numberline {19}{\ignorespaces Menus de l'application}}{28}
+\contentsline {figure}{\numberline {20}{\ignorespaces Le s\IeC {\'e}lecteur de seuil de compression}}{28}
+\contentsline {figure}{\numberline {21}{\ignorespaces Fonctionnement de l'algorithme}}{29}
+\contentsline {figure}{\numberline {22}{\ignorespaces Tableau cr\IeC {\'e}\IeC {\'e} par l'algorithme}}{29}
+\contentsline {figure}{\numberline {23}{\ignorespaces Tableau apr\IeC {\`e}s l'\IeC {\'e}tape 1}}{30}
+\contentsline {figure}{\numberline {24}{\ignorespaces Tableau apr\IeC {\`e}s l'\IeC {\'e}tape 2}}{30}
+\contentsline {figure}{\numberline {25}{\ignorespaces Tableau apr\IeC {\`e}s compression}}{30}
+\contentsline {figure}{\numberline {26}{\ignorespaces Tableau apr\IeC {\`e}s synth\IeC {\`e}se sur les colonnes}}{30}
+\contentsline {figure}{\numberline {27}{\ignorespaces Tableau apr\IeC {\`e}s synth\IeC {\`e}se sur les lignes}}{30}
+\contentsline {figure}{\numberline {28}{\ignorespaces Tableau apr\IeC {\`e}s synth\IeC {\`e}se sur les lignes}}{31}
+\contentsline {figure}{\numberline {29}{\ignorespaces Pixels avant et apr\IeC {\`e}s traitement}}{31}
+\contentsline {figure}{\numberline {30}{\ignorespaces Co\IeC {\^u}t temporel de l'algorithme fasthaar en fonction de la taille de l'image}}{32}
+\contentsline {figure}{\numberline {31}{\ignorespaces Processus d'archivage}}{33}
+\contentsline {figure}{\numberline {32}{\ignorespaces Processus de restauration}}{34}
