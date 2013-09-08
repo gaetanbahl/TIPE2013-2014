@@ -25,24 +25,24 @@ class Climage:
 	def execute(self,epsilon):
 
 		tabstl = self.gettl()
-		tlr = numpy.array(tabstl[0] , dtype = numpy.uint8)
-		tlg = numpy.array(tabstl[1] , dtype = numpy.uint8)
-		tlb = numpy.array(tabstl[2] , dtype = numpy.uint8)
-
+		tlr = numpy.array(tabstl[0] , dtype = numpy.int32)
+		tlg = numpy.array(tabstl[1] , dtype = numpy.int32)
+		tlb = numpy.array(tabstl[2] , dtype = numpy.int32)
+		print tlg
 		tabstr = self.gettr()
-		trr = numpy.array(tabstr[0] , dtype = numpy.uint8)
-		trg = numpy.array(tabstr[1] , dtype = numpy.uint8)
-		trb = numpy.array(tabstr[2] , dtype = numpy.uint8)
+		trr = numpy.array(tabstr[0] , dtype = numpy.int32)
+		trg = numpy.array(tabstr[1] , dtype = numpy.int32)
+		trb = numpy.array(tabstr[2] , dtype = numpy.int32)
 
 		tabsll = self.getll()
-		llr = numpy.array(tabsll[0] , dtype = numpy.uint8)
-		llg = numpy.array(tabsll[1] , dtype = numpy.uint8)
-		llb = numpy.array(tabsll[2] , dtype = numpy.uint8)
+		llr = numpy.array(tabsll[0] , dtype = numpy.int32)
+		llg = numpy.array(tabsll[1] , dtype = numpy.int32)
+		llb = numpy.array(tabsll[2] , dtype = numpy.int32)
 
 		tabslr = self.getlr()
-		lrr = numpy.array(tabslr[0] , dtype = numpy.uint8)
-		lrg = numpy.array(tabslr[1] , dtype = numpy.uint8)
-		lrb = numpy.array(tabslr[2] , dtype = numpy.uint8)
+		lrr = numpy.array(tabslr[0] , dtype = numpy.int32)
+		lrg = numpy.array(tabslr[1] , dtype = numpy.int32)
+		lrb = numpy.array(tabslr[2] , dtype = numpy.int32)
 
 
 		for i in [[tlr,trr,llr,lrr],[tlg,trg,llg,lrg],[tlb,trb,llb,lrb]]:
@@ -52,18 +52,25 @@ class Climage:
 			ll_buf = cl.Buffer(self.context, mf.READ_WRITE | mf.COPY_HOST_PTR, hostbuf=i[2])
 			lr_buf = cl.Buffer(self.context, mf.READ_WRITE | mf.COPY_HOST_PTR, hostbuf=i[3])
 			epsilon = numpy.int32(epsilon)
+			print "bite !"
 			self.program.haar(self.queue, i[0].shape, None, tl_buf, tr_buf, ll_buf, lr_buf, epsilon)
-			cl.enqueue_copy(self.queue, i[0], tl_buf)
-			cl.enqueue_copy(self.queue, i[1], tr_buf)
-			cl.enqueue_copy(self.queue, i[2], ll_buf)
-			cl.enqueue_copy(self.queue, i[3], lr_buf)
+			print "bite ?"
 			
-		for i in self.x/2:
-			for j in self.y/2:
-				self.pix[2*x,2*y] = (tlr[i+j],tlg[i+j],tlb[i+j])
-				self.pix[2*x+1,2*y] = (trr[i+j],trg[i+j],trb[i+j])
-				self.pix[2*x,2*y+1] = (llr[i+j],llg[i+j],llb[i+j])
-				self.pix[2*x+1,2*y+1] = (lrr[i+j],lrg[i+j],lrb[i+j])
+			cl.enqueue_read_buffer(self.queue, tl_buf, i[0]).wait()
+			print 'bite'
+			cl.enqueue_read_buffer(self.queue, tr_buf, i[1]).wait()
+			cl.enqueue_read_buffer(self.queue, ll_buf, i[2]).wait()
+			cl.enqueue_read_buffer(self.queue, lr_buf, i[3]).wait()
+			print i[1][100:150]
+			
+			
+			
+		for i in range(self.x/2):
+			for j in range(self.y/2):
+				self.pix[2*i,2*j] = (tlr[i+j],tlg[i+j],tlb[i+j])
+				self.pix[2*i+1,2*j] = (trr[i+j],trg[i+j],trb[i+j])
+				self.pix[2*i,2*j+1] = (llr[i+j],llg[i+j],llb[i+j])
+				self.pix[2*i+1,2*j+1] = (lrr[i+j],lrg[i+j],lrb[i+j])
 
 	def save(self,a):
 		
