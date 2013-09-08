@@ -4,13 +4,13 @@
 import Image
 import numpy
 import pyopencl as cl
-
+import sys
 
 class Climage:
 
 	def __init__(self,image):
 
-		self.context = cl.Context()
+		self.context = cl.create_some_context()
 		self.queue = cl.CommandQueue(self.context)
 		self.nom = image
 		self.image = Image.open(image)
@@ -65,9 +65,9 @@ class Climage:
 				self.pix[2*x,2*y+1] = (llr[i+j],llg[i+j],llb[i+j])
 				self.pix[2*x+1,2*y+1] = (lrr[i+j],lrg[i+j],lrb[i+j])
 
-	def save(self):
+	def save(self,a):
 		
-		self.image.save('output.jpg', 'JPEG', quality = 100)
+		self.image.save(a, 'JPEG', quality = 100)
 
 	
 	def gettl(self):
@@ -112,11 +112,11 @@ class Climage:
 		return tabr,tabg,tabb
 
 
-def main():
-	img = Climage('images/piano_bleu.jpg')
+def main(args):
+	img = Climage(args[1])
 	img.execute(15)
-	img.save()
+	img.save(args[2])
 
 
 if __name__ == "__main__":
-	main()
+	main(sys.argv)
