@@ -28,7 +28,7 @@ class Climage:
 		tlr = numpy.array(tabstl[0] , dtype = numpy.int32)
 		tlg = numpy.array(tabstl[1] , dtype = numpy.int32)
 		tlb = numpy.array(tabstl[2] , dtype = numpy.int32)
-		print tlg
+		
 		tabstr = self.gettr()
 		trr = numpy.array(tabstr[0] , dtype = numpy.int32)
 		trg = numpy.array(tabstr[1] , dtype = numpy.int32)
@@ -52,12 +52,12 @@ class Climage:
 			ll_buf = cl.Buffer(self.context, mf.READ_WRITE | mf.COPY_HOST_PTR, hostbuf=i[2])
 			lr_buf = cl.Buffer(self.context, mf.READ_WRITE | mf.COPY_HOST_PTR, hostbuf=i[3])
 			epsilon = numpy.int32(epsilon)
-			print "bite !"
+			
 			self.program.haar(self.queue, i[0].shape, None, tl_buf, tr_buf, ll_buf, lr_buf, epsilon)
-			print "bite ?"
+			
 			
 			cl.enqueue_read_buffer(self.queue, tl_buf, i[0]).wait()
-			print 'bite'
+			
 			cl.enqueue_read_buffer(self.queue, tr_buf, i[1]).wait()
 			cl.enqueue_read_buffer(self.queue, ll_buf, i[2]).wait()
 			cl.enqueue_read_buffer(self.queue, lr_buf, i[3]).wait()
@@ -67,10 +67,12 @@ class Climage:
 			
 		for i in range(self.x/2):
 			for j in range(self.y/2):
-				self.pix[2*i,2*j] = (tlr[i+j],tlg[i+j],tlb[i+j])
-				self.pix[2*i+1,2*j] = (trr[i+j],trg[i+j],trb[i+j])
-				self.pix[2*i,2*j+1] = (llr[i+j],llg[i+j],llb[i+j])
-				self.pix[2*i+1,2*j+1] = (lrr[i+j],lrg[i+j],lrb[i+j])
+				t = self.y/2*i + j
+				
+				self.pix[2*i,2*j] = (tlr[t],tlg[t],tlb[t])
+				self.pix[2*i+1,2*j] = (trr[t],trg[t],trb[t])
+				self.pix[2*i,2*j+1] = (llr[t],llg[t],llb[t])
+				self.pix[2*i+1,2*j+1] = (lrr[t],lrg[t],lrb[t])
 
 	def save(self,a):
 		
@@ -92,7 +94,7 @@ class Climage:
 		tabr,tabg,tabb = [],[],[]
 		for i in range(self.x/2):
 			for j in range(self.y/2):
-				tabr.append(self.pix[2*i +1,2*j][0])
+				tabr.append(self.pix[2*i+1,2*j][0])
 				tabg.append(self.pix[2*i+1,2*j][1])
 				tabb.append(self.pix[2*i+1,2*j][2])
 		return tabr,tabg,tabb
@@ -121,7 +123,7 @@ class Climage:
 
 def main(args):
 	img = Climage(args[1])
-	img.execute(15)
+	img.execute(10)
 	img.save(args[2])
 
 
