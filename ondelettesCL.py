@@ -5,6 +5,7 @@ import Image
 import numpy
 import pyopencl as cl
 import sys
+import time
 
 class Climage:
 
@@ -23,7 +24,7 @@ class Climage:
 		f.close()
 
 	def execute(self,epsilon):
-
+		
 		tabstl = self.gettl()
 		tlr = numpy.array(tabstl[0] , dtype = numpy.int32)
 		tlg = numpy.array(tabstl[1] , dtype = numpy.int32)
@@ -44,7 +45,7 @@ class Climage:
 		lrg = numpy.array(tabslr[1] , dtype = numpy.int32)
 		lrb = numpy.array(tabslr[2] , dtype = numpy.int32)
 
-
+		
 		for i in [[tlr,trr,llr,lrr],[tlg,trg,llg,lrg],[tlb,trb,llb,lrb]]:
 			mf = cl.mem_flags
 			tl_buf = cl.Buffer(self.context, mf.READ_WRITE | mf.COPY_HOST_PTR, hostbuf=i[0])
@@ -61,9 +62,8 @@ class Climage:
 			cl.enqueue_read_buffer(self.queue, tr_buf, i[1]).wait()
 			cl.enqueue_read_buffer(self.queue, ll_buf, i[2]).wait()
 			cl.enqueue_read_buffer(self.queue, lr_buf, i[3]).wait()
-			print i[1][100:150]
 			
-			
+		
 			
 		for i in range(self.x/2):
 			for j in range(self.y/2):
@@ -73,7 +73,8 @@ class Climage:
 				self.pix[2*i+1,2*j] = (trr[t],trg[t],trb[t])
 				self.pix[2*i,2*j+1] = (llr[t],llg[t],llb[t])
 				self.pix[2*i+1,2*j+1] = (lrr[t],lrg[t],lrb[t])
-
+		
+			
 	def save(self,a):
 		
 		self.image.save(a, 'JPEG', quality = 100)
@@ -123,7 +124,11 @@ class Climage:
 
 def main(args):
 	img = Climage(args[1])
+	start = time.time()
 	img.execute(10)
+	end = time.time()
+		
+	print end - start	
 	img.save(args[2])
 
 

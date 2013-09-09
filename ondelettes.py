@@ -304,14 +304,14 @@ class MatriceImage():
 
 def main():
 
-    image = MatriceImage("chat.jpg")
+    image = MatriceImage("images/chat.jpg")
     start = time.time()
 
-    image.fasthaar(2,0,image.sizex,0,image.sizey)
+    image.fasthaar(2,10,image.sizex,0,image.sizey)
 
     end = time.time()
     print end - start
-    image.image.save("chat_compress.jpg",'JPEG',quality = 100)
+    image.image.save("chat.jpg",'JPEG',quality = 100)
 
 if __name__ == '__main__':
     main()
