@@ -115,7 +115,7 @@ On comprendra que la très grande majorité des signaux sont numériques et que 
 
 \subsection{Transformée de Fourier Discrète ou TFD et limites}
 
-Bien évidemment, la transformée de Fourier telle qu'elle est utilisée dans un ordinateur (transformée de Fourier discrète (TFD)) possède une définition numérique différente de la définition mathématique donnée plus haut. 
+Bien évidemment, la transformée de Fourier telle qu'elle est utilisée dans un ordinateur (transformée de Fourier discrète (TFD) possède une définition numérique différente de la définition mathématique donnée plus haut. 
 
 \subsubsection{Définition}
 
@@ -142,7 +142,7 @@ $$$\forall j\in \left\{0,1,...,N-1\right\}, g_j=\displaystyle\sum_{k=0}^{N-1}W^{
 La TFD a plusieurs applications, parmi lesquelles :  \\
 \begin{enumerate}
 \item L'analyse spectrale des signaux. \\ Il est intéressant pour un électronicien de mesurer par exemple la largeur de la bande de fréquence occupée par la transmission d'un signal, ceci grâce à une analyse spectrale. \\
-\item La compression de données. \\  On applique sur les signaux la TFD pour réduire leur complexité. La suite des coefficients obtenus (en appliquant la formule ($1$)) est alors quantifiée avec des pas de quantification plus élevés pour les hautes fréquences, considérées comme négligeables pour la perception humaine. Le gain en compression vient de la réduction de précision de ces coefficients (voire leur suppression totale) : cela nécessite de ce fait moins de bits pour le codage.
+\item La compression de données. \\  On applique sur les signaux la TFD pour réduire leur complexité. La suite des coefficients obtenus (en appliquant la formule ($1$) est alors quantifiée avec des pas de quantification plus élevés pour les hautes fréquences, considérées comme négligeables pour la perception humaine. Le gain en compression vient de la réduction de précision de ces coefficients (voire leur suppression totale) : cela nécessite de ce fait moins de bits pour le codage.
 \item La multiplication des grands nombres. \\ Certains des algorithmes les plus rapides (type FFT) pour la multiplication de grands nombres entiers sont fondés sur la TFD. 
 
 \end{enumerate}

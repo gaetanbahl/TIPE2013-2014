@@ -60,9 +60,9 @@ ce qui provient de la condition $\int_{\mathbb{R}} \frac{|\hat{\psi}(\omega)|^2}
 Cette condition, dite condition d’admissibilité est nécessaire pour que la transformée en ondelettes d’une fonction existe !
 
 Si l'ondelette -fonction analysante- est convenablement choisie, la transformation en ondelettes est inversible et la fonction peut être reconstruite après analyse suivant l'équation : \\
-
+\begin{center}
 $\displaystyle f = C_{\psi}^{-1}\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\frac{1}{a^2}\langle{}f,\psi{}_{a,b}\rangle\psi{a,b}da\cdot{}db$ \\
-
+\end{center}
 
 Le coefficient $C_{\psi}$, si donc il existe, est donné par : $\displaystyle C_{\psi} = 2\pi\int_{\mathbb{R}}\frac{|\hat{\psi{}(\omega)}|^2}{|\omega|}d\omega < \infty$
 
@@ -109,7 +109,7 @@ On peut définir cette fonction par $\begin{array}{lrcl}
 
 On peut définir cette fonction par $\begin{array}{lrcl}
 \psi : & \mathbb{R} & \longrightarrow & \mathbb{R} \\
-    & t & \longmapsto & \cos(5t)e^{(-\frac{t^2}{2})} \end{array}$
+    & t & \longmapsto & \cos(5t)e^{-\frac{t^2}{2}} \end{array}$
     
 \begin{figure}[!h]
 \centering
@@ -122,7 +122,7 @@ On peut définir cette fonction par $\begin{array}{lrcl}
 
 \section{Transformation en ondelettes}
 
-La transformée en ondelettes est une transformée linéaire qui décompose un signal en fréquences en conservant une certaine localisation spatiale. Concrètement, le signal de départ est projeté sur un ensemble de fonctions de bases qui varient en fréquence et en espace. 
+La transformée en ondelettes est une transformée linéaire qui décompose un signal en fréquences en conservant une certaine localisation spatiale. Concrètement, le signal de départ est projeté sur un ensemble de fonctions de base qui varient en fréquence et en espace. 
 
 \subsection{Transformation en ondelette continue}
 
@@ -131,9 +131,9 @@ La transformée en ondelette continue utilise des dilatations et des translation
 \subsubsection*{Définition : produit scalaire}
 
 Soient $f$ et $g$ deux fonctions réelles ; on définit sur le $\mathbb{R}$-espace vectoriel $F$($\mathbb{R}$,$\mathbb{R}$) leur produit scalaire par l’intégrale suivante : \\
-
+\begin{center}
 $\displaystyle \langle f|g \rangle = \int_{\mathbb{R}} f(x)g(x)dx$ \\
-
+\end{center}
 Avec la condition d’admissibilité donnée en première page, la transformée en ondelette continue de la fonction $f$ est définie à facteur constant près comme le produit scalaire de $f$ et de $\psi$. \\
 
 $\displaystyle \mathcal{W}_{(a,b)}(f)= \frac{1}{\sqrt{a}}\int_{-\infty}^{+\infty}f(t)\cdot\psi(\frac{t - b}{a})\cdot dt $ avec $a \in \mathbb{R}_{+}^{*}, b \in \mathbb{R}$ \\
@@ -153,7 +153,7 @@ L’ondelette verte a été dilatée à partir de l’ondelette rouge (ondelette
 \end{figure}
 
 \textit{Ex} : \textbf{translation}.
-L’ondelette verte a été translatée à partir de l’ondelette rouge (ondelette-mère). On a $b \neq 0$ 0 et $a = 1$.
+L’ondelette verte a été translatée à partir de l’ondelette rouge (ondelette-mère). On a $b \neq 0$ et $a = 1$.
 
 \begin{figure}[!h]
 \centering
@@ -168,7 +168,7 @@ La transformation en ondelettes discrète qui a été introduite par Morlet se c
 
 $\displaystyle f_{t_{0},\Delta{}t}(t) = \frac{1}{\sqrt{\Delta{}t}}f\left(\frac{t-t_0}{\Delta{}t}\right) \text{ avec } \Delta{}t > 0, t_0 \in \mathbb{R}$ \\
 
-$\Delta{}t$ peut être choisi << géométriquement >>; les paramètres de translations $t_0$ et $\Delta{}t$ son proportionnels (c'est-à-dire $\exists k \in \mathbb{R}, t_0 = k\cdot{}\Delta{}t$).
+$\Delta{}t$ peut être choisi << géométriquement >>; les paramètres de translations $t_0$ et $\Delta{}t$ sont proportionnels (c'est-à-dire $\exists k \in \mathbb{R}, t_0 = k\cdot{}\Delta{}t$).
 
 Une gamme d'échelles $\Delta{}t$ utilisée couramment est la gamme d'échelles dyadiques $\frac{1}{2^p}$
 
@@ -182,7 +182,7 @@ $\displaystyle f = \sum_{(k,p) \in \mathbb{Z}^2}f_{k,p}\psi{}_{k,p}$ où les $f_
 
 La transformation en ondelettes discrète est presque naturellement associée à des algorithmes plus efficaces et plus rapides que des algorithmes du type FFT qui utilisent la transformée de Fourier.
 
-Une famille d’ondelettes par exemple couramment utilisée dans la transformation en ondelettes discrète est la famille infinie des ondelettes orthogonales de Daubechies : c’est une des familles d’ondelettes les plus performantes.
+Une famille d’ondelettes par exemple couramment utilisée dans la transformation en ondelettes discrète est la famille infinie des ondelettes orthogonales de Daubechies : c’est une des familles d’ondelettes les plus performantes. \\
 
 \input{ajout.tex}
 
@@ -197,8 +197,9 @@ Enfin, l'utilisation d'une ondelette réversible permet une compression sans per
 \centering
 \includegraphics[scale=0.4]{images/comparaison.jpg}
 \caption{Comparaison des méthodes de compression}
+\label{comp}
 \end{figure} \\
-La figure ci-dessus montre les résultats de deux compressions de la même image de départ, l'une utilisant la transformation de Fourier (à gauche), l'autre utilisant la transformation en ondelettes (à droite). \\ \\
+La figure~\ref{comp} montre les résultats de deux compressions de la même image de départ, l'une utilisant la transformation de Fourier (à gauche), l'autre utilisant la transformation en ondelettes (à droite). \\ \\
 Enfin, le coût d'un algorithme utilisant les ondelettes, c'est-à-dire le nombre d'opérations à effectuer, est en $O(N)$, ce qui est mieux que le coût des meilleurs algorithmes type FFT en $O(N\log N)$.
 
 
@@ -265,7 +266,7 @@ De plus, pour $p \in \mathbb{N}$, on a $\mathbb{K}_{0} \subset \mathbb{K}_{1} \s
 
 \uppercase{à} partir de la fonction de Haar $H$, on définit la fonction $H_{p,k}$ par $H_{p,k}(x) = H(2^{p}x - k). (p,k) \in \mathbb{N}^2$.
 
-\textit{[Pour alléger l’écriture et les calculs, on peut comme ici choisir d’omettre le facteur }$2^\frac{p}{2}$ devant $ H(2^{p}x - k)$.] \\
+[\textit{Pour alléger l’écriture et les calculs, on peut comme ici choisir d’omettre le facteur }$2^\frac{p}{2}$ devant $ H(2^{p}x - k)$.] \\
 
 Soit la fonction définie par \[
  h_{p,k}(x) = \begin{dcases*}
@@ -298,7 +299,7 @@ $\displaystyle \langle h_{p,k}|h_{p,k'} \rangle = \int_{0}^{1} h_{p,k}(x)\cdot{}
 
 \begin{align*} \displaystyle
 \langle h_{p,k}|h_{p,k'} \rangle &= \int_{0}^{1} (h_{p,k}(x))^2 dx \\
- &= \int_{0}^{x_k} h_{p,k}(x))^2 dx + \int_{x_k}^{x_{k+1}} h_{p,k}(x))^2 dx + \int_{x_{k+1}}^{1} h_{p,k}(x))^2 dx  \\
+ &= \int_{0}^{x_k} (h_{p,k}(x))^2 dx + \int_{x_k}^{x_{k+1}} (h_{p,k}(x))^2 dx + \int_{x_{k+1}}^{1} (h_{p,k}(x))^2 dx  \\
 \displaystyle &= \int_0^{x_k} 0^2 dx + \int_{x_k}^{x_{k+1}} 1^2 dx + \int_{x_{k+1}}^{1} 0^2 dx = 0 + [x]_{x_k}^{x_{k+1}} + 0 = x_{k+1} - x_k  \\
 \displaystyle &= \frac{1}{2^p} \\
 \end{align*} 
@@ -344,6 +345,8 @@ $\displaystyle x = \sum_{k = 1}^p \langle e_k | x \rangle{}\cdot{}e_k + (x - \su
 
 On a aussi immédiatement $F \cap F^{\perp} = \{0_E\}$, ce qui établit $E = F \oplus F^{\perp}$ et ainsi l'existence d'un supplémentaire orthogonal à $F$ 
 \end{itemize}
+
+
 
 \item Unicité :
 
@@ -446,7 +449,7 @@ D'où :
 \[ \begin{dcases}
 \langle{}h_{p,k}|h_{p-1,k'}\rangle = \int_{x_k}^{x_{k+1}}1\cdot{}dx
 = \frac{1}{2^p} \text{ si } \frac{k'}{2^{p-1}} \leq x_k \leq x_{k+1} \leq \frac{k'+1}{2^{p-1}}, \text{ ou encore } k \in \{2k',2k'+1\}\\ 
-\langle{}h_{p,k}|h_{p-1,k'}\rangle = \int_{x_k}^{x_{k+1}0\cdot{}dx = 0 si k \notin \{2k',2k'+1\}}
+\langle{}h_{p,k}|h_{p-1,k'}\rangle = \int_{x_k}^{x_{k+1}}0\cdot{}dx = 0 \text{ si } k \notin \{2k',2k'+1\}
 \end{dcases} \]
 
 On a de même \\
@@ -454,7 +457,7 @@ On a de même \\
 
 On sait par définition que \[ H_{p-1,k'}(x) = \begin{dcases} 
 1 \text{ si } x \in [\frac{k'}{2^{p-1}};\frac{k'+\frac{1}{2}}{2^{p-1}} ] \\
--1 \text{ si } x \in []\frac{k'+\frac{1}{2}}{2^{p-1}};\frac{k'+1}{2^{p-1}} ] \\
+-1 \text{ si } x \in [\frac{k'+\frac{1}{2}}{2^{p-1}};\frac{k'+1}{2^{p-1}} ] \\
 0 \text{ sinon }
 \end{dcases}
 \] D'où :
