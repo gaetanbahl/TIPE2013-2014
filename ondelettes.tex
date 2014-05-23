@@ -1308,6 +1308,26 @@ C'est la dernière fonction appelée quand la commande @s@ est utilisée. Cette 
 Cette fonction est appelée lors de l'utilisation de la commande @d@. Elle demande au serveur d'envoyer les coefficients d'ondelette de l'image. La fonction décode ensuite les coefficients reçus, puis ouvre l'image réduite qui avait été enregistrée par storeImage. Le client crée une image de la taille de l'image originale, puis opère la transformation par ondelettes inverse. Après ça, le client enregistre l'image.
 
 
+\subsection{Le fichier ondeletttesCL.py}
+
+Ce fichier est exécuté par le CPU lors de l'utilisation d'OpenCL.
+
+\subsubsection{La classe Climage}
+
+Cette classe contient les fonctions qui sont exécutées lors de l'envoi des données au GPU et de la réception des données traitées.
+
+\subsubsection{Les fonctions gettl, gettr, getll et getlr}
+
+Ces fonctions servent à recomposer l'image à partir des blocs de 4 pixels qui ont été traités par le GPU.
+
+\subsubsection{La fonction execute}
+
+Cette fonction sépare l'image en blocs de 4 pixels, puis envoie le tableau créé à la mémoire du GPU. Elle appelle ensuite le programme haar.cl et récupère l'image traitée. L'image est ensuite recomposée à l'aide des fonctions décrites plus haut.
+
+\subsubsection{La fonction save}
+
+Cette fonction sauvegarde l'image traitée au format JPG.
+
 \section{Conclusion}
 
 
