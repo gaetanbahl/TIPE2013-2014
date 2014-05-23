@@ -45,7 +45,7 @@ class Climage:
 		lrg = numpy.array(tabslr[1] , dtype = numpy.int32)
 		lrb = numpy.array(tabslr[2] , dtype = numpy.int32)
 
-		
+		start = time.time()
 		for i in [[tlr,trr,llr,lrr],[tlg,trg,llg,lrg],[tlb,trb,llb,lrb]]:
 			mf = cl.mem_flags
 			tl_buf = cl.Buffer(self.context, mf.READ_WRITE | mf.COPY_HOST_PTR, hostbuf=i[0])
@@ -63,7 +63,9 @@ class Climage:
 			cl.enqueue_read_buffer(self.queue, ll_buf, i[2]).wait()
 			cl.enqueue_read_buffer(self.queue, lr_buf, i[3]).wait()
 			
+		end = time.time()
 		
+		print end - start
 			
 		for i in range(self.x/2):
 			for j in range(self.y/2):
@@ -124,11 +126,9 @@ class Climage:
 
 def main(args):
 	img = Climage(args[1])
-	start = time.time()
+	
 	img.execute(10)
-	end = time.time()
 		
-	print end - start	
 	img.save(args[2])
 
 
