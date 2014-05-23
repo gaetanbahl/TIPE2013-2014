@@ -32,7 +32,7 @@ Il est donc possible d'utiliser le GPU pour le traitement d'images, et donc pour
 s
 Les gains possibles sont importants, en effet, prenons l'exemple d'une image de 12 mégapixels (résolution classique pour un appareil photo moderne) et d'un GPU AMD Pitcairn (présent dans les cartes graphiques Radeon HD séries 7800) comportant 1024 processeurs de flux avec une fréquence de 1000MHz. Notre algorithme travaille sur des "blocs" de 4 pixels (comme vu plus haut) et fait environ une dizaine d'opérations sur ceux-ci, soit probablement un millier d'opérations élémentaires au niveau matériel environ.
 
-Cela nous donne donc un temps de traitement de l'ordre de $T = 12\cdot{}10^6 * 10^3 / 4 / 1024 / 1\cdot{}10^9 = 3\cdot{}10^{-3} s$. Ce qui est relativement faible en comparaison avec les temps obtenus avec un CPU. On peut donc bien parler d'accélaration matérielle.
+Cela nous donne donc un temps de traitement théorique de l'ordre de $T = 12\cdot{}10^6 * 10^3 / 4 / 1024 / 1\cdot{}10^9 = 3\cdot{}10^{-3} s$. Ce qui est relativement faible en comparaison avec les temps obtenus avec un CPU. On peut donc bien parler d'accélaration matérielle.
 
 \subsubsection{Haar et OpenCL}
 
@@ -58,6 +58,24 @@ Implémenter un algorithme en pyopencl est simple, seule la partie à faire exé
 
 Le but est que chaque processeur de flux du GPU exécute la transformation montrée en section 7.5 sur un bloc de 4 pixels, avant de passer au suivant. On sépare donc l'image en ces blocs de 4 pixels, que l'ont met dans une grande liste, qui sera passée en argument au programme @haar.cl@.
 
-Le fonctionnement du programme est représenté sur le figure 34.
+Le fonctionnement du programme est représenté sur la figure 34.
 
+\subsubsection{Performances réelles}
 
+Le programme a été exécuté sur un GPU AMD Radeon HD 7870, sur plusieurs images (voir annexes). Les temps d'exécution sont plus longs que les temps théoriques, ce qui est sans doute dû au temps de copie des données entre la mémoire RAM du système et celle du GPU.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Image (résolution) & IMG1 (3 mégapixels)   & IMG2 (5 mégapixels)   &   IMG3 (12 mégapixels)   \\ 
+\hline
+Temps (secondes) & 0.057  & 0.079   &   0.122 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Temps d'exécution de haar.cl}
+\label{tab7}
+\end{figure}
+
+Nous avons également surveillé l'activité du GPU lors du traitement à l'aide du logiciel MSI Afterburner. 
