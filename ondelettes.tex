@@ -52,9 +52,9 @@ Le travail suivant fera l’objet du cas particulier de la transformation en ond
 Une ondelette est d’un point de vue géométrique et schématique une forme d’onde, l’idéalisation d’une note de musique, d’une durée limitée et qui a une valeur moyenne égale à 0. 
 
 Plus formellement, pour le cas d’une ondelette-mère (celle que l’on va pouvoir dilater et translater afin d’obtenir les autres ondelettes définissant ainsi une famille d’ondelettes), il s’agit d’une fonction $\psi$ de l'espace de Lebesgue $L^2(\mathbb{R}$) (espace des fonctions à valeurs dans $\mathbb{C}$ de carré intégrable) et telle que :
-
-$\int_{\mathbb{R}}\psi{}(t)\cdot{}dt = 0$
-
+\begin{center}
+$\displaystyle \int_{\mathbb{R}}\psi{}(t)\cdot{}dt = 0$
+\end{center}
 ce qui provient de la condition $\int_{\mathbb{R}} \frac{|\hat{\psi}(\omega)|^2}{|\omega|}d\omega < \infty$ où $\hat{\psi}$ est la transformée de Fourier de $\psi$, donnée par la formule $\displaystyle \hat{\psi}(\omega)= \int_{-\infty}^{+\infty}\psi{}(t)\cdot{}e^{-2i\pi\omega{}t}dt$
 
 Cette condition, dite condition d’admissibilité est nécessaire pour que la transformée en ondelettes d’une fonction existe !
