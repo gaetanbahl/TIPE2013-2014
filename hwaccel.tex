@@ -7,7 +7,7 @@
 
 \paragraph{Introduction}
 L'accélération matérielle d'une tâche informatique consiste à dédier une certaine partie d'une unité de calcul à une tâche spécifique. 
-C'est ce qui est fait avec le traitement du son avec les cartes son, les cartes d'acquisition vidéo, ou encore l'afficchage 3D avec les cartes graphiques.
+C'est ce qui est fait avec le traitement du son avec les cartes son, les cartes d'acquisition vidéo, ou encore l'affichage 3D avec les cartes graphiques.
 
 \paragraph{Le GPU, ou Graphical Processing Unit}
 
@@ -15,7 +15,7 @@ Un ordinateur comporte un processeur, aussi appelé CPU, pour Central Processing
 
 Un CPU est une puce servant à effectuer rapidement des tâches non ou très peu parallélisées. Il comporte généralement plusieurs "coeurs", qui sont relativement peu nombreux (2 voire 4 pour des processeurs grand public). Il est possible d'effectuer des tâches simultanément sur tous ces coeurs, c'est ce qui est fait naturellement par le système d'exploitation, qui répartit les tâches entre les coeurs. Par exemple, lors de l'affichage d'une page web contenant une vidéo, le décodage de la vidéo peut être effectué par un coeur, tandis qu'un autre s'occupera de l'affichage de la page elle-même.
 
-Un GPU, au contraire, est une puce fortement parallélisée, se trouvant sur les cartes graphiques, ou plus récemment dans une partie du CPU dédiée à l'affichage. Elle contient une multitude de petits "processurs de flux" (plusieurs centaines pour des cartes graphiques modernes), effectuant tous la même tâche au même moment.
+Un GPU, au contraire, est une puce fortement parallélisée, se trouvant sur les cartes graphiques, ou plus récemment dans une partie du CPU dédiée à l'affichage. Elle contient une multitude de petits "processurs de flux" (plusieurs centaines pour des cartes graphiques modernes), effectuant tous la même tâche au même moment. Ceci est très utile pour l'affichage 3D, pour la compression vidéo, ou encore pour le traitement du son, grâce à des technologies telles que TrueAudio.
 
 \begin{figure}[!h]
 \centering
@@ -30,9 +30,9 @@ Un GPU, au contraire, est une puce fortement parallélisée, se trouvant sur les
 
 Il est donc possible d'utiliser le GPU pour le traitement d'images, et donc pour notre transformation en ondelettes, puisqu'il s'agit de traiter une multitude de pixels de la même manière.
 s
-Les gains possibles sont importants, en effet, prenons l'exemple d'une image de 12 mégapixels (résolution classique pour un appareil photo moderne) et d'un GPU AMD Pitcairn (présent dans les cartes graphiques Radeon HD séries 7800) comportant 1024 processeurs de flux avec une fréquence de 1000MHz. Notre algorithme travaille sur des "blocs" de 4 pixels (comme vu plus haut) et fait environ une dizaine d'opérations sur ceux-ci, soit probablement un millier d'opérations élémentaires au niveau matériel environ.
+Les gains possibles sont importants, en effet, prenons l'exemple d'une image de 12 mégapixels (résolution classique pour un appareil photo moderne) et d'un GPU AMD Pitcairn (présent dans les cartes graphiques Radeon HD séries 7800) comportant 1024 processeurs de flux avec une fréquence de 1000MHz. Notre algorithme travaille sur des "blocs" de 4 pixels (comme vu plus haut) et fait environ une dizaine d'opérations de calcul sur ceux-ci, soit probablement un millier d'opérations élémentaires au niveau matériel environ.
 
-Cela nous donne donc un temps de traitement théorique de l'ordre de $T = 12\cdot{}10^6 * 10^3 / 4 / 1024 / 1\cdot{}10^9 = 3\cdot{}10^{-3} s$. Ce qui est relativement faible en comparaison avec les temps obtenus avec un CPU. On peut donc bien parler d'accélaration matérielle.
+Cela nous donne donc un temps de traitement théorique de l'ordre de $T = 12\cdot{}10^6 * 10^3 / 4 / 1024 / 1\cdot{}10^9 = 3\cdot{}10^{-3} s$. Ce qui est relativement faible en comparaison avec les temps obtenus avec un CPU. On peut donc bien parler "d'accélaration" matérielle.
 
 \subsubsection{Haar et OpenCL}
 
@@ -62,7 +62,7 @@ Le fonctionnement du programme est représenté sur la figure 34.
 
 \subsubsection{Performances réelles}
 
-Le programme a été exécuté sur un GPU AMD Radeon HD 7870, sur plusieurs images (voir annexes). Les temps d'exécution sont plus longs que les temps théoriques, ce qui est sans doute dû au temps de copie des données entre la mémoire RAM du système et celle du GPU.
+Le programme a été exécuté à l'aide d'un GPU AMD Radeon HD 7870, sur plusieurs images (voir annexes). Les temps d'exécution sont plus longs que les temps théoriques, ce qui est sans doute dû au temps de copie des données entre la mémoire RAM du système et celle du GPU.
 
 \begin{figure}[!h]
 \begin{center}
@@ -82,7 +82,7 @@ Nous avons également surveillé l'activité du GPU lors du traitement à l'aide
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=1]{images/monitor.png}
+\includegraphics[scale=0.7]{images/monitor.png}
 \caption{Graphique d'activité du GPU lors du traitement de l'image 3}
 \label{afterburn}
 \end{figure}
