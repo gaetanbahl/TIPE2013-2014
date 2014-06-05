@@ -15,7 +15,7 @@ Un ordinateur comporte un processeur, aussi appelé CPU, pour Central Processing
 
 Un CPU est une puce servant à effectuer rapidement des tâches non ou très peu parallélisées. Il comporte généralement plusieurs "coeurs", qui sont relativement peu nombreux (2 voire 4 pour des processeurs grand public). Il est possible d'effectuer des tâches simultanément sur tous ces coeurs, c'est ce qui est fait naturellement par le système d'exploitation, qui répartit les tâches entre les coeurs. Par exemple, lors de l'affichage d'une page web contenant une vidéo, le décodage de la vidéo peut être effectué par un coeur, tandis qu'un autre s'occupera de l'affichage de la page elle-même.
 
-Un GPU, au contraire, est une puce fortement parallélisée, se trouvant sur les cartes graphiques, ou plus récemment dans une partie du CPU dédiée à l'affichage. Elle contient une multitude de petits "processurs de flux" (plusieurs centaines pour des cartes graphiques modernes), effectuant tous la même tâche au même moment. Ceci est très utile pour l'affichage 3D, pour la compression vidéo, ou encore pour le traitement du son, grâce à des technologies telles que TrueAudio.
+Un GPU, au contraire, est une puce fortement parallélisée, se trouvant sur les cartes graphiques, ou plus récemment dans une partie du CPU dédiée à l'affichage. Elle contient une multitude de petits "processeurs de flux" (plusieurs centaines pour des cartes graphiques modernes), effectuant tous la même tâche au même moment. Ceci est très utile pour l'affichage 3D, pour la compression vidéo, ou encore pour le traitement du son, grâce à des technologies telles que TrueAudio.
 
 \begin{figure}[!h]
 \centering
@@ -32,7 +32,7 @@ Il est donc possible d'utiliser le GPU pour le traitement d'images, et donc pour
 s
 Les gains possibles sont importants, en effet, prenons l'exemple d'une image de 12 mégapixels (résolution classique pour un appareil photo moderne) et d'un GPU AMD Pitcairn (présent dans les cartes graphiques Radeon HD séries 7800) comportant 1024 processeurs de flux avec une fréquence de 1000MHz. Notre algorithme travaille sur des "blocs" de 4 pixels (comme vu plus haut) et fait environ une dizaine d'opérations de calcul sur ceux-ci, soit probablement un millier d'opérations élémentaires au niveau matériel environ.
 
-Cela nous donne donc un temps de traitement théorique de l'ordre de $T = 12\cdot{}10^6 * 10^3 / 4 / 1024 / 1\cdot{}10^9 = 3\cdot{}10^{-3} s$. Ce qui est relativement faible en comparaison avec les temps obtenus avec un CPU. On peut donc bien parler "d'accélaration" matérielle.
+Cela nous donne donc un temps de traitement théorique de l'ordre de $T = 12\cdot{}10^6 * 10^3 / 4 / 1024 / 1\cdot{}10^9 = 3\cdot{}10^{-3} s$. Ce qui est relativement faible en comparaison avec les temps obtenus avec un CPU. On peut donc bien parler "d'accélération" matérielle.
 
 \subsubsection{Haar et OpenCL}
 
