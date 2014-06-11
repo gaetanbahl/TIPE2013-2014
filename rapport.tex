@@ -1,0 +1,565 @@
+\documentclass{article}
+\usepackage{lmodern}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{shortvrb}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{soul}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{verbatim}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{float}
+\geometry{hmargin=2.5cm,vmargin=2.5cm}
+\pagestyle{fancy}
+%\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\lhead{Théorie des ondelettes : application à la compression d'images}
+\rhead{Gaétan Bahl}
+
+\title{TIPE: Théorie des ondelettes : application à la compression d'images}
+\author{Gaétan Bahl}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\listoffigures
+\MakeShortVerb{@}
+\clearpage
+
+\newcommand{\fonction}[5]{\begin{array}{l|rcl}
+#1: & #2 & \longrightarrow & #3 \\
+    & #4 & \longmapsto & #5 \end{array}}
+
+
+\section{Transformation en ondelettes discrètes : application à la compression des données}
+
+La décomposition en ondelettes se révèle très efficace pour transformer la plupart des signaux que l'on peut rencontrer, notamment les images et il est facile d'en comprendre la raison. 
+
+En effet, la majeure partie des informations à laquelle nous sommes sensibles se trouve dans les contours de l'image où l'intensité varie brutalement, et les coefficients d'ondelettes correspondants sont significatifs, y compris aux petites échelles. 
+
+Or, une image contient généralement relativement peu de contours, et est régulière (lentement variable) sauf au voisinage des contours. Par conséquent, beaucoup de coefficients d'ondelettes sont faibles (surtout aux petites échelles) ; les détails étant presque nuls, ils peuvent être négligés sans que cela entraîne de distorsion visible sur l'image. 
+
+Il suffit alors de s’imposer une précision $\epsilon$. On ne va garder ainsi que les coefficients d’ondelettes supérieurs à $\epsilon$. 
+
+\section{Utilisation pratique de la transformation par ondelettes discrète}
+
+Notre but a été de mettre en place un
+algorithme de compression d'image utilisant la transformation par
+ondelettes, ainsi que des applications graphiques qui utilisent cet algorithme.
+
+Pour que notre travail rentre dans le cadre du thème de cette année,qui est "Transfert, Échange", nous avons aussi créé une application client/serveur utilisant la compression par ondelettes.
+
+Le code complet de nos algorithmes est disponible en annexe à la fin de ce dossier, mais aussi sur le Github de notre projet (cf. section Liens). Les langages utilisés sont Python (dans un premier temps) et OpenCL (dans la dernière partie).
+
+
+\subsection{L'algorithme matriciel}
+
+Nous avons mis au point un algorithme de compression utilisant une structure de données de type matricielle. Les images sont stockées dans 3 tableaux à deux dimensions (un pour chaque couleur).
+
+L'algorithme applique deux fois la transformation par ondelettes de Haar (une fois pour la hauteur, une fois pour la largeur), et stocke les coefficients d'ondelettes dans des matrices séparées de l'image. On peut ensuite supprimer certains de ces coefficients au-delà d'un certain seuil, pour compresser l'image.
+
+La figure \ref{mat1} est un schéma-bloc montrant l'algorithme. La partie <<Transformation DWT>> est explicitée par la figure \ref{mat2}
+
+
+
+\subsection{Exemples d'images traitées avec notre algorithme}
+
+
+La figure \ref{chat1} montre l'image à laquelle nous avons appliqué la compression. La figure \ref{dchat} montre un détail de l'image.
+
+
+La figure \ref{chat2} représente le même détail de l'image une fois que la compression a été appliquée avec un seuil assez petit pour garder la plupart des détails importants de l'image mais assez grand pour compresser les <<aplats>> de couleur, les ombres, etc. L'image compressée occupe 35\% de mémoire en moins par rapport à l'image de départ. Ce qui montre que la compression par ondelettes est plutôt efficace et que notre algorithme est fonctionnel.
+
+
+Sur la figure \ref{chat3}, on peut voir le même détail quand l'image a été compressée avec le seuil maximal. Ici, tous les détails ont été éliminés. Cela revient simplement à diviser la résolution de l'image par deux.
+
+
+
+\subsection{L'application graphique}
+
+L'application graphique que nous avons créée permet plusieurs choses :
+
+\begin{itemize}
+\item Ouverture d'une image
+\item Enregistrement d'une image
+\item Affichage d'une image dans une fenêtre
+\item Conversion d'une image en nuances de gris
+\item Compression d'une image par deux méthodes
+\item Réduction de la résolution d'une image de 50\%
+\item Envoi d'une image à un serveur grâce au programme @client.py@
+\end{itemize}
+
+La figure \ref{GUI} montre la fenêtre principale de l'application, avec une image en cours d'édition. L'interface est minimaliste, mais suffisante.
+
+
+La figure \ref{GUI1} montre les menus de l'application, qui permettent de choisir entre toutes les actions décrites ci-dessus.
+
+
+La figure \ref{GUI2} montre le sélecteur de seuil, qui apparaît lorsqu'on choisit <<Compresser>> ou <<Compresser (new)>> dans les menus.
+
+
+\subsection{L'algorithme fasthaar}
+
+Nous avons mis au point un autre algorithme de compression n'utilisant pas de matrices. Celui-ci est plus rapide et moins gourmand en mémoire que @haar@, mais l'inconvénient est qu'il n'est plus possible d'appliquer l'algorithme récursivement. Il suffit cependant à compresser rapidement des images.
+
+
+\subsubsection{Fonctionnement}
+
+L'algorithme traite l'image par carrés de 4 pixels, qu'il va traiter itérativement, colonne par colonne. Comme montré sur la figure \ref{algo}. C'est en ce sens que l'algorithme prend moins de place en mémoire. Il n'utilise qu'un tableau contenant 4 pixels au lieu de stocker toute l'image dans une matrice. Il accède au fichier de l'image à l'aide de la librairie PIL (Python Imaging Library), qui permet d'accéder directement aux données RGB des pixels.
+
+
+\paragraph{Analyse :}
+
+Pour chaque carré de 4 pixels, l'algorithme applique la transformation par ondelettes discrète. On commence par stocker les valeurs RGB des 4 pixels dans un tableau. Nous allons, pour l'exemple, utiliser les 4 pixels mis en valeur sur la figure \ref{algo}. Le tableau créé est montré par la figure \ref{tab1}.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+171    & 147   &   137  & 109 &   109  & 86   \\ 
+\hline
+169    & 140   &   135  & 102 &   107  & 79 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau créé par l'algorithme}
+\label{tab1}
+\end{figure}
+
+
+L'algorithme remplace ensuite les valeurs des colonnes de gauche de chaque couleur par la moyenne  de chaque ligne et les valeurs des colonnes de droite par la différence divisée par deux. Ce qui nous donne le tableau de la figure \ref{tab2}. Les coefficients d'ondelette sont surlignés.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+160    & \hl{11}   &   123  & \hl{14} &   97.5  & \hl{11.5}   \\ 
+\hline
+154.5    & \hl{14.5}   &   118.5  & \hl{16.5} &   93  & \hl{14} \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après l'étape 1}
+\label{tab2}
+\end{figure}
+
+
+Enfin, l'algorithme remplace la case en haut à gauche de chaque couleur par la moyenne des lignes et la case en bas à gauche par la différence divisée par deux. Le résultat est montré par la figure \ref{tab3}.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157.25    & \hl{11}   &   120.75  & \hl{14} &   95.25  & \hl{11.5}   \\ 
+\hline
+\hl{2.75}    & \hl{14.5}   &   \hl{2.25}  & \hl{16.5} &   \hl{2.25}  & \hl{14} \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après l'étape 2}
+\label{tab3}
+\end{figure}
+
+
+
+\paragraph{Compression et synthèse :}
+
+Après la phase d'analyse vient la phase de compression. On va supprimer les coefficients d'ondelettes inférieurs à un certain seuil. Pour l'exemple, nous allons choisir un seuil de 12.
+
+Après compression, le tableau est celui de la figure \ref{tab4}.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157.25    & \hl{0}   &   120.75  & \hl{14} &   95.25  & \hl{0}   \\ 
+\hline
+\hl{0}    & \hl{14.5}   &   \hl{0}  & \hl{16.5} &   \hl{0}  & \hl{14} \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après compression}
+\label{tab4}
+\end{figure}
+
+Ensuite, l'algorithme reconstitue l'image avec les coefficients restants. On effectue d'abord pour la colonne de gauche de chaque couleur une addition pour retrouver le coefficient du haut, et une soustraction pour le coefficient du bas. Ce qui nous donne le tableau de la figure \ref{tab5}. Puisque les coefficients étaient égaux à 0, les pixels ne sont pas changés.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157.25    & \hl{0}   &   120.75  & \hl{14} &   95.25  & \hl{0}   \\ 
+\hline
+157.25    & \hl{14.5}   &   120.75  & \hl{16.5} &   95.25  & \hl{14} \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après synthèse sur les colonnes}
+\label{tab5}
+\end{figure}
+
+L'algorithme effectue ensuite les mêmes opérations sur les lignes. Le résultat est donné par la figure  \ref{tab6}
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157.25    & 157.25   &   134.75  & 106.75 &   95.25  & 95.25   \\ 
+\hline
+171.75    & 143   &   137.25  & 104.25 &   109.25  & 81.25 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après synthèse sur les lignes}
+\label{tab6}
+\end{figure}
+
+Enfin, on arrondit les valeurs à l'entier le plus proche. Le tableau final est donné par la figure \ref{tab7}. La figure \ref{after} montre une comparaison entre l'état des pixels avant traitement, et l'état des pixels après.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{R} & \multicolumn{2}{|c|}{G}  & \multicolumn{2}{|c|}{B} \\
+\hline
+157    & 157  &   135  & 107 &   95  & 95   \\ 
+\hline
+172   & 143   &   137  & 104 &   109  & 81 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Tableau après synthèse sur les lignes}
+\label{tab7}
+\end{figure}
+
+
+La figure \ref{after} montre les pixels avant et après traitement. Les pixels peuvent sembler réellement différents après traitement, mais la valeur moyenne des couleurs est conservée, ce qui, au final, donnera le même rendu quand les pixels seront à leur taille normale.
+
+\clearpage
+
+\subsubsection{Coût et Performance}
+
+Nous avons été curieux de voir les performances de l'algorithme @fasthaar@.
+
+\paragraph{Coût en mémoire :}
+
+Cet algorithme est peu coûteux en mémoire, par rapport à la version matricielle. En effet, ce dernier devait stocker plusieurs matrices contenant l'image, les coefficients d'ondelettes, les différentes couleurs, etc. @fasthaar@, quant à lui, ne stocke que l'image et les valeurs de 4 pixels. Un pixel est un tuple contenant 3 entiers codés sur 8 bits (= 1 octet). 
+
+Soient $L$ et $l$ la longueur et la largeur de l'image à traiter. 
+La place de l'algorithme @fasthaar@ en mémoire est donc de $3\times{}l\times{}L + 4 \times{} 3$ octets.
+
+\paragraph{Coût temporel :}
+
+Vu le principe de fonctionnement de @fasthaar@, on peut deviner que celui-ci a un coût en $O(l\cdot L)$ (ou $O(n^2)$ pour une image carrée de côté $n$). Nous avons créé un fichier @bench.py@ servant à mesurer le temps que prend l'algorithme à traiter des images de différentes tailles. L'algorithme génère une image d'une taille donnée avec des pixels aléatoires puis lui applique @fasthaar@ en chronométrant. 
+
+La figure \ref{bench1} représente le temps de traitement d'une image (en secondes) en fonction de sa taille (pixels d'un côté divisé par 2). On vérifie donc que le coût est bien quadratique. 
+
+
+
+\clearpage
+
+
+\subsection{Transferts et échanges d'images par le réseau}
+\label{net}
+Nous avons créé un programme serveur/client permettant de transférer des images et des coefficients d'ondelette par le réseau.
+
+\subsubsection{But du programme}
+
+
+Ce programme permet de stocker les coefficients d'ondelette d'une image sur un serveur distant pour ensuite ne garder sur la machine locale que les coefficients d'approximation (c-à-d l'image réduite de moitié sur chaque dimension). Ainsi une version légère de l'image est gardée pour que l'on puisse toujours savoir quelle image nous voulons (thumbnail), mais celle-ci occupe 4 fois moins de place en mémoire. Lorsque l'utilisateur veut afficher l'image en grandeur réelle, la machine locale demande les coefficients d'ondelette au serveur et reconstitue l'image de départ.
+
+Ceci peut être très utile, par exemple dans le cas d'un périphérique de stockage amovible de taille réduite, tel qu'une clef USB - on peut ainsi stocker 4 fois plus d'images pour la même capacité.
+
+
+\subsubsection{Processus d'archivage}
+
+\paragraph{Étape 1}
+
+Le client ouvre l'image à stocker et encode les pixels, ainsi que les dimensions de l'image en binaire, puis envoie ces données au serveur par des sockets TCP. Chaque pixel de l'image occupe 3 bits, donc, si $L$ et $l$ sont les dimensions de l'image, le client doit envoyer $3\cdot{}l\cdot{}L + 2$ octets au serveur.
+
+\paragraph{Étape 2}
+
+Le serveur ouvre l'image qu'il vient de réceptionner pour la compresser et stocker les coefficients d'ondelette. Il applique pour cela une version modifiée de @fasthaar@ qui ne garde que les coefficients d'ondelette et les encode en binaire grâce à @struct@ pour les enregistrer dans un fichier.
+
+\paragraph{Étape 3}
+
+Le client reçoit un signal de la part du serveur indiquant si oui ou non le tranfert et la compression se sont bien déroulés. Si c'est le cas, le client crée une nouvelle image, de dimensions $\frac{L}{2}$ et $\frac{l}{2}$ et la remplit avec la moyenne des carrés de 4 pixels de l'image de départ (coefficients d'approximation). \\
+
+
+La figure \ref{save} montre le processus d'archivage.
+
+
+
+
+\subsubsection{Processus de restauration}
+
+\paragraph{Étape 1}
+
+Le client crée une image à partir de celle qui avait été stockée en doublant ses dimensions, ainsi, chaque pixel devient un carré de 4 pixels.
+
+\paragraph{Étape 2}
+
+Le client demande les coefficients d'ondelette au serveur en spécifiant le nom de l'image. Le serveur lit le fichier qui contient les coefficients qu'il avait enregistrés et envoie directement les données au client.
+
+\paragraph{Étape 3}
+
+Le client décode les données binaires reçues et opère la transformation inverse en remplaçant les pixels de chaque carré par les valeurs qu'il obtient. Ensuite, il peut afficher l'image ou la stocker.\\
+
+La figure \ref{load} illustre ce processus
+
+
+
+
+\subsection{Optimisation : utilisation de l'accélération matérielle avec OpenCL}
+
+\subsubsection{L'accélération matérielle}
+
+\paragraph{Introduction}
+L'accélération matérielle d'une tâche informatique consiste à dédier une certaine partie d'une unité de calcul à une tâche spécifique. 
+C'est ce qui est fait avec le traitement du son avec les cartes son, les cartes d'acquisition vidéo, ou encore l'afficchage 3D avec les cartes graphiques.
+
+\paragraph{Le GPU, ou Graphical Processing Unit}
+
+Un ordinateur comporte un processeur, aussi appelé CPU, pour Central Processing Unit. Mais les ordinateurs modernes possèdent aussi des puces dédiées à l'affichage, qu'il soit 2D ou 3D. Ce sont les GPU.
+
+Un CPU est une puce servant à effectuer rapidement des tâches non ou très peu parallélisées. Il comporte généralement plusieurs "coeurs", qui sont relativement peu nombreux (2 voire 4 pour des processeurs grand public). Il est possible d'effectuer des tâches simultanément sur tous ces coeurs, c'est ce qui est fait naturellement par le système d'exploitation, qui répartit les tâches entre les coeurs. 
+
+Un GPU, au contraire, est une puce fortement parallélisée, se trouvant sur les cartes graphiques, ou plus récemment dans une partie du CPU dédiée à l'affichage. Elle contient une multitude de "processeurs de flux" (plusieurs centaines pour des cartes graphiques modernes), effectuant tous la même tâche au même moment.
+
+La figure \ref{cpugpu} montre la différence de structure entre un CPU et un GPU.
+
+
+\paragraph{Le calcul sur GPU}
+
+Il est donc possible d'utiliser le GPU pour le traitement d'images, et donc pour notre transformation en ondelettes, puisqu'il s'agit de traiter une multitude de pixels de la même manière.
+s
+Les gains possibles sont importants, en effet, prenons l'exemple d'une image de 12 mégapixels (résolution classique pour un appareil photo moderne) et d'un GPU AMD Pitcairn (présent dans les cartes graphiques Radeon HD séries 7800) comportant 1024 processeurs de flux avec une fréquence de 1000MHz. Notre algorithme travaille sur des "blocs" de 4 pixels (comme vu plus haut) et fait environ une dizaine d'opérations sur ceux-ci, soit probablement un millier d'opérations élémentaires au niveau matériel environ.
+
+Cela nous donne donc un temps de traitement théorique de l'ordre de $T = 12\cdot{}10^6 * 10^3 / 4 / 1024 / 1\cdot{}10^9 = 3\cdot{}10^{-3} s$. Ce qui est relativement faible en comparaison avec les temps obtenus avec un CPU. On peut donc bien parler d'accélaration matérielle.
+
+\subsubsection{Haar et OpenCL}
+
+\paragraph{OpenCL}
+
+OpenCL, pour Open Compute Language est un langage de programmation semblable au C, permettant de coder des tâches fortement parallélisées. Nous avons ici utilisé l'implémentation d'OpenCL en Python, appelée pyopencl. Le code OpenCL peut aussi bien être utilisé sur un CPU que sur un GPU, car tous les types de processeurs sont accessibles de la même manière au niveau de l'API elle-même, et sont appelés des "Workers".
+
+
+\paragraph{L'implémentation de l'algorithme}
+
+Les fichiers @ondelettesCL.py@ et @haar.cl@ peuvent être trouvés en annexe.
+
+Implémenter un algorithme en pyopencl est simple, seule la partie à faire exécuter par le GPU est à coder dans un fichier différent, qui sera compilé à part lors du lancement du programme, puis envoyé à la carte graphique, qui l'exécutera ensuite quand il sera appelé par le programme principal. 
+
+Le but est que chaque processeur de flux du GPU exécute la transformation montrée en section 7.5 sur un bloc de 4 pixels, avant de passer au suivant. On sépare donc l'image en ces blocs de 4 pixels, que l'ont met dans une grande liste, qui sera passée en argument au programme @haar.cl@.
+
+Le fonctionnement du programme est représenté sur la figure \ref{haarcl}.
+
+\subsubsection{Performances réelles}
+
+Le programme a été exécuté sur un GPU AMD Radeon HD 7870, sur plusieurs images (voir annexes). Les temps d'exécution sont plus longs que les temps théoriques, ce qui est sans doute dû au temps de copie des données entre la mémoire RAM du système et celle du GPU.
+
+\begin{figure}[!h]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Image (résolution) & IMG1 (3 mégapixels)   & IMG2 (5 mégapixels)   &   IMG3 (12 mégapixels)   \\ 
+\hline
+Temps (secondes) & 0.057  & 0.079   &   0.122 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Temps d'exécution de haar.cl}
+\label{tab7}
+\end{figure}
+
+Nous avons également surveillé l'activité du GPU lors du traitement à l'aide du logiciel MSI Afterburner (voir figure \ref{afterburn}). 
+
+
+\clearpage
+\lstset{language=Python,frame=single,breaklines=true,extendedchars=true, numbers=left,basicstyle=\footnotesize}
+\section{Annexes}
+
+\subsection{Images}
+
+\begin{figure}[!h]
+\centering
+\scalebox{0.8}{
+\input{aux/schemabloc1}}
+\caption{L'algorithme matriciel}
+\label{mat1}
+\end{figure}
+
+
+\begin{figure}[!h]
+\centering
+\scalebox{0.8}{
+\input{aux/schemabloc2}}
+\caption{La transformation appliquée aux matrices}
+\label{mat2}
+\end{figure}
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.8]{images/chat.jpg}
+\caption{L'image de départ}
+\label{chat1}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=2]{images/chat_orig.jpg}
+\caption{Détail de l'image de départ}
+\label{dchat}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=2]{images/chat_compress.jpg}
+\caption{Détail de l'image compressée}
+\label{chat2}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=2]{images/chat_compress255.jpg}
+\caption{Détail de l'image compressée à 100\%}
+\label{chat3}
+\end{figure}
+
+\begin{figure}[!hb]
+\centering
+\includegraphics[scale=0.5]{images/OndelettesGUI.png}
+\caption{Fenêtre principale de l'application}
+\label{GUI}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.8]{images/OndelettesGUI1.png}
+\caption{Menus de l'application}
+\label{GUI1}
+\end{figure}
+
+\begin{figure}[!hb]
+\centering
+\includegraphics[scale=0.8]{images/Compression.png}
+\caption{Le sélecteur de seuil de compression}
+\label{GUI2}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.8]{images/minichat.jpg}
+\caption{Fonctionnement de l'algorithme}
+\label{algo}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.3]{images/aprescompress.jpg}
+\caption{Pixels avant et après traitement}
+\label{after}
+\end{figure}
+
+\begin{figure}[!h]
+\begin{center}
+\input{aux/graph.tex}
+\caption{Coût temporel de l'algorithme fasthaar en fonction de la taille de l'image}
+\label{bench1}
+\end{center}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{images/save.png}
+\caption{Processus d'archivage}
+\label{save}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{images/load.png}
+\caption{Processus de restauration}
+\label{load}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{images/cpugpu.png}
+\caption{Comparaison entre les architectures CPU et GPU}
+\label{cpugpu}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.4]{images/haarcl.png}
+\caption{Exécution de ondelettesCL.py}
+\label{haarcl}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.7]{images/monitor.png}
+\caption{Graphique d'activité du GPU lors du traitement de l'image 3}
+\label{afterburn}
+\end{figure}
+
+\subsection{Fichier ondelettes.py}
+\lstinputlisting{ondelettes.py}
+
+\subsection{Fichier ondelettesGUI.py}
+\lstinputlisting{ondelettesGUI.py}
+
+\subsection{Fichier bench.py}
+\lstinputlisting{bench.py}
+
+\subsection{Fichier serveur.py}
+\lstinputlisting{serveur.py}
+
+\subsection{Fichier client.py}
+\lstinputlisting{client.py}
+
+\subsection{Fichier ondelettesCL.py}
+\lstinputlisting{ondelettesCL.py}
+
+\subsection{Fichier haar.cl}
+\lstinputlisting{haar.cl}
+
+\section{Bibliographie}
+\label{links}
+\begin{itemize}
+\item http://www.cmi.univ-mrs.fr/\textasciitilde{}melot/Master2/TPsignal\_PS.html
+
+\item Tous les fichiers .tex, .py, .cl de ce TIPE :
+
+https://github.com/timosis/TIPE2013-2014
+
+\item L'interpréteur Python : http://www.python.org/
+
+\item La librairie PIL pour Python : http://www.pythonware.com/products/pil/
+
+\item http://www.di.ens.fr/~pointche/stages/projets/ensta01.pdf
+\end{itemize}
+
+
+
+\end{document}
