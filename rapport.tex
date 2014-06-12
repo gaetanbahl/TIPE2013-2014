@@ -67,7 +67,7 @@ L'algorithme applique deux fois la transformation par ondelettes de Haar (une fo
 
 La figure \ref{mat1} est un schéma-bloc montrant l'algorithme. La partie <<Transformation DWT>> est explicitée par la figure \ref{mat2}.
 
-
+La figure \ref{analyse} montre les modifications qui sont apportées à l'image lors de l'analyse sur les lignes et sur les colonnes.
 
 \subsection{Exemples d'images traitées avec notre algorithme}
 
@@ -408,10 +408,16 @@ Nous avons également surveillé l'activité du GPU lors du traitement à l'aide
 \label{mat2}
 \end{figure}
 
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.5]{images/analyse.png}
+\caption{Évolution de la matrice de l'image au cours de l'analyse}
+\label{analyse}
+\end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.8]{images/chat.jpg}
+\includegraphics[scale=0.5]{images/chat.jpg}
 \caption{L'image de départ}
 \label{chat1}
 \end{figure}
