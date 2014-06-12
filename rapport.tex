@@ -52,11 +52,11 @@ Il suffit alors de s’imposer une précision $\epsilon$. On ne va garder ainsi 
 
 Notre but a été de mettre en place un
 algorithme de compression d'image utilisant la transformation par
-ondelettes, ainsi que des applications graphiques qui utilisent cet algorithme. Nous avons ensuite cherché à améliorer les performances de l'algorithme et à l'adapter au matériel disponible.
+ondelettes, ainsi que des applications qui utilisent cet algorithme. Nous avons ensuite cherché à améliorer les performances de l'algorithme et à l'adapter au matériel disponible.
 
-Pour que notre travail rentre dans le cadre du thème de cette année,qui est "Transfert, Échange", nous avons aussi créé une application client/serveur utilisant la compression par ondelettes.
+Pour que notre travail rentre dans le cadre du thème de cette année, qui est "Transfert, Échange", nous avons aussi créé une application client/serveur utilisant la compression par ondelettes.
 
-Le code complet de nos algorithmes est disponible en annexe à la fin de ce rapport. Les langages utilisés sont Python et OpenCL.
+Le code complet du TIPE est disponible en annexe à la fin de ce rapport. Les langages utilisés sont Python et OpenCL.
 
 
 \section{L'algorithme matriciel}
@@ -65,7 +65,7 @@ Nous avons mis au point un algorithme de compression utilisant une structure de 
 
 L'algorithme applique deux fois la transformation par ondelettes de Haar (une fois pour la hauteur, une fois pour la largeur), et stocke les coefficients d'ondelettes dans des matrices séparées de l'image. On peut ensuite supprimer certains de ces coefficients au-delà d'un certain seuil, pour compresser l'image.
 
-La figure \ref{mat1} est un schéma-bloc montrant l'algorithme. La partie <<Transformation DWT>> est explicitée par la figure \ref{mat2}
+La figure \ref{mat1} est un schéma-bloc montrant l'algorithme. La partie <<Transformation DWT>> est explicitée par la figure \ref{mat2}.
 
 
 
@@ -78,20 +78,20 @@ La figure \ref{chat1} montre l'image à laquelle nous avons appliqué la compres
 La figure \ref{chat2} représente le même détail de l'image une fois que la compression a été appliquée avec un seuil assez petit pour garder la plupart des détails importants de l'image mais assez grand pour compresser les <<aplats>> de couleur, les ombres, etc. L'image compressée occupe 35\% de mémoire en moins par rapport à l'image de départ. Ce qui montre que notre algorithme est fonctionnel.
 
 
-Sur la figure \ref{chat3}, on peut voir le même détail quand l'image a été compressée avec le seuil maximal. Ici, tous les détails ont été éliminés. Cela revient simplement à diviser la résolution de l'image par deux.
+Sur la figure \ref{chat3}, on peut voir le même détail quand l'image a été compressée avec le seuil maximal. Ici, tous les détails ont été éliminés. Cela revient à diviser la résolution de l'image par deux.
 
 
 
 \section{L'application graphique}
 
-L'application graphique que nous avons créée permet plusieurs choses :
+L'application GUI que nous avons créée permet plusieurs choses :
 
 \begin{itemize}
 \item Ouverture d'une image
 \item Enregistrement d'une image
 \item Affichage d'une image dans une fenêtre
 \item Conversion d'une image en nuances de gris
-\item Compression d'une image par deux méthodes
+\item Compression d'une image par deux méthodes (vu plus haut et vu en section 4)
 \item Réduction de la résolution d'une image de 50\%
 \item Envoi d'une image à un serveur grâce au programme @client.py@
 \end{itemize}
@@ -259,20 +259,20 @@ Nous avons été curieux de voir les performances de l'algorithme @fasthaar@.
 
 \paragraph{Coût en mémoire :}
 
-Cet algorithme est peu coûteux en mémoire, par rapport à la version matricielle. En effet, ce dernier devait stocker plusieurs matrices contenant l'image, les coefficients d'ondelettes, les différentes couleurs, etc. @fasthaar@, quant à lui, ne stocke que l'image et les valeurs de 4 pixels. Un pixel est un tuple contenant 3 entiers codés sur 8 bits (= 1 octet). 
+Cet algorithme est peu coûteux en mémoire, par rapport à la version matricielle. En effet, ce dernier devait stocker plusieurs matrices contenant l'image, les coefficients d'ondelettes, les différentes couleurs, etc. @fasthaar@, quant à lui, ne stocke que l'image et les valeurs de 4 pixels. Un pixel est un tuple contenant 3 entiers codés sur 8 bits. 
 
 Soient $L$ et $l$ la longueur et la largeur de l'image à traiter. 
 La place de l'algorithme @fasthaar@ en mémoire est donc de $3\times{}l\times{}L + 4 \times{} 3$ octets.
 
 \paragraph{Coût temporel :}
 
-Vu le principe de fonctionnement de @fasthaar@, on peut deviner que celui-ci a un coût en $O(l\cdot L)$ (ou $O(n^2)$ pour une image carrée de côté $n$). Nous avons créé un fichier @bench.py@ servant à mesurer le temps que prend l'algorithme à traiter des images de différentes tailles. L'algorithme génère une image d'une taille donnée avec des pixels aléatoires puis lui applique @fasthaar@ en chronométrant. 
+Vu le principe de fonctionnement de @fasthaar@, on voit que celui-ci a un coût en $O(l\cdot L)$ (ou $O(n^2)$ pour une image carrée de côté $n$). Nous avons créé un fichier @bench.py@ servant à mesurer le temps que prend l'algorithme à traiter des images de différentes tailles. L'algorithme génère une image d'une taille donnée avec des pixels aléatoires puis lui applique @fasthaar@ en chronométrant. 
 
 La figure \ref{bench1} représente le temps de traitement d'une image (en secondes) en fonction de sa taille (pixels d'un côté divisé par 2). On vérifie donc que le coût est bien quadratique. 
 
 
 
-\section{Transferts et échanges d'images par le réseau}
+\section{Transferts d'images et de coefficients d'ondelettes par le réseau}
 \label{net}
 Nous avons créé un programme serveur/client permettant de transférer des images et des coefficients d'ondelette par le réseau.
 
@@ -317,7 +317,7 @@ Le client demande les coefficients d'ondelette au serveur en spécifiant le nom 
 
 Le client décode les données binaires reçues et opère la transformation inverse en remplaçant les pixels de chaque carré par les valeurs qu'il obtient. Ensuite, il peut afficher l'image ou la stocker.\\
 
-La figure \ref{load} illustre ce processus
+La figure \ref{load} illustre ce processus.
 
 
 \section{Utilisation de l'accélération matérielle avec OpenCL : calcul sur GPU}
